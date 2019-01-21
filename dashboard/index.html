@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>TYMEEXPERT</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
+        <!--Morris Chart CSS -->
+        <link rel="stylesheet" href="../assets/plugins/morris/morris.css">
+
+        <!-- App css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <div class="topbar-main">
+                <div class="container-fluid">
+
+                    <!-- Logo container-->
+                    <div class="logo">
+                        <!-- Text Logo -->
+                        <a href="index.html" class="logo">
+                            <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                            <span class="logo-large"><i class="mdi mdi-radar"></i> Tymexpert</span>
+                        </a>
+                        <!-- Image Logo -->
+                        <!-- <a href="index.html" class="logo">
+                            <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
+                            <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
+                        </a> -->
+
+                    </div>
+                    <!-- End Logo container-->
+
+
+                    <div class="menu-extras topbar-custom">
+
+                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                            <li class="menu-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+
+
+
+                            <li class="dropdown notification-list">
+                                <a id="user-profile-name" class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <img src="../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="ti-user m-r-5"></i> Profile
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="ti-settings m-r-5"></i> Settings
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="page-lock-screen.html" class="dropdown-item notify-item">
+                                        <i class="ti-lock m-r-5"></i> Lock screen
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="ti-power-off m-r-5"></i> Logout
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- end menu-extras -->
+
+                    <div class="clearfix"></div>
+
+                </div> <!-- end container -->
+            </div>
+            <!-- end topbar-main -->
+
+            <div class="navbar-custom">
+                <div class="container-fluid">
+                    <div id="navigation">
+                        <!-- Navigation Menu-->
+                        <ul class="navigation-menu">
+                            <li class="has-submenu">
+                                <a href="index.html"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="/records"><i class="mdi mdi-view-list"></i> <span> Records </span> </a>
+                            </li>
+
+
+                        </ul>
+                        <!-- End navigation menu -->
+                    </div> <!-- end #navigation -->
+                </div> <!-- end container -->
+            </div> <!-- end navbar-custom -->
+        </header>
+        <!-- End Navigation Bar-->
+
+
+
+
+
+        <div class="wrapper">
+            <div class="container-fluid">
+
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="btn-group pull-right m-t-20">
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                            </div>
+                        </div>
+                        <h4 class="page-title">Dashboard
+
+                            <button type="button" class="btn btn-primary btn-lg btn-rounded" data-toggle="modal" data-target="#exampleModal">
+                                Answer Questions To Get Results
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="modal-title" id="exampleModalLabel">Fill In The Details Correctly</h2>
+                                            <button id="close-modall" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="">How old are you?</label>
+                                                    <input id="your-age" type="number" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">How many hours in a day do you sleeep?</label>
+                                                    <input id="sleeping-hours" type="number" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">How many hours do you spend doing chores?</label>
+                                                    <input id="chores-hours" type="number" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">How many hours do you spend at work?</label>
+                                                    <input id="working-hours" type="number" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">How many hours do you spend in traffic?</label>
+                                                    <input id="traffic-hours" type="number" class="form-control">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button id="look-into-my-future" type="button" class="btn btn-primary">Finish</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </h4>
+                    </div>
+                </div>
+                <!-- end page title end breadcrumb -->
+
+
+                <!-- Start Div -->
+
+                <div id="display-results" class="">
+
+
+                <div class="row">
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 m-b-30">Years Till Death</h4>
+
+                            <div class="widget-chart-1">
+                                <div class="widget-chart-box-1">
+                                    <input id = "years-left-round" data-plugin="knob" data-width="80" data-height="80" data-fgColor="#f05050 "
+                                           data-bgColor="#F9B9B9"
+                                           data-skin="tron" data-angleOffset="180" data-readOnly=true
+                                           data-thickness=".15"/>
+                                </div>
+
+                                <div class="widget-detail-1">
+                                    <h2 id = "years-more-left" class="p-t-10 mb-0">NaN</h2>
+                                    <p class="text-muted m-b-10 years-left-text-death">Out Of Your 70 Years Left To Live</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 m-b-30">Office Hours</h4>
+
+                            <div class="widget-box-2">
+                                <div class="widget-detail-2">
+                                    <span id = "office-percentage" class="badge badge-success badge-pill pull-left m-t-20">NaN </i> </span>
+                                    <h2 id = "office-years-left" class="mb-0"> NaN </h2>
+                                    <p class="text-muted m-b-25 years-left-text">Loading Data Please Wait.... </p> Dedicted To Office Hours
+                                </div>
+                                <div class="progress progress-bar-success-alt progress-sm mb-0">
+                                    <div id="office-hours-progress-bar" class="progress-bar progress-bar-success" role="progressbar"
+                                         aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
+                                         >
+                                        <span class="sr-only">NaN</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+
+
+                            <h4 class="header-title mt-0 m-b-30">Traffic Hours</h4>
+
+                            <div class="widget-chart-1">
+                                <div class="widget-chart-box-1">
+                                    <input id="years-left-traffic-round" data-plugin="knob" data-width="80" data-height="80" data-fgColor="#ffbd4a"
+                                           data-bgColor="#FFE6BA"
+                                           data-skin="tron" data-angleOffset="180" data-readOnly=true
+                                           data-thickness=".15"/>
+                                </div>
+                                <div class="widget-detail-1">
+                                    <h2 id = "traffic-years-left" class="p-t-10 mb-0"> NaN </h2>
+                                    <p class="text-muted m-b-10 years-left-text">Loading Data Please Wait....</p>
+                                    Dedicted To Traffic Hours
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+
+                            <h4 class="header-title mt-0 m-b-30">House Chores</h4>
+
+                            <div class="widget-box-2">
+                                <div class="widget-detail-2">
+                                    <span id = "chores-percentage" class="badge badge-pink badge-pill pull-left m-t-20">NaN <i class="mdi mdi-trending-up"></i> </span>
+
+                                    <h2 id = "chores-years-left" class="mb-0"> NaN </h2>
+                                    <p class="text-muted m-b-25 years-left-text">Loading Data Please Wait.... </p>
+                                    Dedicted To House Chores
+                                </div>
+                                <div class="progress progress-bar-pink-alt progress-sm mb-0">
+                                    <div id = "chores-hours-progress-bar" class="progress-bar progress-bar-pink" role="progressbar"
+                                         aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
+                                         >
+                                        <span class="sr-only"> NaN </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                </div>
+                <!-- end row -->
+
+
+                 <div class="row">
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 m-b-30">Sleeping Hours</h4>
+
+                            <div class="widget-chart-1">
+                                <div class="widget-chart-box-1">
+                                    <input id = "sleeping-percentage" data-plugin="knob" data-width="80" data-height="80" data-fgColor="#f05050 "
+                                           data-bgColor="#F9B9B9"
+                                           data-skin="tron" data-angleOffset="180" data-readOnly=true
+                                           data-thickness=".15"/>
+                                </div>
+
+                                <div class="widget-detail-1">
+                                    <h2 id = "years-more-left-sleeping" class="p-t-10 mb-0">NaN</h2>
+                                    <p class="text-muted m-b-10 years-left-text">Loading Data Please Wait....</p>
+                                    Dedicted To Sleeping
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                  </div>
+
+                </div>
+
+            </div> <!-- end container -->
+
+
+            <!-- Right Sidebar -->
+
+
+        </div>
+        <!-- end wrapper -->
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        2019 © Tymexpert
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+
+
+        <!-- jQuery  -->
+        <script src="http://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/popper.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/waves.js"></script>
+        <script src="../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- KNOB JS -->
+        <!--[if IE]>
+        <script type="text/javascript" src="assets/plugins/jquery-knob/excanvas.js"></script>
+        <![endif]-->
+        <script src="../assets/plugins/jquery-knob/jquery.knob.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../assets/pages/jquery.dashboard.js"></script>
+
+
+        <!-- App js -->
+        <script src="../assets/js/jquery.core.js"></script>
+        <script src="../assets/js/jquery.app.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+
+            // get user details
+            let userDetails = JSON.parse(localStorage.user_details);
+            let userName    = userDetails.username
+            console.log(userName);
+
+            // fix name @Profile
+
+            $("#user-profile-name").append(userName)
+
+            function populateFields(dataGotten){
+                     // populate The stuff with this data
+
+                $("#years-more-left").text(dataGotten.years_left + " Years");
+                $("#office-years-left").text(dataGotten.working_years + " Years");
+                $("#chores-years-left").text(dataGotten.chores_years + " Years");
+                $("#traffic-years-left").text(dataGotten.traffic_years + " Years");
+                $("#years-more-left-sleeping").text(dataGotten.sleeping_years + " Years")
+                $(".years-left-text").text("Out Of Your " + dataGotten.years_left +" Years Left");
+
+
+                $("#office-hours-progress-bar").css("width", dataGotten.working_years + "%");
+                $("#office-percentage").text(((dataGotten.working_years / dataGotten.years_left ).toPrecision(3) * 100 )+ "%");
+
+
+                $("#years-left-round").prop("value", dataGotten.years_left);
+                $("#years-left-traffic-round").prop("value", ((dataGotten.traffic_years / dataGotten.years_left).toPrecision(3) )* 100  + "%");
+                $("#sleeping-percentage").prop("value", ((dataGotten.sleeping_years / dataGotten.years_left).toPrecision(3) )* 100  + "%");
+
+
+                $("#chores-hours-progress-bar").css("width", dataGotten.chores_years + "%");
+                $("#chores-percentage").text(((dataGotten.chores_years / dataGotten.years_left ).toPrecision(3) * 100 )+ "%");
+
+
+            }
+
+
+
+            // Search For Data
+            let ownersId = localStorage.owner_id;
+
+            let params = {
+                where:["owner_id," + localStorage.owner_id],
+            }
+
+            SDK.queryData("vitals", "vitals", params, function(response){
+
+              if (response.status_code == 628) {
+                console.log("failed");
+                alert("Token Expired Please Sign In Agian")
+                window.location.href = '/signin';
+              } else {
+                console.log("passed");
+                console.log(response, response.payload.results.length);
+              }
+
+
+
+              if (response.payload.results.length > 0) {
+                let lastDataFull = response.payload.results;
+                let lastData     = lastDataFull[lastDataFull.length - 1]
+                console.log(JSON.stringify(lastData));
+                localStorage.last_data = JSON.stringify(lastData);
+                // console.log(JSON.parse(localStorage.last_data))
+                console.log(localStorage.last_data);
+
+                // get data
+                let dataGottenn = JSON.parse(lastData.i_data)
+
+                console.log(dataGottenn);
+
+                populateFields(dataGottenn)
+
+
+
+
+              } else {
+                console.log("Some No Dey")
+                // Now Create New Or Populate With Shit
+              };
+
+            });
+
+
+            const NUMBER_OF_DAYS_IN_A_YEAR = 356;
+            const NUMBER_OF_HOURS_IN_A_YEAR = 8760;
+
+            // App higher level functions
+            function convertHoursToYearsAsAgainstTimeLeftToLive(lifeLeft, activityHours){
+              return (activityHours * NUMBER_OF_DAYS_IN_A_YEAR * lifeLeft ) / NUMBER_OF_HOURS_IN_A_YEAR
+            }
+
+
+            $("#look-into-my-future").unbind("click").click(function(){
+
+              let that = $(this);
+
+              let lifeLeftToLive,
+                    yearsYouWillSpendSleepingOutOfYourLifeLeft,
+                    yearsYouWillSpendAtWorkOutOfYourLifeLeft,
+                    yearsYouWillSpendInTrafficOutOfYourLifeLeft,
+                    yearsYouWillSpendDoingChoresOutOfYourLifeLeft;
+
+                // gather the details of the record entered
+                const averageHumanLifeSpan  = 70;
+                let age                     = $("#your-age").val();
+                let workingHours            = $("#working-hours").val();
+                let choresHours             = $("#chores-hours").val();
+                let sleepingHours           = $("#sleeping-hours").val();
+                let trafficHours            = $("#traffic-hours").val();
+
+
+                 if (
+                        age.length > 0 &
+                        workingHours.length > 0 &
+                        choresHours.length > 0 &
+                        sleepingHours.length > 0 &
+                        trafficHours.length > 0
+
+
+                    )
+                 {
+
+                    // ALL ARE FILLED
+                    console.log("All Is Present " + (age + "").length)
+
+
+
+
+
+
+                     lifeLeftToLive = averageHumanLifeSpan - age;
+                     yearsYouWillSpendSleepingOutOfYourLifeLeft       =  convertHoursToYearsAsAgainstTimeLeftToLive(lifeLeftToLive, sleepingHours);
+                     yearsYouWillSpendAtWorkOutOfYourLifeLeft         =  convertHoursToYearsAsAgainstTimeLeftToLive(lifeLeftToLive, workingHours);
+                     yearsYouWillSpendInTrafficOutOfYourLifeLeft      =  convertHoursToYearsAsAgainstTimeLeftToLive(lifeLeftToLive, trafficHours);
+                     yearsYouWillSpendDoingChoresOutOfYourLifeLeft    =  convertHoursToYearsAsAgainstTimeLeftToLive(lifeLeftToLive, choresHours);
+
+
+
+                    // create an object
+                    let resultObject = {
+                      sleeping: yearsYouWillSpendSleepingOutOfYourLifeLeft.toFixed(1),
+                       working: yearsYouWillSpendAtWorkOutOfYourLifeLeft.toFixed(1),
+                       traffic: yearsYouWillSpendInTrafficOutOfYourLifeLeft.toFixed(1),
+                        chores: yearsYouWillSpendDoingChoresOutOfYourLifeLeft.toFixed(1)
+                    }
+
+                    console.log(resultObject);
+
+
+
+
+                     let exampleFormat  =   "You have " + lifeLeftToLive +
+                                            " more years to live. Out of which you will spend " +
+                                            resultObject.sleeping + " years Sleeping " +
+                                            resultObject.working + " years working " +
+                                            resultObject.traffic + " years in traffic " +
+                                            resultObject.chores + " years doing chores "
+
+
+                     console.log(exampleFormat);
+
+
+                    // Dislay the resultObject in some kickass css and all that sh*t
+
+                    localStorage.sleeping = resultObject.sleeping;
+
+
+                    // Make Api Call
+
+
+                    //Post Devless
+
+
+                    let rData                   = JSON.stringify({
+                      "age"                     : age,
+                      "working_hours"           : workingHours,
+                      "exercise_hours"          : choresHours,
+                      "sleeping_hours"          : sleepingHours,
+                      "traffic_hours"           : trafficHours
+                    })
+
+                    let iData                   = JSON.stringify({
+                        "years_left"            : lifeLeftToLive,
+                        "working_years"         : resultObject.working,
+                        "sleeping_years"        : resultObject.sleeping,
+                        "traffic_years"         : resultObject.traffic,
+                        "chores_years"          : resultObject.chores
+                    })
+
+                    data = {
+                          "r_data"              : rData,
+                          "i_data"              : iData,
+                          "owner_id"            : localStorage.owner_id + "",
+                    }
+
+                    console.log("LocalStorage",localStorage.owner_id)
+                    console.log("Data",data)
+                    that.text("Calculating...")
+                    SDK.addData("vitals", "vitals", data, function(response){
+                        // FillThelocal storage and thehost
+                        localStorage.r_data = rData
+                        localStorage.i_data = iData
+                        let dataGottenn     = JSON.parse(iData)
+
+                        populateFields(dataGottenn);
+
+                        that.text("Success!")
+                        $("#close-modall").click();
+
+
+                        // porpuate
+                        $("#frest").text(localStorage.sleeping + "  Years")
+
+                        console.log(response)
+                    })
+
+
+
+
+
+
+
+                 } else {
+
+                    // SOMETHING IS MISSEN
+                    alert("Please Fill All The Fields With Values, Leave None Empty")
+                 };
+
+
+
+
+
+            })
+
+
+
+          })
+        </script>
+
+    </body>
+</html>
