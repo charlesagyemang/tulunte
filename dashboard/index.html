@@ -206,8 +206,7 @@
 
                 <!-- Start Div -->
 
-                <div id="display-results" class="">
-
+                <div id="display-results" >
 
                 <div class="row">
 
@@ -419,7 +418,7 @@
             let ownersId = localStorage.owner_id;
 
             let params = {
-                where:["owner_id," + localStorage.owner_id],
+                // where:["owner_id," + localStorage.owner_id],
             }
 
             SDK.queryData("vitals", "vitals", params, function(response){
@@ -573,10 +572,28 @@
                           "owner_id"            : localStorage.owner_id + "",
                     }
 
+                    final_data = {
+
+                      "age"                     : age,
+                      "working_hours"           : workingHours,
+                      "exercise_hours"          : choresHours,
+                      "sleeping_hours"          : sleepingHours,
+                      "traffic_hours"           : trafficHours,
+                      "years_left"              : lifeLeftToLive + "",
+                      "working_years"           : resultObject.working,
+                      "sleeping_years"          : resultObject.sleeping,
+                      "traffic_years"           : resultObject.traffic,
+                      "chores_years"            : resultObject.chores,
+                      "r_data"                  : rData,
+                      "i_data"                  : iData,
+                      "owner_id"                : localStorage.owner_id + ""
+
+                    }
+
                     console.log("LocalStorage",localStorage.owner_id)
                     console.log("Data",data)
                     that.text("Calculating...")
-                    SDK.addData("vitals", "vitals", data, function(response){
+                    SDK.addData("vitals", "vitals", final_data, function(response){
                         // FillThelocal storage and thehost
                         localStorage.r_data = rData
                         localStorage.i_data = iData

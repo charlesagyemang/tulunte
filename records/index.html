@@ -35,20 +35,22 @@
             <div class="topbar-main">
                 <div class="container-fluid">
 
-                    <!-- Logo container-->
-                    <div class="logo">
-                        <!-- Text Logo -->
-                        <!--<a href="index.html" class="logo">-->
-                            <!--<span class="logo-small"><i class="mdi mdi-radar"></i></span>-->
-                            <!--<span class="logo-large"><i class="mdi mdi-radar"></i> Adminto</span>-->
-                        <!--</a>-->
-                        <!-- Image Logo -->
-                        <a href="index.html" class="logo">
-                            <img src="../assets/images/logo-sm.png" alt="" height="26" class="logo-small">
-                            <img src="../assets/images/logo.png" alt="" height="24" class="logo-large">
-                        </a>
-                    </div>
-                    <!-- End Logo container-->
+                      <!-- Logo container-->
+                      <div class="logo">
+                          <!-- Text Logo -->
+                          <a href="index.html" class="logo">
+                              <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                              <span class="logo-large"><i class="mdi mdi-radar"></i> Tymexpert</span>
+                          </a>
+                          <!-- Image Logo -->
+                          <!-- <a href="index.html" class="logo">
+                              <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
+                              <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
+                          </a> -->
+
+                      </div>
+                      <!-- End Logo container-->
+
 
                     <div class="menu-extras topbar-custom">
 
@@ -116,7 +118,9 @@
                             <li class="has-submenu">
                                 <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
-
+                            <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-view-list"></i> <span> Records </span> </a>
+                            </li>
                         </ul>
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->
@@ -128,39 +132,11 @@
 
         <div class="wrapper">
             <div class="container-fluid">
-
-                <!-- Page-Title -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="btn-group pull-right m-t-20">
-                            <button type="button" class="btn btn-custom dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Settings </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Another action</a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Something else</a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
-                            </div>
-                        </div>
-                        <h4 class="page-title">Records Entered</h4>
-                    </div>
-                </div>
-                <!-- end page title end breadcrumb -->
-
-
-
-
-
+              <br><br>
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box table-responsive">
-                            <h4 class="m-t-0 header-title">Buttons example</h4>
-                            <p class="text-muted font-14 m-b-30">
-                                The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
-                            </p>
+
 
                             <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
@@ -168,15 +144,22 @@
                                     <th>Id</th>
                                     <th>Age Left</th>
                                     <th>Office Hours In Years</th>
+                                    <th>Traffic Hours In Years</th>
                                     <th>Chores Hours In Years</th>
                                     <th>Sleeping Hours In Years</th>
                                     <th>Date</th>
                                 </tr>
                                 </thead>
-
-
-                                <tbody id="tbody-peds">
-
+                                <tbody id="tbody-peds" class="dv-get-all:vitals:vitals dv-label:front_page">
+                                  <!-- <tr >
+                                    <td class="var-years_left"></td>
+                                    <td class="var-working_years"></td>
+                                    <td class="var-traffic_years"></td>
+                                    <td class="var-chores_years"></td>
+                                    <td class="var-sleeping_years"></td>
+                                    <td class="var-id"></td>
+                                    <td class="var-id"></td>
+                                  </tr> -->
                                 </tbody>
                             </table>
                         </div>
@@ -204,13 +187,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center">
-                        2016 - 2019 © Adminto. Coderthemes.com
+                        2019 © Tymexpert
                     </div>
                 </div>
             </div>
         </footer>
         <!-- End Footer -->
 
+        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
 
 
         <!-- jQuery  -->
@@ -248,10 +232,8 @@
 
         <script type="text/javascript">
 
-            $(document).ready(function () {
+          $(document).ready(function(){
 
-              let array = [];
-              //tester
 
               function formatTable(age, office, traffic, sleeping){
 
@@ -261,15 +243,50 @@
                           "<td>"+traffic+"</td>" +
                           "<td>"+sleeping+"</td>"+
                           "<td>"+sleeping+"</td>"+
+                          "<td>"+sleeping+"</td>"+
                           "<td>"+traffic+"</td>" +
                           "</tr>"
                 return mac
               }
 
 
-              array.push(formatTable("10","8", "7", "12"),formatTable("10","8", "7", "12"),formatTable("10","8", "7", "12"),formatTable("20","8", "2", "12"))
+              //get data
 
-              $("#tbody-peds").append(array);
+              let params = []
+
+
+              SDK.queryData("vitals", "vitals", params, function(response){
+
+                if (response.status_code == 628) {
+                  console.log("failed");
+                  alert("Token Expired Please Sign In Agian")
+                  window.location.href = '/signin';
+                } else {
+                  console.log("passed");
+                  console.log(response, response.payload.results.length);
+                  let ell  = response.payload.results
+                  let lenn = ell.length;
+                  let array = [];
+                  localStorage.nn = ""
+                  //tester
+                  //
+                  for (var a = 0; a < lenn; a++ ) {
+                    console.log(ell[a]);
+                    array.push(
+                      formatTable(
+                        ell[a].years_left,
+                        ell[a].working_years,
+                        ell[a].traffic_years,
+                        ell[a].sleeping_years
+                      )
+                    )
+                    console.log(array);
+                  }
+                  localStorage.nn = array
+                }
+              });
+
+              $("#tbody-peds").append(localStorage.nn);
 
                 // Default Datatable
                 $('#datatable').DataTable();
@@ -299,7 +316,7 @@
                 table.buttons().container()
                     .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
 
-            });
+                  })
 
         </script>
 
