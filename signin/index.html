@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Adminto - Responsive Admin Dashboard Template</title>
+        <title>TYMEXPERT</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -105,17 +105,30 @@
 
         <script type="text/javascript">
         $(document).ready(function(){
+
+          // check for profile
+          SDK.call('devless', 'profile', [], function(response){
+            if (response.payload.error == undefined) {
+              console.log(response.payload.error == undefined);
+              alert("You're already logged in.We are redirecting you to your dashboard")
+              window.location.href = "/dashboard";
+            }
+          })
+
           $("#login-button").unbind("click").click(function(e){
             e.preventDefault();
 
             let username = $("#username-entered").val();
             let password = $("#password-entered").val();
+            $that        = $(this);
             if (username.length > 0 & password.length> 0) {
 
 
               // push to devless
               // get user details
               let dataToSend = ['', username, '', password];
+
+              $that.text("Logging in...")
 
               SDK.call('devless', 'login', dataToSend , function(response){
 
@@ -130,6 +143,7 @@
                   console.log("Go Ahead");
 
                   SDK.setToken(response.payload.result.token);
+                  $that.text("Success.. Redirecting")
 
                   localStorage.owner_id     = response.payload.result.profile.id;
                   localStorage.user_details = JSON.stringify(response.payload.result.profile);

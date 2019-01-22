@@ -111,7 +111,7 @@
                         <!-- Navigation Menu-->
                         <ul class="navigation-menu">
                             <li class="has-submenu">
-                                <a href="index.html"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                                <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
                             <li class="has-submenu">
                                 <a href="/records"><i class="mdi mdi-view-list"></i> <span> Records </span> </a>
@@ -376,6 +376,15 @@
 
         <script type="text/javascript">
           $(document).ready(function(){
+
+            // check for profile
+            SDK.call('devless', 'profile', [], function(response){
+              if (response.payload.error !== undefined) {
+                console.log(response.payload.error == undefined);
+                alert("Token Expired You Will Have To Sign In Again")
+                window.location.href = "/signin";
+              }
+            })
 
             // get user details
             let userDetails = JSON.parse(localStorage.user_details);

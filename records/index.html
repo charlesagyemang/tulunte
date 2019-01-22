@@ -119,7 +119,7 @@
                                 <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
                             <li class="has-submenu">
-                                <a href="#"><i class="mdi mdi-view-list"></i> <span> Records </span> </a>
+                                <a href="/records"><i class="mdi mdi-view-list"></i> <span> Records </span> </a>
                             </li>
                         </ul>
                         <!-- End navigation menu -->
@@ -151,7 +151,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="tbody-peds" >
-                                  
+
                                 </tbody>
                             </table>
                         </div>
@@ -225,6 +225,15 @@
         <script type="text/javascript">
 
           $(document).ready(function(){
+
+            // check for profile
+            SDK.call('devless', 'profile', [], function(response){
+              if (response.payload.error !== undefined) {
+                console.log(response.payload.error == undefined);
+                alert("Token Expired You Will Have To Sign In Again")
+                window.location.href = "/signin";
+              }
+            })
 
 
               function formatTable(age, office, traffic, sleeping){

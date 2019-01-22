@@ -79,6 +79,9 @@
 
 
 
+        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
+
+
 
         <!-- jQuery  -->
         <script src="../assets/js/jquery.min.js"></script>
@@ -90,6 +93,21 @@
         <!-- App js -->
         <script src="../assets/js/jquery.core.js"></script>
         <script src="../assets/js/jquery.app.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            // check for profile
+            SDK.call('devless', 'profile', [], function(response){
+              if (response.payload.error == undefined) {
+                console.log(response.payload.error == undefined);
+                alert("You're already logged in. We are redirecting you to your dashboard")
+                window.location.href = "/dashboard";
+              }
+            })
+
+          })
+
+        </script>
 
 	</body>
 </html>
