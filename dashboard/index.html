@@ -78,18 +78,18 @@
                                     </a>
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <!-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                                         <i class="ti-settings m-r-5"></i> Settings
-                                    </a>
+                                    </a> -->
 
                                     <!-- item-->
-                                    <a href="page-lock-screen.html" class="dropdown-item notify-item">
+                                    <!-- <a href="page-lock-screen.html" class="dropdown-item notify-item">
                                         <i class="ti-lock m-r-5"></i> Lock screen
-                                    </a>
+                                    </a> -->
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="ti-power-off m-r-5"></i> Logout
+                                    <a  id="logout"  class="dropdown-item notify-item">
+                                        <i  class="ti-power-off m-r-5"></i> Logout
                                     </a>
 
                                 </div>
@@ -639,6 +639,12 @@
             })
 
 
+            $("#logout").unbind("click").click(function(){
+              SDK.call('devless', 'logout', [], function(response){
+                console.log(response)
+                window.location.href = "/signin";
+              })
+            })
 
           })
         </script>

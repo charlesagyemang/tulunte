@@ -146,7 +146,17 @@
                   $that.text("Success.. Redirecting")
 
                   localStorage.owner_id     = response.payload.result.profile.id;
-                  localStorage.user_details = JSON.stringify(response.payload.result.profile);
+                  localStorage.user_details = JSON.stringify(response.payload.result.profile)
+
+
+
+                  //init;
+
+                  localStorage.nn = "";
+                  localStorage.last_data = "";
+                  localStorage.i_data = "";
+                  localStorage.r_data = "";
+                  localStorage.sleeping = "";
 
                   console.log(localStorage.owner_id);
 

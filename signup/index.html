@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Adminto - Responsive Admin Dashboard Template</title>
+        <title>TYMEXPERT</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -38,25 +38,25 @@
 
 						<div class="form-group ">
 							<div class="col-xs-12">
-								<input class="form-control" type="email" required="" placeholder="Email">
+								<input id="reg-email" class="form-control" type="email" required="" placeholder="Email">
 							</div>
 						</div>
 
 						<div class="form-group ">
 							<div class="col-xs-12">
-								<input class="form-control" type="text" required="" placeholder="Username">
+								<input id="reg-username" class="form-control" type="text" required="" placeholder="Username">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-xs-12">
-								<input class="form-control" type="password" required="" placeholder="Password">
+								<input id="reg-password" class="form-control" type="password" required="" placeholder="Password">
 							</div>
 						</div>
 
 						<div class="form-group text-center m-t-40 mb-0">
 							<div class="col-xs-12">
-								<button class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">
+								<button id="signup-button" class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">
 									Register
 								</button>
 							</div>
@@ -96,7 +96,7 @@
 
         <script type="text/javascript">
           $(document).ready(function(){
-            // check for profile
+            //check for profile
             SDK.call('devless', 'profile', [], function(response){
               if (response.payload.error == undefined) {
                 console.log(response.payload.error == undefined);
@@ -104,6 +104,84 @@
                 window.location.href = "/dashboard";
               }
             })
+
+
+
+
+
+            //signup essentials
+            $("#signup-button").unbind("click").click(function(e){
+
+              e.preventDefault();
+              // Get The values
+
+              let email     = $("#reg-email").val();
+              let username  = $("#reg-username").val();
+              let password  = $("#reg-password").val();
+              let rnd       = Math.floor((Math.random() * 9999) + 10000) + "";
+              let $this     = $(this);
+
+
+              console.log("email - " + email + " username - " + username + "password - " + password);
+
+              // check the nullness
+
+              if (email.length > 0 & username.length > 0 & password.length > 0 ) {
+                console.log("all dey");
+
+                let dataToSend = [email, password, username, '', '', rnd, '']
+
+                // ake call
+                SDK.call('devless', 'signUp', dataToSend ,function(resp){
+
+                  console.log(resp);
+
+                  // if checks to make sure it wenthrough
+                  $this.text("Registering...")
+
+                  if (resp.payload.error == undefined) {
+                    // yaikes worked
+
+                    SDK.setToken(resp.payload.result.token);
+                    console.log(resp.payload.result)
+
+                    $this.text("Success!!.. Redirecting...")
+
+
+                    localStorage.owner_id     = resp.payload.result.profile.id;
+                    localStorage.user_details = JSON.stringify(resp.payload.result.profile);
+
+                    // inti usables
+                    localStorage.nn = "";
+                    localStorage.last_data = "";
+                    localStorage.i_data = "";
+                    localStorage.r_data = "";
+                    localStorage.sleeping = "";
+
+                    console.log(localStorage.owner_id);
+
+                    window.location.href = "/dashboard";
+
+
+                  } else {
+                    // username already exists
+                    console.log(resp.payload.error.message);
+
+                    alert("Email Or Username Has Been Taken Please Change It And Try Again")
+                  }
+
+
+                });
+
+
+
+
+              } else {
+                console.log("Please fill all boxes");
+              }
+
+            })
+
 
           })
 
