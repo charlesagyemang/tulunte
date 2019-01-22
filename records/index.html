@@ -38,12 +38,12 @@
                       <!-- Logo container-->
                       <div class="logo">
                           <!-- Text Logo -->
-                          <a href="index.html" class="logo">
+                          <a href="/" class="logo">
                               <span class="logo-small"><i class="mdi mdi-radar"></i></span>
                               <span class="logo-large"><i class="mdi mdi-radar"></i> Tymexpert</span>
                           </a>
                           <!-- Image Logo -->
-                          <!-- <a href="index.html" class="logo">
+                          <!-- <a href="/" class="logo">
                               <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
                               <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
                           </a> -->
@@ -285,9 +285,11 @@
                   }
                   localStorage.nn = array
                 }
+                $("#tbody-peds").html(localStorage.nn);
               });
 
-              $("#tbody-peds").append(localStorage.nn);
+
+                $("#tbody-peds").html(localStorage.nn);
 
                 // Default Datatable
                 $('#datatable').DataTable();

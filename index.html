@@ -40,7 +40,7 @@
                     <img src="images/logo.png" alt="logo" height="24">
                 </a> -->
 
-                <a href="index.html" class="logo">
+                <a href="/" class="logo">
                     <span class="logo-small"><i class="mdi mdi-radar"></i></span>
                     <span class="logo-large"><i class="mdi mdi-radar"></i> TYMEXPERT</span>
                 </a>
@@ -223,7 +223,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3">
-                        <a class="navbar-brand logo" href="index.html">
+                        <a class="navbar-brand logo" href="/">
                             Tymexpert<span class="text-custom"></span>
                         </a>
                         <span class="copy-txt">&copy; 2019</span>
@@ -249,6 +249,9 @@
         <!-- End Footer -->
 
 
+        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
+
+
 
         <script src="js/jquery.min.js"></script>
         <script src="js/popper.min.js"></script>
@@ -270,6 +273,15 @@
         <script src="js/jquery.app.js"></script>
 
         <script type="text/javascript">
+
+          SDK.call('devless', 'profile', [], function(response){
+            if (response.payload.error == undefined) {
+              console.log(response.payload.error == undefined);
+              alert("You're already logged in. We are redirecting you to your dashboard")
+              window.location.href = "/dashboard";
+            }
+          })
+
             $('.owl-testi').owlCarousel({
                 autoPlay: 3000,
             stopOnHover: true,
