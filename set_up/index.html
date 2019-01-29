@@ -117,26 +117,6 @@
         </div> <!-- end container -->
     </div>
     <!-- end topbar-main -->
-
-    <div class="navbar-custom">
-        <div class="container-fluid">
-            <div id="navigation">
-                <!-- Navigation Menu-->
-                <ul class="navigation-menu">
-                    <li class="has-submenu">
-                        <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
-                    </li>
-                    <li class="has-submenu">
-                        <a href="/records"><i class="mdi mdi-view-list"></i> <span> Records </span> </a>
-
-                    </li>
-
-
-                </ul>
-                <!-- End navigation menu -->
-            </div> <!-- end #navigation -->
-        </div> <!-- end container -->
-    </div> <!-- end navbar-custom -->
 </header>
 <!-- End Navigation Bar-->
 
@@ -144,38 +124,102 @@
 
         <div class="content-page">
 
+
+              <button id="open-mod" type="button" class="btn btn-primary btn-lg btn-rounded" data-toggle="modal" data-target="#exampleModal">
+
+              </button>
+
             <!-- Start content -->
             <div class="content">
                 <div class="container-fluid">
 
                       <br><br>  <br><br>  <br><br>
 
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="card-box">
-                                <h3 >What Are Some Of The Major Things You Do On A Daily Basis Or Even Weekends Only</h3>
-                                <p>Enter values in the box and separate with a comma "," when you are done click next. Example: Work, Sleep, Board Car To & From Work, Do House Chores etc</p>
-                                <div class="tags-default">
-                                    <input id="activity-void" type="text"
-                                        value="Work, Sleep, Board Car To & From Work, Do House Chores, Go To School, Visiting Family" data-role="tagsinput"
-                                        placeholder="add activities" />
+                      <!-- PROGRESSBAR WIZARD -->
+                    <div class="col-xl-12">
+                        <div class="card-box pb-0">
+                          <h1 id="walk-html">Hi {{}} lets set you up</h1>
+                            <h3 >Please provide answers for all the sections below and click complete. Thank you.</h3>
+
+                            <div id="progressbarwizard" class="pull-in">
+                                <ul class="nav nav-tabs nav-justified">
+                                    <li class="nav-item"><a href="#account-2" data-toggle="tab" class="nav-link">Personal Information</a></li>
+                                    <li class="nav-item"><a href="#profile-tab-2" data-toggle="tab" class="nav-link">Daily Activities</a></li>
+
+                                </ul>
+
+                                <div class="tab-content b-0 mb-0">
+                                    <div class="tab-pane p-t-10 fade" id="account-2">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group row clearfix">
+                                                    <label class="col-md-3 control-label " for="userName1">How Old Are You? </label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control required" placeholder="Please Enter Correct Age" id="userName1" name="userName" type="number">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row clearfix">
+                                                  <label class="col-md-3 control-label " for="confirm1">Student Or Worker? </label>
+                                                  <div class="col-md-6">
+                                                    <div class="radio radio-info form-check-inline">
+                                                        <input type="radio" id="inlineRadio1" value="student" name="radioInline" >
+                                                        <label for="inlineRadio1">Student </label>
+                                                    </div>
+                                                    <div class="radio radio-info form-check-inline">
+                                                        <input  type="radio" id="inlineRadio2" value="worker" name="radioInline" checked>
+                                                        <label for="inlineRadio1"> Worker </label>
+                                                    </div>
+                                                    <div class="radio form-check-inline">
+                                                        <input  type="radio" id="inlineRadio3" value="both" name="radioInline" >
+                                                        <label for="inlineRadio1"> Both </label>
+                                                    </div>
+                                                  </div>
+                                               </div>
+
+                                                <div class="form-group row clearfix">
+                                                    <label class="col-md-3 control-label " for="confirm1">Working Phone Number</label>
+                                                    <div class="col-md-6">
+                                                        <input placeholder="Please Enter  A Working Phone Number Eg: 0277 88 99 00" id="confirm1" name="confirm" type="text" class="required form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane p-t-10 fade" id="profile-tab-2">
+                                      <div class="row">
+
+                                          <div class="col-lg-12">
+
+                                              <div class="card-box">
+                                                  <h3 >What Are Some Of The Major Things You Do On A Daily Basis Or Even Weekends Only</h3>
+                                                  <p>Enter values in the box and separate with a comma "," when you are done click next. Example: Work, Sleep, Board Car To & From Work, Do House Chores etc</p>
+                                                  <div class="tags-default">
+                                                      <input id="activity-void" type="text"
+                                                          value="Work, Sleep, Board Car To & From Work, Do House Chores, Go To School, Visiting Family" data-role="tagsinput"
+                                                          placeholder="add activities" />
+                                                  </div>
+                                                  <br>
+                                                  <button  id="next-button" type="button"  class="btn btn-success btn-lg"name="button">Complete</button>
+
+                                                  </div>
+                                          </div><!-- end col -->
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <br>
-                                <button  id="next-button" type="button"  class="btn btn-primary"name="button">Next</button>
-                                </div>
-                        </div><!-- end col -->
-                      </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     </div>
         <!-- /Right-bar -->
           </div>
 
+
         </div>
     <!-- END wrapper -->
-
-
-    <button id="open-mod" type="button" class="btn btn-primary btn-lg btn-rounded" data-toggle="modal" data-target="#exampleModal">
-
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -226,6 +270,9 @@
     <script src="../assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="../assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="../assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
+    <!-- Form wizard -->
+    <script src="assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
+    <script src="assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
 
     <!-- App js -->
     <script src="../assets/js/jquery.core.js"></script>
@@ -233,10 +280,22 @@
 
     <script>
         $("#open-mod").hide()
+        $("#account-2").addClass("nav-link active show");
+        $("#walk-html").html(`<h2>Hi ${JSON.parse(localStorage.user_details).username} Lets Get You Started</h2>`)
+
+        // check status
+        // check for profile
+        // SDK.call('devless', 'profile', [], function(response){
+        //   if (response.payload.error !== undefined) {
+        //     console.log(response.payload.error == undefined);
+        //     alert("Token Expired You Will Have To Sign In Again")
+        //     window.location.href = "/signin";
+        //   }
+        // })
+
         $(document).ready(function () {
 
-
-
+          console.log(JSON.parse(localStorage.user_details).username);
 
           $("#next-button").click(function(){
 
@@ -256,7 +315,7 @@
                dataGottenFromUser.split(",").forEach(function(item, index){
                  let inputElement = `<div class="form-group">
                      <label for="">How Many Hours Do You ${item} For</label>
-                     <input id="id-for-position-${index+1}" type="number" class="form-control">
+                     <input id="id-for-position-${index+1}"  key="${item}" type="number" class="form-control">
                  </div>
                 `
 
@@ -275,8 +334,17 @@
                console.log(finsihedProduct);
 
 
-
                $("#modal-body-mutate").html(finsihedProduct);
+
+               localStorage.lenArr = datalen;
+
+               // make a call to devless
+
+               // on success save the data in lenArr
+
+               // dashboard should get this data at hand koraa
+
+               
 
                $("#open-mod").click();
 
@@ -286,15 +354,67 @@
                swal({
                   title: "No Value Entered",
                   text: "Please Enter At Least One Value",
-                  icon: "info",
+                  type: "info",
                 });
              }
 
+          })
 
 
+          // logic for Dynamic modal
+          $("#look-into-my-future").unbind("click").click(function(){
+              let $this = $(this);
+              console.log($this.text());
 
+              // display something
+              let tupple = [];
+
+
+              //grab the values
+              for (a=1; a < parseInt(localStorage.lenArr) + 1 ; a++){
+
+
+                let eachValue = $(`#id-for-position-${a}`).val();
+                let eachKey   = $(`#id-for-position-${a}`).attr("key");
+
+
+                // do an empty check
+                if (eachValue.length > 0) {
+                  // console.log(eachKey, eachValue);
+                  // console.log(`id-for-position-${a}`);
+                  tupple.push([eachKey,eachValue]);
+                }
+
+              }
+
+              // tupple lenght
+              let tuplen = tupple.length
+              let verifStatus = tuplen == parseInt(localStorage.lenArr);
+              // console.log(tuplen);
+              // console.log(verifStatus);
+
+
+              // if check some stuff make empty
+              if (verifStatus) {
+
+                console.log(tupple);
+
+                // Whole logic goes here
+
+
+              } else {
+                  let numberEmpty = parseInt(localStorage.lenArr) - tuplen
+                  // make sure not the boxes are empty
+                  swal({
+                     title: `No Value Entered For ${numberEmpty} items`,
+                     text:  `Please enter a valid number below 24 in the ${numberEmpty} boxes`,
+                     type:  "warning",
+                   });
+              }
 
           })
+
+
 
         });
 
