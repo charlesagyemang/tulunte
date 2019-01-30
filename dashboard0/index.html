@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>TYMEEXPERT</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
+        <!--Morris Chart CSS -->
+        <link rel="stylesheet" href="../assets/plugins/morris/morris.css">
+
+        <!-- App css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <div class="topbar-main">
+                <div class="container-fluid">
+
+                    <!-- Logo container-->
+                    <div class="logo">
+                        <!-- Text Logo -->
+                        <a href="/" class="logo">
+                            <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                            <span class="logo-large"><i class="mdi mdi-radar"></i> Tymexpert</span>
+                        </a>
+                        <!-- Image Logo -->
+                        <!-- <a href="/" class="logo">
+                            <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
+                            <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
+                        </a> -->
+
+                    </div>
+                    <!-- End Logo container-->
+
+
+                    <div class="menu-extras topbar-custom">
+
+                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                            <li class="menu-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+
+
+
+                            <li class="dropdown notification-list">
+                                <a id="user-profile-name" class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <img src="../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="ti-user m-r-5"></i> Profile
+                                    </a>
+
+                                    <!-- item-->
+                                    <!-- <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="ti-settings m-r-5"></i> Settings
+                                    </a> -->
+
+                                    <!-- item-->
+                                    <!-- <a href="page-lock-screen.html" class="dropdown-item notify-item">
+                                        <i class="ti-lock m-r-5"></i> Lock screen
+                                    </a> -->
+
+                                    <!-- item-->
+                                    <a  id="logout"  class="dropdown-item notify-item">
+                                        <i  class="ti-power-off m-r-5"></i> Logout
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- end menu-extras -->
+
+                    <div class="clearfix"></div>
+
+                </div> <!-- end container -->
+            </div>
+            <!-- end topbar-main -->
+
+            <div class="navbar-custom">
+                <div class="container-fluid">
+                    <div id="navigation">
+                        <!-- Navigation Menu-->
+                        <ul class="navigation-menu">
+                            <li class="has-submenu">
+                                <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="/records"><i class="mdi mdi-view-list"></i> <span> Records </span> </a>
+                            </li>
+
+
+                        </ul>
+                        <!-- End navigation menu -->
+                    </div> <!-- end #navigation -->
+                </div> <!-- end container -->
+            </div> <!-- end navbar-custom -->
+        </header>
+        <!-- End Navigation Bar-->
+
+        <div class="wrapper">
+                    <div class="container-fluid">
+
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <h4 class="page-title">Dashboard</h4>
+                            </div>
+                        </div>
+                        <!-- end page title end breadcrumb -->
+
+
+
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card-box project-box">
+                                    <div class="badge badge-success">view more</div>
+                                    <h4 class="mt-0"><a href="" class="text-white">Profile & Activities</a></h4>
+
+                                    <p class="text-success text-uppercase m-b-20 font-13">PERSONAL INFO & ACTIVITIES SUMMARY</p>
+
+                                    <div  id="dash-small-activities-holder"class="col-xl-9">
+
+                                    </div>
+                                    <br>
+                                    <center>
+                                      <button id="go-to-profile" type="button" class="btn btn-success btn-lg btn-rounded center" name="button">View & Edit Profile</button>
+
+                                    </center>
+
+                                </div>
+                            </div><!-- end col-->
+
+                            <div class="col-xl-4">
+                                <div class="card-box project-box">
+                                    <div class="badge badge-primary">view more</div>
+                                    <h4 class="mt-0"><a href="" class="text-white">Statistics</a></h4>
+                                    <p class="text-primary text-uppercase m-b-20 font-13">Android</p>
+                                    <p class="text-muted font-13">Lorem Ipsum is simply dummy text of the printing and
+                                        typesetting industry. When an unknown printer took a galley of type and
+                                        scrambled it...<a href="#" class="font-600 text-muted">view more</a>
+                                    </p>
+
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <h3 class="mb-0">77</h3>
+                                            <p class="text-muted">Questions</p>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h3 class="mb-0">875</h3>
+                                            <p class="text-muted">Comments</p>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div><!-- end col-->
+
+                            <div class="col-xl-4">
+                                <div class="card-box project-box">
+                                    <div class="badge badge-pink">view more</div>
+                                    <h4 class="mt-0"><a href="" class="text-white">Landing page Design</a></h4>
+                                    <p class="text-pink text-uppercase m-b-20 font-13">Web Design</p>
+                                    <p class="text-muted font-13">Lorem Ipsum is simply dummy text of the printing and
+                                        typesetting industry. When an unknown printer took a galley of type and
+                                        scrambled it...<a href="#" class="font-600 text-muted">view more</a>
+                                    </p>
+
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <h3 class="mb-0">87</h3>
+                                            <p class="text-muted">Questions</p>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <h3 class="mb-0">125</h3>
+                                            <p class="text-muted">Comments</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div><!-- end col-->
+                        </div>
+                        <!-- end row -->
+
+
+
+
+                    </div> <!-- end container -->
+
+
+                    <!-- Right Sidebar -->
+                    <div class="side-bar right-bar">
+                        <a href="javascript:void(0);" class="right-bar-toggle">
+                            <i class="mdi mdi-close-circle-outline"></i>
+                        </a>
+                        <h4 class="">Notifications</h4>
+                        <div class="notification-list nicescroll">
+                            <ul class="list-group list-no-border user-list">
+                                <li class="list-group-item">
+                                    <a href="#" class="user-list-item">
+                                        <div class="avatar">
+                                            <img src="assets/images/users/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="user-desc">
+                                            <span class="name">Michael Zenaty</span>
+                                            <span class="desc">There are new settings available</span>
+                                            <span class="time">2 hours ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="user-list-item">
+                                        <div class="icon bg-info">
+                                            <i class="mdi mdi-account"></i>
+                                        </div>
+                                        <div class="user-desc">
+                                            <span class="name">New Signup</span>
+                                            <span class="desc">There are new settings available</span>
+                                            <span class="time">5 hours ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="user-list-item">
+                                        <div class="icon bg-pink">
+                                            <i class="mdi mdi-comment"></i>
+                                        </div>
+                                        <div class="user-desc">
+                                            <span class="name">New Message received</span>
+                                            <span class="desc">There are new settings available</span>
+                                            <span class="time">1 day ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="list-group-item active">
+                                    <a href="#" class="user-list-item">
+                                        <div class="avatar">
+                                            <img src="assets/images/users/avatar-3.jpg" alt="">
+                                        </div>
+                                        <div class="user-desc">
+                                            <span class="name">James Anderson</span>
+                                            <span class="desc">There are new settings available</span>
+                                            <span class="time">2 days ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="list-group-item active">
+                                    <a href="#" class="user-list-item">
+                                        <div class="icon bg-warning">
+                                            <i class="mdi mdi-settings"></i>
+                                        </div>
+                                        <div class="user-desc">
+                                            <span class="name">Settings</span>
+                                            <span class="desc">There are new settings available</span>
+                                            <span class="time">1 day ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /Right-bar -->
+
+                </div>
+                <!-- end wrapper -->
+
+
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                2016 - 2019 © Adminto. Coderthemes.com
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End Footer -->
+
+
+        <!-- jQuery  -->
+        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/popper.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/waves.js"></script>
+        <script src="../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- KNOB JS -->
+        <!--[if IE]>
+        <script type="text/javascript" src="assets/plugins/jquery-knob/excanvas.js"></script>
+        <![endif]-->
+        <script src="../assets/plugins/jquery-knob/jquery.knob.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../assets/pages/jquery.dashboard.js"></script>
+
+
+        <!-- App js -->
+        <script src="../assets/js/jquery.core.js"></script>
+        <script src="../assets/js/jquery.app.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+
+            $("#go-to-profile").click(function(){
+              window.location.href = "/dashboard0/profile"
+            })
+
+            // check for profile
+            SDK.call('devless', 'profile', [], function(response){
+              if (response.payload.error !== undefined) {
+                console.log(response.payload.error == undefined);
+                alert("Token Expired You Will Have To Sign In Again")
+                window.location.href = "/signin";
+              }
+            })
+
+            //Make one api call to the backend
+
+            const PAR_AM =  JSON.parse(localStorage.user_details).id
+
+            data = {
+                  "getter": PAR_AM
+            }
+            SDK.addData("graphQlMain", "query", data, function(response){
+
+              let data  = JSON.parse(response.message);
+              localStorage.setup_info = JSON.stringify(data.setup_info[0]);
+              localStorage.daily_records = JSON.stringify(data.daily_records);
+
+              console.log(JSON.parse(localStorage.setup_info));
+
+              // use data to pupulate  stuff
+
+              // form data
+              let activitiesArray = JSON.parse(localStorage.setup_info).user_raw_input_data.split(",");
+              let formActArray   = []
+
+
+              activitiesArray.forEach(function(item, index){
+                console.log(item);
+                let badgeForm = `<div class="badge badge-pill badge-primary">${item}</div><br/>`
+                formActArray.push(badgeForm);
+              })
+
+
+
+              console.log(activitiesArray);
+
+              $("#dash-small-activities-holder").html(formActArray)
+
+
+
+            })
+
+
+
+
+            $("#logout").unbind("click").click(function(){
+              SDK.call('devless', 'logout', [], function(response){
+                console.log(response)
+                window.location.href = "/signin";
+              })
+            })
+
+          })
+        </script>
+
+    </body>
+</html>

@@ -439,35 +439,37 @@
               } else {
                 console.log("passed");
                 console.log(response, response.payload.results.length);
+
+                if (response.payload.results.length > 0) {
+                  let lastDataFull = response.payload.results;
+                  let lastData     = lastDataFull[lastDataFull.length - 1]
+                  console.log(JSON.stringify(lastData));
+                  localStorage.last_data = JSON.stringify(lastData);
+                  // console.log(JSON.parse(localStorage.last_data))
+                  console.log(localStorage.last_data);
+
+                  // get data
+                  let dataGottenn = JSON.parse(lastData.i_data)
+
+                  console.log(dataGottenn);
+
+                  populateFields(dataGottenn)
+
+
+
+
+                } else {
+                  console.log("Some No Dey")
+                  // Now Create New Or Populate With Shit
+                };
+
               }
-
-
-
-              if (response.payload.results.length > 0) {
-                let lastDataFull = response.payload.results;
-                let lastData     = lastDataFull[lastDataFull.length - 1]
-                console.log(JSON.stringify(lastData));
-                localStorage.last_data = JSON.stringify(lastData);
-                // console.log(JSON.parse(localStorage.last_data))
-                console.log(localStorage.last_data);
-
-                // get data
-                let dataGottenn = JSON.parse(lastData.i_data)
-
-                console.log(dataGottenn);
-
-                populateFields(dataGottenn)
-
-
-
-
-              } else {
-                console.log("Some No Dey")
-                // Now Create New Or Populate With Shit
-              };
 
             });
 
+
+
+            // LoGIC 101 
 
             const NUMBER_OF_DAYS_IN_A_YEAR = 356;
             const NUMBER_OF_HOURS_IN_A_YEAR = 8760;

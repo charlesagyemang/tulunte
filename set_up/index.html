@@ -77,37 +77,6 @@
                     </li>
 
 
-
-                    <li class="dropdown notification-list">
-                        <a id="user-profile-name" class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
-                           aria-haspopup="false" aria-expanded="false">
-                            <img src="../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="ti-user m-r-5"></i> Profile
-                            </a>
-
-                            <!-- item-->
-                            <!-- <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="ti-settings m-r-5"></i> Settings
-                            </a> -->
-
-                            <!-- item-->
-                            <!-- <a href="page-lock-screen.html" class="dropdown-item notify-item">
-                                <i class="ti-lock m-r-5"></i> Lock screen
-                            </a> -->
-
-                            <!-- item-->
-                            <a  id="logout"  class="dropdown-item notify-item">
-                                <i  class="ti-power-off m-r-5"></i> Logout
-                            </a>
-
-                        </div>
-                    </li>
-
                 </ul>
             </div>
             <!-- end menu-extras -->
@@ -138,13 +107,13 @@
                       <!-- PROGRESSBAR WIZARD -->
                     <div class="col-xl-12">
                         <div class="card-box pb-0">
-                          <h1 id="walk-html">Hi {{}} lets set you up</h1>
+                          <h1 id="walk-html"></h1>
                             <h3 >Please provide answers for all the sections below and click complete. Thank you.</h3>
 
                             <div id="progressbarwizard" class="pull-in">
                                 <ul class="nav nav-tabs nav-justified">
                                     <li class="nav-item"><a href="#account-2" data-toggle="tab" class="nav-link">Personal Information</a></li>
-                                    <li class="nav-item"><a href="#profile-tab-2" data-toggle="tab" class="nav-link">Daily Activities</a></li>
+                                    <li id="prof-2" class="nav-item"><a href="#profile-tab-2" data-toggle="tab" class="nav-link">Daily Activities</a></li>
 
                                 </ul>
 
@@ -155,7 +124,7 @@
                                                 <div class="form-group row clearfix">
                                                     <label class="col-md-3 control-label " for="userName1">How Old Are You? </label>
                                                     <div class="col-md-6">
-                                                        <input class="form-control required" placeholder="Please Enter Correct Age" id="userName1" name="userName" type="number">
+                                                        <input class="form-control required" placeholder="Please Enter Correct Age" id="userAge" name="userName" type="number">
                                                     </div>
                                                 </div>
 
@@ -180,9 +149,12 @@
                                                 <div class="form-group row clearfix">
                                                     <label class="col-md-3 control-label " for="confirm1">Working Phone Number</label>
                                                     <div class="col-md-6">
-                                                        <input placeholder="Please Enter  A Working Phone Number Eg: 0277 88 99 00" id="confirm1" name="confirm" type="text" class="required form-control">
+                                                        <input id="userWorkinNumber1" placeholder="Please Enter  A Working Phone Number Eg: 0277 88 99 00" name="confirm" type="text" class="required form-control">
                                                     </div>
                                                 </div>
+                                                <br>
+                                                <button  id="next-page" type="button"  class="btn btn-primary"name="button">Next</button>
+
                                             </div>
                                         </div>
                                     </div>
@@ -244,6 +216,7 @@
 
 
     <!-- jQuery  -->
+    <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/popper.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -293,71 +266,159 @@
         //   }
         // })
 
+        function checkSection1() {
+          // get values
+
+          let userWorkingNumber       = $("#userWorkinNumber1").val();
+          let userAge                 = $("#userAge").val();
+          let userStudentWorkerStatus = $("input[name='radioInline']:checked").val()
+
+
+          //  check for emptiness
+
+          if (userWorkingNumber.length > 9 && userAge > 0) {
+            // console.log(userWorkingNumber, userAge);
+
+            // form body
+            localStorage.section1SetUp = JSON.stringify({
+              user_number: userWorkingNumber ,
+              user_age: userAge ,
+              user_student_status: userStudentWorkerStatus
+            })
+
+            // disable and enable stuff
+            $("#profile-tab-2").addClass("nav-link active show");
+            $("#account-2").removeClass("nav-link active show");
+
+            return true
+
+          } else {
+            console.log("Somnething is missen");
+            swal({
+               title: "Missen Values",
+               text: "Please Enter Age And A 10 Digit Working Phone Number",
+               type: "info",
+             });
+
+             return false
+
+          }
+        }
+
         $(document).ready(function () {
 
-          console.log(JSON.parse(localStorage.user_details).username);
+          $("#prof-2").click(function (e) {
+            e.preventDefault();
+            console.log("maba");
+            checkSection1();
+          })
+
+
+          $("#next-page").click(function(){
+            checkSection1();
+          })
 
           $("#next-button").click(function(){
 
-            // get data from input
-            let dataGottenFromUser  = $("#activity-void").val();
-            let datalen             = dataGottenFromUser.split(",").length;
-            console.log(datalen);
+            $this = $(this);
 
-            let finalArr  = [];
+            //------ Section 1 -----//
 
+            // chech section one
 
-            //make sure its not empty
-             console.log(dataGottenFromUser.length);
+            if (checkSection1()) {
 
-             if (dataGottenFromUser.length > 0) {
-               // loop through data and create a new element from it
-               dataGottenFromUser.split(",").forEach(function(item, index){
-                 let inputElement = `<div class="form-group">
-                     <label for="">How Many Hours Do You ${item} For</label>
-                     <input id="id-for-position-${index+1}"  key="${item}" type="number" class="form-control">
-                 </div>
-                `
+              // section 2 Data ------- Logic
 
-                //push to array
-                finalArr.push(inputElement);
+              // get data from input
+              let dataGottenFromUser  = $("#activity-void").val();
+              let datalen             = dataGottenFromUser.split(",").length;
+              let section1Data        = JSON.parse(localStorage.section1SetUp);
+              // console.log(datalen);
+
+              let finalArr  = [];
 
 
-               })
+              //make sure its not empty
+               // console.log(dataGottenFromUser.length);
+
+               if (dataGottenFromUser.length > 0) {
+                 // loop through data and create a new element from it
+                 dataGottenFromUser.split(",").forEach(function(item, index){
+                   let inputElement = `<div class="form-group">
+                       <label for="">How Many Hours Do You ${item} For</label>
+                       <input id="id-for-position-${index+1}"  key="${item}" type="number" class="form-control">
+                   </div>
+                  `
+
+                  //push to array
+                  finalArr.push(inputElement);
 
 
-               // form final element
-               let finsihedProduct  = `<form>
-               ${finalArr.join("<br />\n")}
-               </form>`
-
-               console.log(finsihedProduct);
+                 })
 
 
-               $("#modal-body-mutate").html(finsihedProduct);
+                 // form final element
+                 let finsihedProduct  = `<form>
+                 ${finalArr.join("<br />\n")}
+                 </form>`
 
-               localStorage.lenArr = datalen;
-
-               // make a call to devless
-
-               // on success save the data in lenArr
-
-               // dashboard should get this data at hand koraa
-
-               
-
-               $("#open-mod").click();
-
-             } else {
+                 console.log(finsihedProduct);
 
 
-               swal({
-                  title: "No Value Entered",
-                  text: "Please Enter At Least One Value",
-                  type: "info",
-                });
-             }
 
+                 // fill with modal
+
+                 // $("#open-mod").click();
+                 // $("#modal-body-mutate").html(finsihedProduct);
+
+                 localStorage.lenArr = datalen;
+
+                 let finalBodyFormed = {
+                   user_number: section1Data.user_number ,
+                   user_age: section1Data.user_age ,
+                   user_student_status: section1Data.user_student_status,
+                   user_activities_len: datalen,
+                   user_modal_body: finsihedProduct,
+                   user_raw_input_data: dataGottenFromUser,
+                   users_id: JSON.parse(localStorage.user_details).id
+
+                 }
+
+                console.log(finalBodyFormed);
+                 // make a call to devless
+
+                 $this.text("Submitting...")
+                 SDK.addData("Setup", "user_setup_table", finalBodyFormed, function(response){
+                   if (response.status_code == 609) {
+                     $this.text("Success.. Redirecting...")
+                     // successfully created
+                     console.log(response);
+                     // redirect to dashboard number 2
+
+                     window.location.href = "/dashboard0";
+
+
+                   }
+                 })
+
+               } else {
+
+                 swal({
+                    title: "No Value Entered",
+                    text: "Please Enter At Least One Value",
+                    type: "info",
+                  });
+               }
+
+               // section 2 Ending-------
+
+            } else {
+
+              $("#profile-tab-2").removeClass("nav-link active show");
+              $("#account-2").addClass("nav-link active show");
+
+            }
           })
 
 
@@ -370,7 +431,7 @@
               let tupple = [];
 
 
-              //grab the values
+              //grab the values -- use lenght of use setup data to run the loop
               for (a=1; a < parseInt(localStorage.lenArr) + 1 ; a++){
 
 
