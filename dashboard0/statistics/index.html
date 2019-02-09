@@ -134,7 +134,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         
-                        <h4 class="page-title">Chartist</h4>
+                        <h4 class="page-title">Statistics Of All Data Entered</h4>
                     </div>
                 </div>
                 <!-- end page title end breadcrumb -->
@@ -218,7 +218,7 @@
                   
                   // create the graphs
                   
-                  let chartBody = `<div class="col-xl-6">
+                  let chartBody = `<div class="col-xl-12">
                         <div class="card-box">
 
                             <h4 class="header-title m-t-0 m-b-30">${full_rec_example[i][0]} chart</h4>
@@ -241,24 +241,27 @@
                     
                     //create series
                     
-                    let newSeries = [
-                        
-                    ]
+                    let newSeries = [];   
+                    let newLabel = [];
                     
                     // loop tbhrough the number of higher data 
                     
                     for (let h = 0; h < checkExistenceCount; h++){
                         let fullDataAtH = JSON.parse(dataFromServer[h].full_record);
-                        let darray = fullDataAtH[i][1]
+                        let darray = fullDataAtH[i][1];
                         
-                        newSeries.push(darray)
+                        // seriesPush
+                        newSeries.push(darray);
+                        
+                        //label push
+                        newLabel.push(`Day ${h}`);
                        
                     }
                     
                      console.log(newSeries)
                     //Simple line chart
                     new Chartist.Line(`#simple-line-chart${(i+1)}`, {
-                      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                      labels: newLabel,
                       series: [newSeries]
                     }, {
                       fullWidth: true,
