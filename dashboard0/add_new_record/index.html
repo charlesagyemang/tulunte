@@ -24,6 +24,26 @@
     </head>
 
     <body>
+<!-- 
+       <a style="position:fixed;
+                width:100px;
+                padding:0;margin:0;
+                height:80px;
+                bottom:20px;
+                right:20px;
+                background-color:#eda56f;
+                color:#FFF;
+                border-radius:30px;
+                text-align:center;
+                box-shadow: 2px 2px 3px #999;" 
+                href="https://www.vendyads.com/radioxyz"
+                target="_blank"
+                >
+
+            <i style="margin-top:22px;" class="fa fa-plus"></i>
+            <strong>Advertise With Us</strong>
+            
+          </a> -->
 
         <!-- Navigation Bar-->
         <header id="topnav">
@@ -143,11 +163,8 @@
             })
 
 
-
-
-
             let dataToUse = JSON.parse(localStorage.setup_info)
-             console.log(dataToUse)
+             // console.log(dataToUse)
 
 
              // populate div with fields
@@ -178,15 +195,62 @@
              $("#date-today").html(today)
 
 
+             let params =  {where:["date,"+today]} //{where:["date,02/08/2018"]}
+
+            //check for existing data
+
+            // query the dtata
+            SDK.queryData("dailyRecords", "daily_records", params, function(response){
+
+
+              let checkExistenceCount = response.payload.results.length
+
+              console.log(checkExistenceCount)
+
+              // if statement to check if it exists 
+
+              if (checkExistenceCount > 0) {
+
+                let roost = JSON.parse(response.payload.results[0].full_record);
+                  
+                  
+               localStorage.rootsLen = roost.length;      
+
+                // save inside the localStorage
+                localStorage.existing_record = response.payload.results[0].id;
+
+                // porpulate the fields with
+
+                for (var i = 0; i < roost.length; i++) { 
+                    var mId = "#id-for-position-"+ (i+1);
+                    $(mId).val(roost[i][1]);
+                }
+
+                // make update available
+                $("#update-daily-report").css("visibility","");
+
+                $("#submit-daily-report").css("visibility","hidden");
+
+              } else {
+
+                // hide the post button
+
+              };
+
+
+            });
+
+
+
+
 
              // try gettint the data and doing all  validations
 
-             var text = "id-for-position-"
              var rawArray = dataToUse.user_raw_input_data.split(",")
              var putInArray = [];
 
 
-             console.log(rawArray)
+             // console.log(rawArray)
 
 
              $("#submit-daily-report").click(function(){
@@ -239,50 +303,15 @@
 
 
                 // Post To Devless 
-                SDK.addData("dailyRecords", "daily_records", finalBodyFormed,  function(response){
-                  $this.text("Added Successfully")
+                SDK.addData("dailyRecords", "daily_records", finalBodyFormed,  function(response){    
 
                   if (response.status_code == 609) {
-
-
-                  } else if (response.status_code == "23505") {
-
-
-                    // disable button
-
-                    $this.attr("disabled", "disabled");
-
-
-                    //show update button
-
-                    $("#update-daily-report").css("visibility","");
-
-                    $this.text("Failed!! Record For Today Already Exists. Click On Update Button To Make Chnages")
-
-                    let params = {where:["date,"+today]}
-
-
-                    // query tghe dtata
-                    SDK.queryData("dailyRecords", "daily_records", params, function(response){
-                      console.log(response.payload.results[0])
-                      // save inside the localStorage
-
-                      localStorage.existing_record = response.payload.results[0].id;
-                    });
-                    alert("Data For Today Has Already Been entered you can go ahead and click on the update button if you wanna make changes but you can't add a new one for today thank you")
-                  };
-                    console.log(response)
+                     $this.text("Added Successfully")
+                  }               
                 })
-
-
-
-
                 // clear array 
 
                 putInArray=[]
-
-
-
 
              })// end of submit daily rep[ort cutton]
             
@@ -290,13 +319,37 @@
 
              $("#update-daily-report").unbind("click").click(function(){
 
-              let $this     = $(this);
-              let id         = localStorage.existing_record
+              $this  = $(this);
 
-                
+                // try gettint the data and doing all  validations
+
+               var rawArray = dataToUse.user_raw_input_data.split(",")
+               var putInArray = [];
+
+
+              // get current data instead 
+
+               for (var i = 0; i < dataToUse.user_activities_len; i++) { 
+                  // get id and its vaqlue to use
+                  
+                  var mId = "#id-for-position-"+ (i+1);
+                  var value = $(mId).val();
+
+                  // check if value is empty
+
+                  if (value.length > 0) {
+                    var toup = [rawArray[i],parseInt(value)]
+                  } else {
+                    var toup = [rawArray[i],0]      
+                  };
+
+                  putInArray.push(toup)
+                }
+
+                let id    = localStorage.existing_record;
 
                 let updatedata = {
-                  full_record: localStorage.updateDetails
+                  full_record: JSON.stringify(putInArray)
                 }
 
                 console.log(updatedata, id)
@@ -319,6 +372,9 @@
 
                     };
                 })
+
+
+                putInArray=[]
                 
 
              })
