@@ -242,6 +242,7 @@
                     //create series
                     
                     let newSeries = [];   
+                    let compSeriesUp = [];
                     let newLabel = [];
                     
                     // loop tbhrough the number of higher data 
@@ -253,6 +254,9 @@
                         // seriesPush
                         newSeries.push(darray);
                         
+                        //comp series Up
+                        compSeriesUp.push(darray + 1)
+                        
                         //label push
                         newLabel.push(`Day ${h}`);
                        
@@ -262,7 +266,7 @@
                     //Simple line chart
                     new Chartist.Line(`#simple-line-chart${(i+1)}`, {
                       labels: newLabel,
-                      series: [newSeries]
+                      series: [newSeries,compSeriesUp]
                     }, {
                       fullWidth: true,
                       chartPadding: {
