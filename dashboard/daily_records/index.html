@@ -229,7 +229,7 @@
                 window.location.href = "/signin";
               }
                 
-//                console.log(response.payload.result.id);
+               // console.log("idd", response.payload.result.id);
                 localStorage.latest_id = response.payload.result.id
             })
               
@@ -240,10 +240,10 @@
               
               // get data 
               
-              let par = {where:`users_id,${localStorage.latest_id}`, orderBy:"date"}
+              let par = {where:`users_id,${localStorage.owner_id}`, orderBy:"date"}
               
               SDK.queryData("dailyRecords", "daily_records_table", par, function(response){
-                  console.log(response.payload.results)
+                  console.log("para", response.payload.results)
                   
                   // data gotten
                   let dataGotten = response.payload.results[response.payload.results.length -1];
