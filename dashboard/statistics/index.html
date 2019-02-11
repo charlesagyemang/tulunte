@@ -66,29 +66,19 @@
 
 
                             <li class="dropdown notification-list">
-                                <a id="user-profile-name" class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
                                     <img src="../../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="../profile" class="dropdown-item notify-item">
                                         <i class="ti-user m-r-5"></i> Profile
                                     </a>
 
                                     <!-- item-->
-                                    <!-- <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="ti-settings m-r-5"></i> Settings
-                                    </a> -->
-
-                                    <!-- item-->
-                                    <!-- <a href="page-lock-screen.html" class="dropdown-item notify-item">
-                                        <i class="ti-lock m-r-5"></i> Lock screen
-                                    </a> -->
-
-                                    <!-- item-->
-                                    <a  id="logout"  class="dropdown-item notify-item">
+                                    <a  id="logout" class="dropdown-item notify-item">
                                         <i  class="ti-power-off m-r-5"></i> Logout
                                     </a>
 
@@ -97,6 +87,8 @@
 
                         </ul>
                     </div>
+                    <!-- end menu-extras -->
+
                     <!-- end menu-extras -->
 
                     <div class="clearfix"></div>
@@ -114,15 +106,23 @@
                                 <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
                             <li class="has-submenu">
-                                <a href="/records"><i class="mdi mdi-view-list"></i> <span> Records </span> </a>
+                                <a href="../add_new_record"><i class="mdi mdi-database"></i> <span> Daily Data Entry </span> </a>
                             </li>
-
-
+                             <li class="has-submenu">
+                                <a href="../daily_records"><i class="mdi mdi-database-check"></i> <span>  Records </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="../statistics"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+                            </li>
+                             <li class="has-submenu">
+                                <a href="../data_meaning"><i class="mdi mdi-vector-intersection"></i> <span> Interprete Data </span> </a>
+                            </li>
                         </ul>
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->
                 </div> <!-- end container -->
-            </div> <!-- end navbar-custom -->
+            </div> 
+            
         </header>
         <!-- End Navigation Bar-->
 
@@ -190,7 +190,10 @@
                 
                //querydata
                 
-            SDK.queryData("dailyRecords", "daily_records",  {where:["users_id,3"], orderBy:"date"}, function(response){
+                console.log("loo",  localStorage.owner_id );
+                
+                
+            SDK.queryData("dailyRecords", "daily_records_table",  {where:[`users_id,${localStorage.owner_id}`], orderBy:"date"}, function(response){
                 
                 
              let respArray = response.payload.results

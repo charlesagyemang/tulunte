@@ -65,6 +65,49 @@
 
                     </div>
                     <!-- End Logo container-->
+                    
+                    <div class="menu-extras topbar-custom">
+
+                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                            <li class="menu-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+
+
+
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <img src="../../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
+                                    <!-- item-->
+                                    <a href="../profile" class="dropdown-item notify-item">
+                                        <i class="ti-user m-r-5"></i> Profile
+                                    </a>
+
+                                    <!-- item-->
+                                    <a  id="logout" class="dropdown-item notify-item">
+                                        <i  class="ti-power-off m-r-5"></i> Logout
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- end menu-extras -->
+
 
 
 
@@ -73,6 +116,8 @@
                 </div> <!-- end container -->
             </div>
             <!-- end topbar-main -->
+            
+            
 
             <div class="navbar-custom">
                 <div class="container-fluid">
@@ -83,17 +128,28 @@
                                 <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
                             <li class="has-submenu">
-                                <a href="/records"><i class="mdi mdi-view-list"></i> <span> Records </span> </a>
+                                <a href="../add_new_record"><i class="mdi mdi-database"></i> <span> Daily Data Entry </span> </a>
                             </li>
-
-
+                             <li class="has-submenu">
+                                <a href="../daily_records"><i class="mdi mdi-database-check"></i> <span>  Records </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="../statistics"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+                            </li>
+                             <li class="has-submenu">
+                                <a href="../data_meaning"><i class="mdi mdi-vector-intersection"></i> <span> Interprete Data </span> </a>
+                            </li>
                         </ul>
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->
                 </div> <!-- end container -->
-            </div> <!-- end navbar-custom -->
+            </div> 
+            
+            
         </header>
         <!-- End Navigation Bar-->
+        
+        <body>
 
         <div class="wrapper">
                     <div class="container-fluid">
@@ -193,14 +249,19 @@
              // create context by setting dat ahead of time
 
              $("#date-today").html(today)
+              
+            console.log(today + dataToUse.users_id)
 
 
-             let params =  {where:["date,"+today]} //{where:["date,02/08/2018"]}
+             let params =  {where:[`date_id,${(today + dataToUse.users_id)}`, `users_id,${dataToUse.users_id}`]} //{where:["date,02/08/2018"]}
+//             let params = {where: [`users_id,${dataToUse.users_id}`]}
 
             //check for existing data
 
             // query the dtata
-            SDK.queryData("dailyRecords", "daily_records", params, function(response){
+            SDK.queryData("dailyRecords", "daily_records_table", params, function(response){
+                
+                console.log(response)
 
 
               let checkExistenceCount = response.payload.results.length
@@ -288,7 +349,8 @@
                 finalBodyFormed = {
                   full_record: JSON.stringify(putInArray),
                   date: today,
-                  users_id: dataToUse.users_id
+                  users_id: dataToUse.users_id,
+                  date_id: today + dataToUse.users_id    
                 }
 
                 // put the stuff in a local storage
@@ -303,11 +365,13 @@
 
 
                 // Post To Devless 
-                SDK.addData("dailyRecords", "daily_records", finalBodyFormed,  function(response){    
+                SDK.addData("dailyRecords", "daily_records_table", finalBodyFormed,  function(response){    
 
                   if (response.status_code == 609) {
                      $this.text("Added Successfully")
-                  }               
+                  }
+                  
+                  console.log(response)
                 })
                 // clear array 
 
@@ -358,7 +422,7 @@
                 $this.text("Updating....")
 
                 
-                SDK.updateData("dailyRecords", "daily_records", "id", id, updatedata, function(response){
+                SDK.updateData("dailyRecords", "daily_records_table", "id", id, updatedata, function(response){
 
                     console.log(response)
 
