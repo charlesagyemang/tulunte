@@ -228,7 +228,7 @@
               
               // get data 
               
-              let par = {where:"users_id,"+ localStorage.latest_id}
+              let par = {where:"users_id,"+ localStorage.latest_id, orderBy:"date"}
               
               SDK.queryData("dailyRecords", "daily_records", par, function(response){
                   console.log(response.payload.results)

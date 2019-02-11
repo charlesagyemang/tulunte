@@ -190,7 +190,7 @@
                 
                //querydata
                 
-            SDK.queryData("dailyRecords", "daily_records",  {where:["users_id,3"]}, function(response){
+            SDK.queryData("dailyRecords", "daily_records",  {where:["users_id,3"], orderBy:"date"}, function(response){
                 
                 
              let respArray = response.payload.results

@@ -88,7 +88,7 @@
     <!-- end topbar-main -->
 </header>
 <!-- End Navigation Bar-->
-
+<body>
 
 
         <div class="content-page">
@@ -258,13 +258,13 @@
 
         // check status
         // check for profile
-        // SDK.call('devless', 'profile', [], function(response){
-        //   if (response.payload.error !== undefined) {
-        //     console.log(response.payload.error == undefined);
-        //     alert("Token Expired You Will Have To Sign In Again")
-        //     window.location.href = "/signin";
-        //   }
-        // })
+         SDK.call('devless', 'profile', [], function(response){
+           if (response.payload.error !== undefined) {
+             console.log(response.payload.error == undefined);
+             alert("Token Expired You Will Have To Sign In Again")
+             window.location.href = "/signin";
+           }
+         })
 
         function checkSection1() {
           // get values
@@ -396,7 +396,7 @@
                      console.log(response);
                      // redirect to dashboard number 2
 
-                     window.location.href = "/dashboard0";
+                     window.location.href = "/dashboard";
 
 
                    }
