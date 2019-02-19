@@ -23,29 +23,6 @@
 
     </head>
 
-    <body>
-<!-- 
-       <a style="position:fixed;
-                width:100px;
-                padding:0;margin:0;
-                height:80px;
-                bottom:20px;
-                right:20px;
-                background-color:#eda56f;
-                color:#FFF;
-                border-radius:30px;
-                text-align:center;
-                box-shadow: 2px 2px 3px #999;" 
-                href="https://www.vendyads.com/radioxyz"
-                target="_blank"
-                >
-
-            <i style="margin-top:22px;" class="fa fa-plus"></i>
-            <strong>Advertise With Us</strong>
-            
-          </a> -->
-        
-
         <!-- Navigation Bar-->
         <header id="topnav">
             <div class="topbar-main">
@@ -151,31 +128,32 @@
         <!-- End Navigation Bar-->
         
         <body>
+            <div class = "container-fluid">
 
-        <div class="wrapper">
-                    <div class="container-fluid">
+                <div class="wrapper">
+                            <div class="container-fluid">
 
-                        <!-- Page-Title -->
-                        <div class="row">
-                            <div class="col-sm-12">
+                                <!-- Page-Title -->
+                                <div class="row">
+                                    <div class="col-sm-12">
 
-                                <h4 class="page-title">Please Fill The Form Below Correctly For Today <a id = "date-today">Tuesday</a></h4>
-                            </div>
-                        </div>
-                        <!-- end page title end breadcrumb -->
+                                        <h4 class="page-title">Please Fill The Form Below Correctly For Today <a id = "date-today">Tuesday</a></h4>
+                                    </div>
+                                </div>
+                                <!-- end page title end breadcrumb -->
 
-                        <div class="row">
-                              
-                              <div class="col-sm-9">
-                                <div id = "body-data">
-                                </div><br />
-                                <button id="submit-daily-report" class = "btn btn-primary btn-lg">Submit Record</button>
-                                <button id="update-daily-report" class = "btn btn-primary btn-lg hidden" style="visibility: hidden;">Update Record</button>
-                              </div>
-                         </div>
-                        </div>
-                              
-                        </div>
+                                <div class="row">
+
+                                      <div class="col-sm-9">
+                                        <div id = "body-data">
+                                        </div><br />
+                                        <button id="submit-daily-report" class = "btn btn-primary btn-lg">Submit Record</button>
+                                        <button id="update-daily-report" class = "btn btn-primary btn-lg hidden" style="visibility: hidden;">Update Record</button>
+                                      </div>
+                                 </div>
+                                </div>
+
+                                </div>
                         <!-- end row -->
                     </div> <!-- end container -->
 
@@ -370,6 +348,11 @@
 
                   if (response.status_code == 609) {
                      $this.text("Added Successfully")
+                      
+                      // alert 
+                      alert("Added Successfully")
+                      
+                      window.location.href = "/dashboard"
                   }
                   
                   console.log(response)
@@ -433,6 +416,8 @@
 
                       // alert 
                       alert("Updated Successfully")
+                        
+                       window.location.href = "/dashboard"
 
 
                     };
