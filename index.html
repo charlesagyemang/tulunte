@@ -86,7 +86,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-
                       <div class="home-wrapper home-wrapper-alt">
                           <h1 class="text-white">Welcome To Tymexpert</h1>
                           <h4 class="text-white">
@@ -99,6 +98,60 @@
                           <p class="text-white">You Can Start By Signing And Answering A Few Questions</p>
 
                           <a href="/signup" class="btn btn-custom m-t-20">Get Started</a>
+
+                          <!-- Button trigger modal -->
+                          <button type="button" class="btn btn-custom m-t-20" data-toggle="modal" data-target="#exampleModal">
+                            Try Our Demo
+                          </button>
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Please Fill The Form Below</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <form>
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">How Old Are You?</label>
+                                      <input type="number" class="form-control" id="tester-age" value="18">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">How Many Hours Do You Think Normally Sleep For</label>
+                                      <input type="number" class="form-control" id="sleep-hours" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">How Many Hours Do You Spend At Work/School</label>
+                                      <input type="number" class="form-control" id="school-work-hours" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">How Many Hours Do You Spend Surfing The Net</label>
+                                      <input type="number" class="form-control" id="surfing-hours" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">How Many Hours Do You Spend Doing House Chores</label>
+                                      <input type="number" class="form-control" id="house-chores-hours" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">How Many Hours Do You Spend When Going & Coming From Work/School</label>
+                                      <input type="number" class="form-control" id="traffic-hours" value="0">
+                                    </div>
+                                  </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                  <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button id="look-into-my-life" type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
                       </div>
                     </div>
 
@@ -173,6 +226,11 @@
 
         <script type="text/javascript">
 
+
+
+        $(document).ready(function(){
+
+              /*
           SDK.call('devless', 'profile', [], function(response){
             if (response.payload.error == undefined) {
               console.log(response.payload.error == undefined);
@@ -180,6 +238,8 @@
               window.location.href = "/dashboard";
             }
           })
+
+          */
             //
             // $('.owl-testi').owlCarousel({
             //     autoPlay: 3000,
@@ -191,6 +251,99 @@
             //     autoHeight: true,
             //     transitionStyle: "fade"
             // })
+
+            //------- Whole Logic For Demo Begins Here -------//
+
+
+
+            $("#look-into-my-life").unbind("click").click(function(){
+
+
+             // create the keya arrays and the values array
+
+             let keysArray = ["Sleep", "Work Or School", "House Chores", "Traffic", "Browse" ]
+
+
+             // get elements in values array and put in values array
+
+             let sleepHours       = parseInt($("#sleep-hours").val());
+             let workSchoolHours  = parseInt($("#school-work-hours").val());
+             let surfingHours     = parseInt($("#surfing-hours").val());
+             let houseChoresHours = parseInt($("#house-chores-hours").val());
+             let trafficHours     = parseInt($("#traffic-hours").val());
+
+
+             let valuesArray = [sleepHours, workSchoolHours, houseChoresHours, trafficHours, surfingHours];
+
+             console.log(valuesArray);
+
+
+             // Get Age & declar the life expentancy constat
+
+             const LIFE_EXPENTANCY   = 70;
+             const HOURS_IN_A_YEAR   = 24 * 365;
+             let testerAge = parseInt($("#tester-age").val());
+
+
+             // declare life left
+             let lifeLeftToLive         = LIFE_EXPENTANCY - testerAge;
+
+
+             // write a function to convert the hours to years hours
+
+             function convertToYearsHours (value) {
+               return (value * 365) / HOURS_IN_A_YEAR;
+             }
+
+
+             // loope thourghj the value gotten and covert to years and mulotiply the years left
+
+                      // first let write and simple one decimal mplace function
+                      function rounded(num) {
+                       return ((num * 10) << 0) * 0.1
+                      }
+
+                      //add a function to add array elemensts
+                      function addArrayElements(array) {
+
+                        count = 0;
+                         for (var i = 0; i < array.length; i++) {
+                           count += array[i]
+                         }
+
+                         return count
+
+                      }
+
+            // create a percentage array
+            let yearsArray = [];
+
+            for (var i = 0; i < valuesArray.length; i++) {
+              yearsArray.push( rounded(convertToYearsHours(valuesArray[i]) * lifeLeftToLive) );
+            }
+
+
+
+            console.log(yearsArray);
+
+            console.log(addArrayElements(yearsArray).toFixed(1));
+
+            // carry it on to the next page like a boss two ways tho base 64 or local storqage lets go with the easiset
+
+            localStorage.keys   = JSON.stringify(keysArray);
+            localStorage.values = JSON.stringify(valuesArray);
+            localStorage.years  = JSON.stringify(yearsArray);
+            localStorage.leftOfAll = yearsLeft - (addArrayElements(yearsArray).toFixed(1));
+
+
+
+          })
+
+
+            //------- Whole Logic For Demo Ends Here -------//
+        })
+
+
         </script>
 
     </body>
