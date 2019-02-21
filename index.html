@@ -258,10 +258,12 @@
 
             $("#look-into-my-life").unbind("click").click(function(){
 
+              let $this = $(this);
+
 
              // create the keya arrays and the values array
 
-             let keysArray = ["Sleep", "Work Or School", "House Chores", "Traffic", "Browse" ]
+             let keysArray = ["Sleep", "Work Or School", "House Chores", "Traffic", "Browse" , "Others"]
 
 
              // get elements in values array and put in values array
@@ -328,12 +330,26 @@
 
             console.log(addArrayElements(yearsArray).toFixed(1));
 
+
+            // push extra elemebnts
+
+            yearsArray.push(lifeLeftToLive - (addArrayElements(yearsArray).toFixed(1)))
+
+
+
             // carry it on to the next page like a boss two ways tho base 64 or local storqage lets go with the easiset
 
             localStorage.keys   = JSON.stringify(keysArray);
             localStorage.values = JSON.stringify(valuesArray);
             localStorage.years  = JSON.stringify(yearsArray);
-            localStorage.leftOfAll = yearsLeft - (addArrayElements(yearsArray).toFixed(1));
+            localStorage.leftOfAll = lifeLeftToLive - (addArrayElements(yearsArray).toFixed(1));
+
+            $this.text("Analyzing....")
+
+
+
+            // redirect to demo page
+            window.location.href = "/demo_results";
 
 
 

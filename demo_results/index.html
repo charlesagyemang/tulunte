@@ -47,89 +47,6 @@
                       <!-- End Logo container-->
 
 
-                    <div class="menu-extras topbar-custom">
-
-                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
-
-                            <li class="menu-item">
-                                <!-- Mobile menu toggle-->
-                                <a class="navbar-toggle nav-link">
-                                    <div class="lines">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </div>
-                                </a>
-                                <!-- End mobile menu toggle-->
-                            </li>
-
-
-
-                            <li class="dropdown notification-list">
-                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
-                                   aria-haspopup="false" aria-expanded="false">
-                                    <img src="../../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="ti-user m-r-5"></i> Profile
-                                    </a>
-
-                                    <!-- item-->
-                                    <!-- <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="ti-settings m-r-5"></i> Settings
-                                    </a> -->
-
-                                    <!-- item-->
-                                    <!-- <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="ti-lock m-r-5"></i> Lock screen
-                                    </a> -->
-
-                                    <!-- item-->
-                                    <a  id="logout" class="dropdown-item notify-item">
-                                        <i  class="ti-power-off m-r-5"></i> Logout
-                                    </a>
-
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <!-- end menu-extras -->
-
-                    <div class="clearfix"></div>
-
-                </div> <!-- end container -->
-            </div>
-            <!-- end topbar-main -->
-
-            <div class="navbar-custom">
-                <div class="container-fluid">
-                    <div id="navigation">
-                        <!-- Navigation Menu-->
-                        <ul class="navigation-menu">
-                            <li class="has-submenu">
-                                <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="../add_new_record"><i class="mdi mdi-database"></i> <span> Daily Data Entry </span> </a>
-                            </li>
-                             <li class="has-submenu">
-                                <a href="../daily_records"><i class="mdi mdi-database-check"></i> <span>  Records </span> </a>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="../statistics"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
-                            </li>
-                             <li class="has-submenu">
-                                <a href="#"><i class="mdi mdi-vector-intersection"></i> <span> Interprete Data </span> </a>
-                            </li>
-                        </ul>
-                        <!-- End navigation menu -->
-                    </div> <!-- end #navigation -->
-                </div> <!-- end container -->
-            </div>
 
 
 
@@ -195,7 +112,86 @@
 
         <script type="text/javascript">
 
+          $(document).ready(function(){
+            console.log("hehhe");
 
+           let keys = JSON.parse(localStorage.keys)
+           let values = JSON.parse(localStorage.values)
+           let leftOfAll = JSON.parse(localStorage.keys)
+           let years = JSON.parse(localStorage.years)
+
+
+            console.log(keys);
+
+
+
+
+
+            //Pie chart with custom labels
+
+
+
+            var data = {
+              labels: keys,
+              series: values
+            };
+
+            var options = {
+              labelInterpolationFnc: function(value) {
+                return value[0]
+              }
+            };
+
+            var responsiveOptions = [
+              ['screen and (min-width: 640px)', {
+                chartPadding: 30,
+                labelOffset: 100,
+                labelDirection: 'explode',
+                labelInterpolationFnc: function(value) {
+                  return value;
+                }
+              }],
+              ['screen and (min-width: 1024px)', {
+                labelOffset: 80,
+                chartPadding: 20
+              }]
+            ];
+
+            new Chartist.Pie('#pie-chart', data, options, responsiveOptions);
+
+
+
+            //Animating a Donut with Svg.animate
+
+            var chart = new Chartist.Pie('#animating-donut', {
+              series: values,
+              labels: keys
+            }, {
+              donut: true,
+              showLabel: true,
+              plugins: [
+                Chartist.plugins.tooltip()
+              ]
+            });
+
+            chart.on('draw', function(data) {
+              if(data.type === 'slice') {
+                // Get the total path length in order to use for dash array animation
+                var pathLength = data.element._node.getTotalLength();
+
+                // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+                data.element.attr({
+                  'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+                });
+
+
+              }
+            });
+
+
+
+
+          })
 
         </script>
 
