@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button id="look-into-my-life" type="button" class="btn btn-primary">Save changes</button>
+                                  <button id="look-into-my-life" type="button" class="btn btn-primary">Submit</button>
                                 </div>
                               </div>
                             </div>
@@ -230,7 +230,7 @@
 
         $(document).ready(function(){
 
-              /*
+
           SDK.call('devless', 'profile', [], function(response){
             if (response.payload.error == undefined) {
               console.log(response.payload.error == undefined);
@@ -239,7 +239,19 @@
             }
           })
 
-          */
+          //add a function to add array elemensts
+          function addArrayElements(array) {
+
+            count = 0;
+             for (var i = 0; i < array.length; i++) {
+               count += array[i]
+             }
+
+             return count
+
+          }
+
+
             //
             // $('.owl-testi').owlCarousel({
             //     autoPlay: 3000,
@@ -277,82 +289,94 @@
 
              let valuesArray = [sleepHours, workSchoolHours, houseChoresHours, trafficHours, surfingHours];
 
-             console.log(valuesArray);
+             // do the overall check
+
+             console.log(addArrayElements(valuesArray));
+
+             if (addArrayElements(valuesArray) > 24) {
+
+               alert("You can't enter values to the sum of more than 24 hours. A day can only have 24 hours please check and give us accurate data. Thank you")
+
+             } else {
+               //
+
+                            ///------ Inne rLogi Beginning ---///
+
+                            console.log(valuesArray);
 
 
-             // Get Age & declar the life expentancy constat
+                            // Get Age & declar the life expentancy constat
 
-             const LIFE_EXPENTANCY   = 70;
-             const HOURS_IN_A_YEAR   = 24 * 365;
-             let testerAge = parseInt($("#tester-age").val());
-
-
-             // declare life left
-             let lifeLeftToLive         = LIFE_EXPENTANCY - testerAge;
+                            const LIFE_EXPENTANCY   = 70;
+                            const HOURS_IN_A_YEAR   = 24 * 365;
+                            let testerAge = parseInt($("#tester-age").val());
 
 
-             // write a function to convert the hours to years hours
+                            // declare life left
+                            let lifeLeftToLive         = LIFE_EXPENTANCY - testerAge;
 
-             function convertToYearsHours (value) {
-               return (value * 365) / HOURS_IN_A_YEAR;
+
+                            // write a function to convert the hours to years hours
+
+                            function convertToYearsHours (value) {
+                              return (value * 365) / HOURS_IN_A_YEAR;
+                            }
+
+
+                            // loope thourghj the value gotten and covert to years and mulotiply the years left
+
+                                     // first let write and simple one decimal mplace function
+                                     function rounded(num) {
+                                      return ((num * 10) << 0) * 0.1
+                                     }
+
+
+
+                           // create a percentage array
+                           let yearsArray = [];
+
+                           for (var i = 0; i < valuesArray.length; i++) {
+                             yearsArray.push(rounded(convertToYearsHours(valuesArray[i]) * lifeLeftToLive));
+                           }
+
+
+
+                           console.log(yearsArray);
+
+                           console.log(addArrayElements(yearsArray));
+
+
+                           // push extra elemebnts
+
+                           console.log("Others", lifeLeftToLive - addArrayElements(yearsArray) );
+
+                           yearsArray.push(Math.round(lifeLeftToLive - addArrayElements(yearsArray)));
+
+
+
+                           // carry it on to the next page like a boss two ways tho base 64 or local storqage lets go with the easiset
+
+                           localStorage.keys   = JSON.stringify(keysArray);
+                           localStorage.values = JSON.stringify(valuesArray);
+                           localStorage.years  = JSON.stringify(yearsArray);
+                           localStorage.age    = testerAge
+                           localStorage.leftOfAll = lifeLeftToLive
+
+                           $this.text("Analyzing....")
+
+
+
+                           // redirect to demo page
+                            window.location.href = "/demo_results";
+
+
+
+                            ///------ Inne rLogi End ---///
+
              }
 
 
-             // loope thourghj the value gotten and covert to years and mulotiply the years left
 
-                      // first let write and simple one decimal mplace function
-                      function rounded(num) {
-                       return ((num * 10) << 0) * 0.1
-                      }
-
-                      //add a function to add array elemensts
-                      function addArrayElements(array) {
-
-                        count = 0;
-                         for (var i = 0; i < array.length; i++) {
-                           count += array[i]
-                         }
-
-                         return count
-
-                      }
-
-            // create a percentage array
-            let yearsArray = [];
-
-            for (var i = 0; i < valuesArray.length; i++) {
-              yearsArray.push(rounded(convertToYearsHours(valuesArray[i]) * lifeLeftToLive));
-            }
-
-
-
-            console.log(yearsArray);
-
-            console.log(addArrayElements(yearsArray));
-
-
-            // push extra elemebnts
-
-            console.log("Others", lifeLeftToLive - addArrayElements(yearsArray) );
-
-            yearsArray.push(Math.round(lifeLeftToLive - addArrayElements(yearsArray)));
-
-
-
-            // carry it on to the next page like a boss two ways tho base 64 or local storqage lets go with the easiset
-
-            localStorage.keys   = JSON.stringify(keysArray);
-            localStorage.values = JSON.stringify(valuesArray);
-            localStorage.years  = JSON.stringify(yearsArray);
-            localStorage.age    = testerAge
-            localStorage.leftOfAll = lifeLeftToLive
-
-            $this.text("Analyzing....")
-
-
-
-            // redirect to demo page
-             window.location.href = "/demo_results";
 
 
 

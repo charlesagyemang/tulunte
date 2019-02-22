@@ -26,6 +26,8 @@
 
     <body>
 
+
+
         <!-- Navigation Bar-->
         <header id="topnav">
             <div class="topbar-main">
@@ -51,6 +53,8 @@
 
 
 
+
+
         </header>
         <!-- End Navigation Bar-->
 
@@ -58,7 +62,11 @@
             <div class="container-fluid">
 
 
-               <center><h1>Your Life At A Glance</h1></center>
+               <center>
+                 <h1>Like What You See? </h1>
+                 <button class="btn btn-success btn-lg" type="button" name="button">Signup For More</button>
+                 <h1>Analytics Report : Your Life At A Glance </h1>
+               </center>
                <br>
                 <div class="row">
 
@@ -175,8 +183,6 @@
 
 
 
-
-
             //Pie chart with custom labels
 
 
@@ -263,7 +269,7 @@
                 // form data
 
                 for (var i = 0; i < keys.length; i++) {
-                  let objectuse = `  <p w3-repeat = "data" class="font-600 m-b-5">You will ${keys[i]} for ${years[i].toFixed(1)} years <span class="text-primary pull-right"> Representing ${ Math.round((years[i] / leftOfAll) * 100)}% Of Life Left</span></p>
+                  let objectuse = `  <p w3-repeat = "data" class="font-600 m-b-5">You will ${keys[i]} for ${years[i].toFixed(1)} years <span class="text-primary pull-right"> Representing ${ Math.round((years[i] / leftOfAll) * 100)}% Of Your Life Left</span></p>
                     <div class="progress">
                               <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${Math.round((years[i] / leftOfAll) * 100)}%;">
                                   <span class="sr-only">60% Complete</span>
