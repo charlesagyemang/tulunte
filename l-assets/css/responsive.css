@@ -14,11 +14,14 @@
 @media (max-width: 1200px) {
   h1 {
     font-size: 50px;
-    line-height: 60px; }
+    line-height: 60px;
+    color: #fafaff;
+  }
 
   h2 {
     font-size: 34px;
-    line-height: 44px; }
+    line-height: 44px;
+    color: #fafaff;}
 
   h3 {
     font-size: 26px;
@@ -34,7 +37,9 @@
 
   h6 {
     font-size: 17px;
-    line-height: 22px; }
+    line-height: 22px;
+      color: #fafaff;
+  }
 
   /*Padding*/
   .lg-pl-5 {
@@ -123,7 +128,8 @@
 @media (max-width: 992px) {
   h1 {
     font-size: 40px;
-    line-height: 50px; }
+    line-height: 50px;
+    color: #fafaff;}
 
   h2 {
     font-size: 30px;
