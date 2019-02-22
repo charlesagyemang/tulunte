@@ -20,6 +20,7 @@
         <link href="../../assets/css/style.css" rel="stylesheet" type="text/css" />
 
         <script src="../../assets/js/modernizr.min.js"></script>
+        <script src="https://www.w3schools.com/lib/w3.js"></script>
 
     </head>
 
@@ -56,12 +57,43 @@
         <div class="wrapper">
             <div class="container-fluid">
 
+
+               <center><h1>Your Life At A Glance</h1></center>
                <br>
                 <div class="row">
+
+
+                  <div class="col-xl-6">
+                      <div class="card-box">
+
+
+                            <div id="life-lived"></div>
+                            <div id="distributed-series-2" class="ct-chart ct-golden-section"></div>
+
+                        </div>
+
+
+
+                  </div><!-- end col-->
+
+                  <div class="col-xl-6">
+                      <div  class="card-box">
+
+                            <h4 id="leftiii" class="header-title m-t-0 m-b-30">Progressbars</h4>
+
+                          <div id="id01">
+
+                          </div>
+
+                        </div>
+
+                  </div><!-- end col-->
+
+
                     <div class="col-xl-6">
                         <div class="card-box">
 
-                            <h4 class="header-title m-t-0 m-b-30">Pie chart with custom labels</h4>
+                            <h4 class="header-title m-t-0 m-b-30">Life Left Pie Chart</h4>
 
                             <div id="pie-chart" class="ct-chart ct-golden-section"></div>
                         </div>
@@ -70,12 +102,29 @@
 
                      <div class="col-xl-6">
                         <div class="card-box">
-                              <h4 class="header-title m-t-0 m-b-30">Animating a Donut with Svg.animate</h4>
+                              <h4 class="header-title m-t-0 m-b-30">Life Left Doughnut Chart</h4>
 
                               <div id="animating-donut" class="ct-chart ct-golden-section"></div>
                          </div>
                     </div>
 
+                    <div class="col-xl-6">
+                        <div class="card-box">
+
+                            <h4 class="header-title m-t-0 m-b-30">Life Left Activities Histogram</h4>
+
+                            <div id="distributed-series" class="ct-chart ct-golden-section"></div>
+                        </div>
+                    </div><!-- end col-->
+
+                    <div class="col-xl-6">
+                        <div class="card-box">
+
+                            <h4 class="header-title m-t-0 m-b-30">Overall Life Snapshot Histogram</h4>
+
+                            <div id="distributed-series-3" class="ct-chart ct-golden-section"></div>
+                        </div>
+                    </div><!-- end col-->
 
                 </div>
                 <!-- end row -->
@@ -117,8 +166,9 @@
 
            let keys = JSON.parse(localStorage.keys)
            let values = JSON.parse(localStorage.values)
-           let leftOfAll = JSON.parse(localStorage.keys)
+           let leftOfAll = JSON.parse(localStorage.leftOfAll)
            let years = JSON.parse(localStorage.years)
+           let age     = localStorage.age;
 
 
             console.log(keys);
@@ -133,7 +183,7 @@
 
             var data = {
               labels: keys,
-              series: values
+              series: years
             };
 
             var options = {
@@ -164,7 +214,7 @@
             //Animating a Donut with Svg.animate
 
             var chart = new Chartist.Pie('#animating-donut', {
-              series: values,
+              series: years,
               labels: keys
             }, {
               donut: true,
@@ -187,6 +237,95 @@
 
               }
             });
+
+
+
+
+
+              //Distributed series
+              //
+              new Chartist.Bar('#distributed-series', {
+                labels: keys,
+                series: years
+              }, {
+                distributeSeries: true,
+                plugins: [
+                  Chartist.plugins.tooltip()
+                ]
+              });
+
+
+
+
+              let finale = []
+
+
+                // form data
+
+                for (var i = 0; i < keys.length; i++) {
+                  let objectuse = `  <p w3-repeat = "data" class="font-600 m-b-5">You will ${keys[i]} for ${years[i].toFixed(1)} years <span class="text-primary pull-right"> Representing ${ Math.round((years[i] / leftOfAll) * 100)}% Of Life Left</span></p>
+                    <div class="progress">
+                              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${Math.round((years[i] / leftOfAll) * 100)}%;">
+                                  <span class="sr-only">60% Complete</span>
+                              </div>
+                          </div>`
+
+
+                  finale.push(objectuse);
+
+                }
+
+
+
+                 $("#leftiii").html(`Out Of The Ideal ${leftOfAll} you have left `)
+                  $("#id01").html(finale)
+
+
+
+                  finale2 = []
+                  let keys2 = ["Years Lived", "Years Remaining"]
+                  let values2 = [age, leftOfAll]
+                  for (var i = 0; i < keys2.length; i++) {
+                    let objectuse = `  <p w3-repeat = "data" class="font-600 m-b-5">${keys2[i]} = ${values2[i]} years  <span class="text-primary pull-right">Represents  ${ Math.round((values2[i] / 70) * 100)}% of Human Life Expectancy</span></p>
+                      <div class="progress">
+                                <div class="progress-bar progress-bar-secondary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${Math.round((values2[i] / 70) * 100)}%;">
+                                    <span class="sr-only">60% Complete</span>
+                                </div>
+                            </div>`
+
+
+                    finale2.push(objectuse);
+
+                  }
+
+
+                  $("#life-lived").html(finale2)
+
+                  //Distributed series 2
+                  //
+                  new Chartist.Bar('#distributed-series-2', {
+                    labels: keys2,
+                    series: values2
+                  }, {
+                    distributeSeries: true,
+                    plugins: [
+                      Chartist.plugins.tooltip()
+                    ]
+                  });
+
+
+                  //Distributed series 2
+                  //
+                  new Chartist.Bar('#distributed-series-3', {
+                    labels: keys2,
+                    series: values2
+                  }, {
+                    distributeSeries: true,
+                    plugins: [
+                      Chartist.plugins.tooltip()
+                    ]
+                  });
+
 
 
 

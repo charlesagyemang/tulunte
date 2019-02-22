@@ -321,19 +321,21 @@
             let yearsArray = [];
 
             for (var i = 0; i < valuesArray.length; i++) {
-              yearsArray.push( rounded(convertToYearsHours(valuesArray[i]) * lifeLeftToLive) );
+              yearsArray.push(rounded(convertToYearsHours(valuesArray[i]) * lifeLeftToLive));
             }
 
 
 
             console.log(yearsArray);
 
-            console.log(addArrayElements(yearsArray).toFixed(1));
+            console.log(addArrayElements(yearsArray));
 
 
             // push extra elemebnts
 
-            yearsArray.push(lifeLeftToLive - (addArrayElements(yearsArray).toFixed(1)))
+            console.log("Others", lifeLeftToLive - addArrayElements(yearsArray) );
+
+            yearsArray.push(Math.round(lifeLeftToLive - addArrayElements(yearsArray)));
 
 
 
@@ -342,14 +344,15 @@
             localStorage.keys   = JSON.stringify(keysArray);
             localStorage.values = JSON.stringify(valuesArray);
             localStorage.years  = JSON.stringify(yearsArray);
-            localStorage.leftOfAll = lifeLeftToLive - (addArrayElements(yearsArray).toFixed(1));
+            localStorage.age    = testerAge
+            localStorage.leftOfAll = lifeLeftToLive
 
             $this.text("Analyzing....")
 
 
 
             // redirect to demo page
-            window.location.href = "/demo_results";
+             window.location.href = "/demo_results";
 
 
 
