@@ -249,15 +249,19 @@
             <input type="number" class="form-control" id="house-chores-hours" value="0">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">How Many Hours Do You Spend When Going & Coming From Work/School</label>
+            <label for="exampleInputEmail1">How Much Time Do You Spend Commuting To And From Work/School</label>
             <input type="number" class="form-control" id="traffic-hours" value="0">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">How Many Years Do You Think You'll Maintain This Pattern For (If left empty we assume you'll continue this way for the rest of your life)</label>
+            <input type="number" class="form-control" id="specified-years" placeholder="Rest Of Your Life">
           </div>
         </form>
 
       </div>
       <div class="modal-footer">
         <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="look-into-my-life" type="button" class="btn btn-primary">Submit</button>
+        <button id="look-into-my-life" type="button" class="btn btn-primary">Look Into My Future</button>
       </div>
     </div>
   </div>
@@ -373,21 +377,6 @@ $(document).ready(function(){
   }
 
 
-    //
-    // $('.owl-testi').owlCarousel({
-    //     autoPlay: 3000,
-    //     stopOnHover: true,
-    //     navigation: false,
-    //     paginationSpeed: 1000,
-    //     goToFirstSpeed: 2000,
-    //     singleItem: true,
-    //     autoHeight: true,
-    //     transitionStyle: "fade"
-    // })
-
-    //------- Whole Logic For Demo Begins Here -------//
-
-
 
     $("#look-into-my-life").unbind("click").click(function(){
 
@@ -406,6 +395,7 @@ $(document).ready(function(){
      let surfingHours     = parseInt($("#surfing-hours").val());
      let houseChoresHours = parseInt($("#house-chores-hours").val());
      let trafficHours     = parseInt($("#traffic-hours").val());
+     let dedicatedYears   = parseInt($("#specified-years").val());
 
 
      let valuesArray = [sleepHours, workSchoolHours, houseChoresHours, trafficHours, surfingHours];
@@ -454,41 +444,100 @@ $(document).ready(function(){
 
 
                    // create a percentage array
-                   let yearsArray = [];
+                   // let yearsArray = [];
+                   //
+                   // for (var i = 0; i < valuesArray.length; i++) {
+                   //   yearsArray.push(rounded(convertToYearsHours(valuesArray[i]) * lifeLeftToLive));
+                   // }
 
-                   for (var i = 0; i < valuesArray.length; i++) {
-                     yearsArray.push(rounded(convertToYearsHours(valuesArray[i]) * lifeLeftToLive));
+                   // create a function out of the above
+                   function yearsArrayFunc (years){
+                     // create a percentage array
+                     let yearsArray = [];
+
+                     for (var i = 0; i < valuesArray.length; i++) {
+                       yearsArray.push(rounded(convertToYearsHours(valuesArray[i]) * years));
+                     }
+
+                     return yearsArray;
                    }
 
+                   if (dedicatedYears > 0) {
+                     console.log("YES", dedicatedYears);
+                     // Provided Given Years
 
 
-                   console.log(yearsArray);
-
-                   console.log(addArrayElements(yearsArray));
-
-
-                   // push extra elemebnts
-
-                   console.log("Others", lifeLeftToLive - addArrayElements(yearsArray) );
-
-                   yearsArray.push(Math.round(lifeLeftToLive - addArrayElements(yearsArray)));
+                     // create a percentage array
+                     yearsArray = yearsArrayFunc(dedicatedYears);
 
 
+                     // push extra elemebnts
+                     console.log("Others", dedicatedYears - addArrayElements(yearsArray) );
 
-                   // carry it on to the next page like a boss two ways tho base 64 or local storqage lets go with the easiset
+                     yearsArray.push(Math.round(dedicatedYears - addArrayElements(yearsArray)));
 
-                   localStorage.keys   = JSON.stringify(keysArray);
-                   localStorage.values = JSON.stringify(valuesArray);
-                   localStorage.years  = JSON.stringify(yearsArray);
-                   localStorage.age    = testerAge
-                   localStorage.leftOfAll = lifeLeftToLive
+                     localStorage.leftOfAll = dedicatedYears
 
-                   $this.text("Analyzing....")
+                      // carry it on to the next page like a boss two ways tho base 64 or
+                      // local storqage lets go with the easiset
+
+                      localStorage.keys   = JSON.stringify(keysArray);
+                      localStorage.values = JSON.stringify(valuesArray);
+                      localStorage.years  = JSON.stringify(yearsArray);
+                      localStorage.age    = testerAge
+
+
+                      $this.text("Analyzing....")
 
 
 
-                   // redirect to demo page
-                    window.location.href = "/demo_results";
+                     // redirect to demo page
+                      window.location.href = "/demo_results/specific";
+
+
+
+                   } else {
+
+                     // Use raw Years
+                     console.log("NO", dedicatedYears);
+
+
+                     // create a percentage array
+                     yearsArray = yearsArrayFunc(lifeLeftToLive)
+
+
+
+                    console.log(yearsArray);
+
+                    console.log(addArrayElements(yearsArray));
+
+
+                    // push extra elemebnts
+
+                    console.log("Others", lifeLeftToLive - addArrayElements(yearsArray) );
+
+                    yearsArray.push(Math.round(lifeLeftToLive - addArrayElements(yearsArray)));
+
+                    localStorage.leftOfAll = lifeLeftToLive
+
+                     // carry it on to the next page like a boss two ways tho base 64 or
+                     // local storqage lets go with the easiset
+
+                     localStorage.keys   = JSON.stringify(keysArray);
+                     localStorage.values = JSON.stringify(valuesArray);
+                     localStorage.years  = JSON.stringify(yearsArray);
+                     localStorage.age    = testerAge
+
+
+                     $this.text("Analyzing....")
+
+
+                    // redirect to demo page
+                     window.location.href = "/demo_results";
+
+
+
+                   }
 
 
 
