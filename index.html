@@ -233,7 +233,7 @@
             <input type="number" class="form-control" id="tester-age" value="18">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">How Many Hours Do You Think Normally Sleep For</label>
+            <label for="exampleInputEmail1">How Many Hours Do You Normally Spend Sleeping</label>
             <input type="number" class="form-control" id="sleep-hours" value="6">
           </div>
           <div class="form-group">
@@ -396,11 +396,11 @@ $(document).ready(function(){
 
      // get elements in values array and put in values array
 
-     let sleepHours       = parseFloat($("#sleep-hours").val());
-     let workSchoolHours  = parseFloat($("#school-work-hours").val());
-     let surfingHours     = parseFloat($("#surfing-hours").val());
-     let houseChoresHours = parseFloat($("#house-chores-hours").val());
-     let trafficHours     = parseFloat($("#traffic-hours").val());
+     let sleepHours       = parseInt($("#sleep-hours").val());
+     let workSchoolHours  = parseInt($("#school-work-hours").val());
+     let surfingHours     = parseInt($("#surfing-hours").val());
+     let houseChoresHours = parseInt($("#house-chores-hours").val());
+     let trafficHours     = parseInt($("#traffic-hours").val());
      let bathingHours     = parseFloat($("#traffic-2-hours").val());
      let dedicatedYears   = parseFloat($("#specified-years").val());
 
