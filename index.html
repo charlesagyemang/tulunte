@@ -234,23 +234,27 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">How Many Hours Do You Think Normally Sleep For</label>
-            <input type="number" class="form-control" id="sleep-hours" value="0">
+            <input type="number" class="form-control" id="sleep-hours" value="6">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">How Many Hours Do You Spend At Work/School</label>
-            <input type="number" class="form-control" id="school-work-hours" value="0">
+            <input type="number" class="form-control" id="school-work-hours" value="7">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">How Many Hours Do You Spend Surfing The Net</label>
-            <input type="number" class="form-control" id="surfing-hours" value="0">
+            <input type="number" class="form-control" id="surfing-hours" value="4">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">How Many Hours Do You Spend Doing House Chores</label>
-            <input type="number" class="form-control" id="house-chores-hours" value="0">
+            <input type="number" class="form-control" id="house-chores-hours" value="1">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">How Much Time Do You Spend Bathing (0.5 for 30 mins)</label>
+            <input type="number" class="form-control" id="traffic-2-hours" value="0.5">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">How Much Time Do You Spend Commuting To And From Work/School</label>
-            <input type="number" class="form-control" id="traffic-hours" value="0">
+            <input type="number" class="form-control" id="traffic-hours" value="1">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">How Many Years Do You Think You'll Maintain This Pattern For (If left empty we assume you'll continue this way for the rest of your life)</label>
@@ -355,6 +359,8 @@
 
 $(document).ready(function(){
 
+  console.log(parseInt(0.5));
+
 
   SDK.call('devless', 'profile', [], function(response){
     if (response.payload.error == undefined) {
@@ -385,20 +391,21 @@ $(document).ready(function(){
 
      // create the keya arrays and the values array
 
-     let keysArray = ["Sleep", "Work Or School", "House Chores", "Traffic", "Browse" , "Others"]
+     let keysArray = ["Sleep", "Work Or School", "House Chores", "Traffic", "Browse", "Bath" , "Others"]
 
 
      // get elements in values array and put in values array
 
-     let sleepHours       = parseInt($("#sleep-hours").val());
-     let workSchoolHours  = parseInt($("#school-work-hours").val());
-     let surfingHours     = parseInt($("#surfing-hours").val());
-     let houseChoresHours = parseInt($("#house-chores-hours").val());
-     let trafficHours     = parseInt($("#traffic-hours").val());
-     let dedicatedYears   = parseInt($("#specified-years").val());
+     let sleepHours       = parseFloat($("#sleep-hours").val());
+     let workSchoolHours  = parseFloat($("#school-work-hours").val());
+     let surfingHours     = parseFloat($("#surfing-hours").val());
+     let houseChoresHours = parseFloat($("#house-chores-hours").val());
+     let trafficHours     = parseFloat($("#traffic-hours").val());
+     let bathingHours     = parseFloat($("#traffic-2-hours").val());
+     let dedicatedYears   = parseFloat($("#specified-years").val());
 
 
-     let valuesArray = [sleepHours, workSchoolHours, houseChoresHours, trafficHours, surfingHours];
+     let valuesArray = [sleepHours, workSchoolHours, houseChoresHours, trafficHours, surfingHours, bathingHours];
 
      // do the overall check
 
@@ -456,7 +463,7 @@ $(document).ready(function(){
                      let yearsArray = [];
 
                      for (var i = 0; i < valuesArray.length; i++) {
-                       yearsArray.push(rounded(convertToYearsHours(valuesArray[i]) * years));
+                       yearsArray.push((convertToYearsHours(valuesArray[i]) * years));
                      }
 
                      return yearsArray;
@@ -554,6 +561,7 @@ $(document).ready(function(){
 
 
     //------- Whole Logic For Demo Ends Here -------//
+
 })
 
 
