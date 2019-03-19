@@ -228,33 +228,111 @@
       </div>
       <div class="modal-body">
         <form>
+
           <div class="form-group">
             <label for="exampleInputEmail1">How Old Are You?</label>
-            <input type="number" class="form-control" id="tester-age" value="18">
+            <div class="row">
+              <div class="col-sm">
+                <input type="number" class="form-control" id="tester-age" value="18">
+              </div>
+              <div class="col-sm">
+              </div>
+              <div class="col-sm">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">How Much Time Do You Spend  Sleeping</label>
+
+            <div class="row">
+              <div class="col-sm">
+                <input type="number" class="form-control" id="sleep-hours" value="6"> Hours
+              </div>
+              <div class="col-sm">
+                <input type="number" class="form-control" id="sleep-mins" value="00"> Minutes
+              </div>
+              <div class="col-sm">
+              </div>
+            </div>
+
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">How Many Hours Do You Normally Spend Sleeping</label>
-            <input type="number" class="form-control" id="sleep-hours" value="6">
+              <label for="exampleInputEmail1">How Much Time Do You Spend  At Work/School</label>
+            <div class="row">
+
+              <div class="col-sm">
+                <input type="number" class="form-control" id="school-work-hours" value="7"> Hours
+              </div>
+              <div class="col-sm">
+                <input type="number" class="form-control" id="school-work-mins" value="00"> Minutes
+              </div>
+              <div class="col-sm">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">How Much Time Do You Spend  Surfing The Net</label>
+            <div class="row">
+
+              <div class="col-sm">
+                <input type="number" class="form-control" id="surfing-hours" value="4"> Hours
+              </div>
+              <div class="col-sm">
+                <input type="number" class="form-control" id="surfing-mins" value="00"> Minutes
+              </div>
+              <div class="col-sm">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">How Much Time Do You Spend  Doing House Chores</label>
+            <div class="row">
+              <div class="col-sm">
+                <input type="number" class="form-control" id="house-chores-hours" value="1"> Hours
+              </div>
+              <div class="col-sm">
+                <input type="number" class="form-control" id="house-chores-mins" value="00"> Minutes
+              </div>
+              <div class="col-sm">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+              <label for="exampleInputEmail1">How Much Time Do You Spend  Bathing </label>
+            <div class="row">
+
+              <div class="col-sm">
+                <input type="number" class="form-control" id="traffic-2-hours" value="0"> Hours
+              </div>
+              <div class="col-sm">
+                <input type="number" class="form-control" id="traffic-2-mins" value="25"> Minutes
+              </div>
+              <div class="col-sm">
+              </div>
+            </div>
+
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">How Many Hours Do You Spend At Work/School</label>
-            <input type="number" class="form-control" id="school-work-hours" value="7">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">How Many Hours Do You Spend Surfing The Net</label>
-            <input type="number" class="form-control" id="surfing-hours" value="4">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">How Many Hours Do You Spend Doing House Chores</label>
-            <input type="number" class="form-control" id="house-chores-hours" value="1">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">How Much Time Do You Spend Bathing (0.5 for 30 mins || 0.25 fo 15 mins)</label>
-            <input type="number" class="form-control" id="traffic-2-hours" value="0.25">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">How Much Time Do You Spend Commuting To And From Work/School</label>
-            <input type="number" class="form-control" id="traffic-hours" value="1">
+            <label for="exampleInputEmail1">How Much Time Do You Spend  Commuting To And From Work/School</label>
+            <div class="row">
+              <div class="col-sm">
+                <input type="number" class="form-control" id="traffic-hours" value="1"> Hours
+              </div>
+              <div class="col-sm">
+                <input type="number" class="form-control" id="traffic-mins" value="00"> Minutes
+              </div>
+              <div class="col-sm">
+              </div>
+            </div>
+
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">How Many Years Do You Think You'll Maintain This Pattern For (If left empty we assume you'll continue this way for the rest of your life)</label>
@@ -359,6 +437,33 @@
 
 $(document).ready(function(){
 
+  // test function
+
+  function getHoursAndMinutes(val1,val2){
+    let decm = val2/60
+
+    let finAns = decm + val1;
+
+    let strAns = finAns.toString();
+    let splan  = strAns.split("");
+
+    if (strAns.length > 3) {
+      console.log("greater than 4");
+
+      retVal   = parseFloat(splan.splice(0,4).join(""));
+
+      console.log(retVal)
+
+      return retVal;
+
+    } else {
+      console.log(finAns);
+
+      return parseInt(finAns);
+    }
+
+  }
+
   console.log(parseInt(0.5));
 
 
@@ -396,16 +501,42 @@ $(document).ready(function(){
 
      // get elements in values array and put in values array
 
-     let sleepHours       = parseInt($("#sleep-hours").val());
-     let workSchoolHours  = parseInt($("#school-work-hours").val());
-     let surfingHours     = parseInt($("#surfing-hours").val());
-     let houseChoresHours = parseInt($("#house-chores-hours").val());
-     let trafficHours     = parseInt($("#traffic-hours").val());
-     let bathingHours     = parseFloat($("#traffic-2-hours").val());
-     let dedicatedYears   = parseFloat($("#specified-years").val());
+     let sleepHours          = parseInt($("#sleep-hours").val());
+     let sleepMinutes        = parseInt($("#sleep-mins").val());
+     let sleepTime           = getHoursAndMinutes(sleepHours,sleepMinutes);
+
+     let workSchoolHours     = parseInt($("#school-work-hours").val());
+     let workSchoolMinutes   = parseInt($("#school-work-mins").val());
+     let workSchoolTime      = getHoursAndMinutes(workSchoolHours,workSchoolMinutes);
 
 
-     let valuesArray = [sleepHours, workSchoolHours, houseChoresHours, trafficHours, surfingHours, bathingHours];
+     let surfingHours        = parseInt($("#surfing-hours").val());
+     let surfingMinutes      = parseInt($("#surfing-mins").val());
+     let surfingTime         = getHoursAndMinutes(surfingHours,surfingMinutes);
+
+
+     let houseChoresHours    = parseInt($("#house-chores-hours").val());
+     let houseChoresMinutes  = parseInt($("#house-chores-mins").val());
+     let houseChoresTime     = getHoursAndMinutes(houseChoresHours,houseChoresMinutes);
+
+
+     let trafficHours        = parseInt($("#traffic-hours").val());
+     let trafficMinutes      = parseInt($("#traffic-mins").val());
+     let trafficTime         = getHoursAndMinutes(trafficHours,trafficMinutes);
+
+
+     let bathingHours        = parseInt($("#traffic-2-hours").val());
+     let bathingMinutes      = parseInt($("#traffic-2-mins").val());
+     let bathingTime         = getHoursAndMinutes(bathingHours,bathingMinutes);
+
+
+     let dedicatedYears     = parseFloat($("#specified-years").val());
+
+
+
+
+     // let valuesArray = [sleepHours, workSchoolHours, houseChoresHours, trafficHours, surfingHours, bathingHours];
+     let valuesArray = [sleepTime, workSchoolTime, houseChoresTime, trafficTime, surfingTime, bathingTime];
 
      // do the overall check
 
@@ -561,6 +692,7 @@ $(document).ready(function(){
 
 
     //------- Whole Logic For Demo Ends Here -------//
+
 
 })
 
