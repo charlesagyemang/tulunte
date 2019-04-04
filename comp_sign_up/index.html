@@ -31,46 +31,57 @@
             </div>
         	<div class="m-t-40 card-box">
                 <div class="text-center">
-                    <h4 class="text-uppercase font-bold mb-0">Register</h4>
+                    <h4 class="text-uppercase font-bold mb-0">Register As A Company</h4>
                 </div>
                 <div class="p-20">
-                    <form class="form-horizontal m-t-20" action="index.html">
+                <form class="form-horizontal m-t-20" action="index.html">
 
-						<div class="form-group ">
-							<div class="col-xs-12">
-								<input id="reg-email" class="form-control" type="email" required="" placeholder="Email">
-							</div>
-						</div>
+                  <div class="form-group ">
+      							<div class="col-xs-12">
+      								<input id="reg-comp-name" class="form-control" type="text"  placeholder="Company Name">
+      							</div>
+      						</div>
 
-						<div class="form-group ">
-							<div class="col-xs-12">
-								<input id="reg-username" class="form-control" type="text" required="" placeholder="Username">
-							</div>
-						</div>
+                  <div class="form-group ">
+                    <div class="col-xs-12">
+                      <input id="reg-comp-worker-count" class="form-control" type="number"  placeholder="Number Of Workers">
+                    </div>
+                  </div>
+                  <div class="form-group ">
+      							<div class="col-xs-12">
+      								<input id="reg-comp-loc" class="form-control" type="text"  placeholder="Where Are You Located?">
+      							</div>
+      						</div>
 
-						<div class="form-group">
-							<div class="col-xs-12">
-								<input id="reg-password" class="form-control" type="password" required="" placeholder="Password">
-							</div>
-						</div>
+    						<div class="form-group ">
+    							<div class="col-xs-12">
+    								<input id="reg-email" class="form-control" type="email" required="" placeholder="Admin Email">
+    							</div>
+    						</div>
 
-						<div class="form-group text-center m-t-40 mb-0">
-							<div class="col-xs-12">
-								<button id="signup-button" class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">
-									Register
-								</button>
-							</div>
-						</div>
 
+    						<div class="form-group">
+    							<div class="col-xs-12">
+    								<input id="reg-password" class="form-control" type="password" required="" placeholder="Admin Password">
+    							</div>
+    						</div>
+
+    						<div class="form-group text-center m-t-40 mb-0">
+    							<div class="col-xs-12">
+    								<button id="signup-button" class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">
+    									Set Company Up
+    								</button>
+    							</div>
+    						</div>
 					</form>
 
-                </div>
             </div>
+          </div>
             <!-- end card-box -->
 
 			<div class="row">
 				<div class="col-sm-12 text-center">
-					<p class="text-muted">Already have account?<a href="/signin" class="text-primary m-l-5"><b>Sign In</b></a></p>
+					<p class="text-muted">Already have account?<a href="/signin" class="text-primary m-l-5"><b>Company Sign In</b></a></p>
 				</div>
 			</div>
 
@@ -115,11 +126,14 @@
               e.preventDefault();
               // Get The values
 
-              let email     = $("#reg-email").val();
-              let username  = $("#reg-username").val();
-              let password  = $("#reg-password").val();
-              let rnd       = Math.floor((Math.random() * 9999) + 10000) + "";
-              let $this     = $(this);
+              let email           = $("#reg-email").val();
+              let username        = $("#reg-username").val();
+              let password        = $("#reg-password").val();
+              let compName        = $("#reg-comp-name").val();
+              let compWorkerCount = $("reg-comp-worker-count").val();
+              let compLocation    = $("#reg-comp-loc").val();
+              let rnd             = Math.floor((Math.random() * 9999) + 10000) + "";
+              let $this           = $(this);
 
 
               console.log("email - " + email + " username - " + username + "password - " + password);
@@ -131,7 +145,7 @@
 
                 let dataToSend = [email, password, username, '', '', rnd, '']
 
-                // ake call
+                // make call
                 SDK.call('devless', 'signUp', dataToSend ,function(resp){
 
                   console.log(resp);
@@ -141,6 +155,13 @@
 
                   if (resp.payload.error == undefined) {
                     // yaikes worked
+
+                    // make a call to the company endpoint and set up this new comany
+                    // companyData = {
+                    //   name: compName,
+                    //   location:compLocation ,
+                    //   number_of_workers: compWorkerCount
+                    // }
 
                     SDK.setToken(resp.payload.result.token);
                     console.log(resp.payload.result)
