@@ -108,6 +108,7 @@
         <script type="text/javascript">
           $(document).ready(function(){
             //check for profile
+            /*
             SDK.call('devless', 'profile', [], function(response){
               if (response.payload.error == undefined) {
                 console.log(response.payload.error == undefined);
@@ -115,9 +116,7 @@
                 window.location.href = "/dashboard";
               }
             })
-
-
-
+            */
 
 
             //signup essentials
@@ -140,10 +139,10 @@
 
               // check the nullness
 
-              if (email.length > 0 & username.length > 0 & password.length > 0 ) {
+              if (email.length > 0 & compName.length > 0 & password.length > 0 ) {
                 console.log("all dey");
 
-                let dataToSend = [email, password, username, '', '', rnd, '']
+                let dataToSend = [email, password, username, '', 'comp', rnd, '']
 
                 // make call
                 SDK.call('devless', 'signUp', dataToSend ,function(resp){
@@ -157,31 +156,34 @@
                     // yaikes worked
 
                     // make a call to the company endpoint and set up this new comany
-                    // companyData = {
-                    //   name: compName,
-                    //   location:compLocation ,
-                    //   number_of_workers: compWorkerCount
-                    // }
+                    companyData = {
+                      name: compName,
+                      location: compLocation ,
+                      wokers_count: compWorkerCount,
+                      users_id: resp.payload.result.profile.id
+                    }
 
-                    SDK.setToken(resp.payload.result.token);
-                    console.log(resp.payload.result)
+                    // make api call to company table
 
-                    $this.text("Success!!.. Redirecting...")
+                    console.log(companyData);
+
+                    SDK.addData("company", "company", companyData, function(response){
+                      console.log(response)
+
+                      SDK.setToken(resp.payload.result.token);
+                      console.log(resp.payload.result)
+
+                      $this.text("Success!!.. Redirecting...")
 
 
-                    localStorage.owner_id     = resp.payload.result.profile.id;
-                    localStorage.user_details = JSON.stringify(resp.payload.result.profile);
+                      localStorage.owner_id     = resp.payload.result.profile.id;
+                      localStorage.user_details = JSON.stringify(resp.payload.result.profile);
+                      localStorage.comp_details = JSON.stringify(companyData);
 
-                    // inti usables
-                    localStorage.nn = "";
-                    localStorage.last_data = "";
-                    localStorage.i_data = "";
-                    localStorage.r_data = "";
-                    localStorage.sleeping = "";
 
-                    console.log(localStorage.owner_id);
+                      window.location.href = "/comp_set_up";
+                    })
 
-                    window.location.href = "/user_set_up";
 
 
                   } else {
