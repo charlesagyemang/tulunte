@@ -228,27 +228,30 @@
 
 
 
-        $(document).ready(function () {
-          /*
+      $(document).ready(function () {
+
+        // functions
+        function sendMail (url) {
           var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://localhost:3000/?test=micnkru@gmail.com",
-            "method": "GET",
-            "headers": {
-              "cache-control": "no-cache",
-              'Access-Control-Allow-Origin': '*',
-              "Postman-Token": "384f56ba-6123-4a5f-a3a8-096122d19bf1"
+              "async": true,
+              "crossDomain": true,
+              "url": `http://localhost:3000/?${url}`,
+              "method": "GET",
             }
-          }
 
           $.ajax(settings).done(function (response) {
             console.log(response);
           });
-          */
+        }
+
+        // get company  data
+        SDK.queryData("company", "company",  { where: `users_id,${$.parseJSON(localStorage.user_details).id}` } , function(response){
+          // console.log("comppp", response.payload.results[0])
+          localStorage.comp_details = JSON.stringify(response.payload.results[0])
+        });
 
           // next question button
-          $("#company-questions-next").unbind("click").click(function(){
+         $("#company-questions-next").unbind("click").click(function(){
 
             $("#looper0").hide();
             $("#looper").removeAttr("hidden");
@@ -256,10 +259,11 @@
 
             //Get Questions
             const questions =  $("#company-questions-to-employees").val().split(",");
+            localStorage.questions = JSON.stringify(questions);
 
-            console.log(questions);
+            // console.log(questions);
 
-            // save questions in some storage and get it done 
+            // save questions in some storage and get it done
 
 
           })
@@ -272,8 +276,60 @@
           })
 
           //
+          $("#company-finish-setup").unbind('click').click(function(){
 
-        });
+            const $this = $(this);
+            const coname = $.parseJSON(localStorage.comp_details);
+            const finalQuestions = localStorage.questions;
+            const emailList      = $("#company-questions-to-employees--").val();
+            const url = `email=${emailList}&coname=${coname.name}`
+
+            console.log(finalQuestions);
+            console.log(emailList);
+            console.log(coname);
+
+            // send the invitations
+            sendMail(url);
+
+            $this.text("Finalizing.....")
+
+
+
+            //make a call to the questions api
+            data = {
+              "company_company_id": coname.id,
+              "questions": finalQuestions
+            }
+
+            SDK.addData("company", "questions_table", data, function(response){
+              console.log("Questions", response)
+
+              // Create Users
+
+              for (var i = 0; i < emailList.split(",").length; i++) {
+                //create user
+                SDK.call('devless', 'signUp', [emailList.split(",")[i], 'password', '', '', `worker,${coname.id}`, '', 'anything else'],function(resp){
+
+                  console.log("User", resp.payload.result)
+                });
+
+              }
+
+              $this.text("Set Up Complete Redirect")
+
+
+            })
+
+
+
+
+            // Email logic create users and give them default password to be password and
+            // send them a link wit ?test as email and login with the emailand password and allow userto chnage password
+
+
+          })
+
+      });
 
 
     </script>
