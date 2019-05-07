@@ -235,7 +235,7 @@
           var settings = {
               "async": true,
               "crossDomain": true,
-              "url": `http://localhost:3000/?${url}`,
+              "url": `https://emailserve1.herokuapp.com/?${url}`,
               "method": "GET",
             }
 
@@ -315,17 +315,14 @@
 
               }
 
-              $this.text("Set Up Complete Redirect")
+              $this.text("Set Up Complete... Redirecting..")
 
+              alert("Set Up Complete.. You Will Be Redirected To Your Dashboard. Click Ok ")
+
+              // redirect to company dashboard
+              window.location.href = "/comp_dashboard"
 
             })
-
-
-
-
-            // Email logic create users and give them default password to be password and
-            // send them a link wit ?test as email and login with the emailand password and allow userto chnage password
-
 
           })
 

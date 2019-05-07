@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>TYMEXPERT</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
+        <!-- App css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="account-pages"></div>
+        <div class="clearfix"></div>
+        <div class="wrapper-page">
+            <div class="text-center">
+                <a href="/" class="logo"><span>TYMEXPERT<span></span></span></a>
+                <h5 class="text-muted mt-0 font-600">Motto Here..</h5>
+            </div>
+        	<div class="m-t-40 card-box">
+                <div class="text-center">
+                    <h4 class="text-uppercase font-bold mb-0">Employee Set Up</h4>
+                </div>
+                <div class="p-20">
+                    <form class="form-horizontal m-t-20" action="index.html">
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="password-entered" class="form-control" type="password" required="" placeholder="Enter Your Password Here And Hit Login">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group text-center m-t-30">
+                            <div class="col-xs-12">
+                                <button id="login-button" class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">Log In</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <!-- end card-box-->
+
+        </div>
+        <!-- end wrapper page -->
+
+
+        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
+
+
+
+
+        <!-- jQuery  -->
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/popper.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/waves.js"></script>
+        <script src="../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- App js -->
+        <script src="../assets/js/jquery.core.js"></script>
+        <script src="../assets/js/jquery.app.js"></script>
+
+        <script type="text/javascript">
+
+        function url_query( query ) {
+            query = query.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var expr = "[\\?&]"+query+"=([^&#]*)";
+            var regex = new RegExp( expr );
+            var results = regex.exec( window.location.href );
+            if ( results !== null ) {
+                return results[1];
+            } else {
+                return false;
+            }
+        }
+        $(document).ready(function(){
+
+          // check for profile
+          SDK.call('devless', 'profile', [], function(response){
+            if (response.payload.error == undefined) {
+              console.log(response.payload.error == undefined);
+              alert("You're already logged in.We are redirecting you to your dashboard")
+              window.location.href = "/dashboard";
+            }
+          })
+
+            console.log(url_query('email'));
+
+          $("#login-button").unbind("click").click(function(e){
+            e.preventDefault();
+            let email = url_query('email');
+            let password = $("#password-entered").val();
+            $that        = $(this);
+
+            let dataToSend = ['', email, '', "password"];
+
+              SDK.call('devless', 'login', dataToSend , function(response){
+
+                const profile = response.payload.result.profile;
+                // console.log(response.payload.result.profile);
+                console.log(profile.first_name);
+
+              });
+
+            });
+
+          })
+
+      </script>
+	</body>
+</html>
