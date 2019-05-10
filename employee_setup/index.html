@@ -87,9 +87,11 @@
                 return false;
             }
         }
+
         $(document).ready(function(){
 
           // check for profile
+          /*
           SDK.call('devless', 'profile', [], function(response){
             if (response.payload.error == undefined) {
               console.log(response.payload.error == undefined);
@@ -97,22 +99,41 @@
               window.location.href = "/dashboard";
             }
           })
+        */
 
             console.log(url_query('email'));
 
           $("#login-button").unbind("click").click(function(e){
             e.preventDefault();
-            let email = url_query('email');
-            let password = $("#password-entered").val();
-            $that        = $(this);
+            let email      = url_query('email');
+            let password   = $("#password-entered").val();
+            $that          = $(this);
 
             let dataToSend = ['', email, '', "password"];
+            $that.text("Setting Up...")
 
               SDK.call('devless', 'login', dataToSend , function(response){
 
                 const profile = response.payload.result.profile;
-                // console.log(response.payload.result.profile);
-                console.log(profile.first_name);
+                const bool    = profile !== undefined;
+                SDK.setToken(response.payload.result.token);
+
+                if (bool & password.length > 7) {
+                  // set new password
+                  SDK.call(
+                    'devless',
+                    'updateProfile',
+                    [email, password, '', '', '', '', ''],
+                    function(resp){
+                      // $that.text("Setup Complete...");
+                      // redirect
+                      const url = `/employee_dashboard/?ed=${profile.first_name.split(",")[1]}`
+                      window.location.href = url;
+                    });
+
+                } else {
+                  alert("Password should be more than 8 characters")
+                }
 
               });
 
