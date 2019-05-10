@@ -101,20 +101,18 @@
                         <!-- Navigation Menu-->
                         <ul class="navigation-menu">
                             <li class="has-submenu">
-                                <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                                <a href="#"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
                             <li class="has-submenu">
-                                <a href="add_new_record"><i class="mdi mdi-database"></i> <span> Daily Data Entry </span> </a>
+                                <a href="#"><i class="mdi mdi-database"></i> <span> Company Profile </span> </a>
                             </li>
                              <li class="has-submenu">
-                                <a href="daily_records"><i class="mdi mdi-database-check"></i> <span>  Records </span> </a>
+                                <a href="#"><i class="mdi mdi-database-check"></i> <span>  Employees </span> </a>
                             </li>
                             <li class="has-submenu">
-                                <a href="statistics"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+                                <a href="#"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
                             </li>
-                             <li class="has-submenu">
-                                <a href="data_meaning"><i class="mdi mdi-vector-intersection"></i> <span> Interprete Data </span> </a>
-                            </li>
+                            
                         </ul>
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->
@@ -130,63 +128,9 @@
                         <div class="row">
                             <div class="col-sm-12">
 
-                                <h4 class="page-title">Dashboard</h4>
+                                <h4 class="page-title"> Company Dashboard is being worked on it'll be ready soon please come backlater. Thank you</h4>
                             </div>
                         </div>
-                        <!-- end page title end breadcrumb -->
-
-
-
-                        <div class="row">
-
-                            <div class="col-xl-4">
-                                <div class="card-box project-box">
-                                    <div class="badge badge-primary">Records</div>
-                                    <h4 class="mt-0"><a href="" class="text-white">Daily Records</a></h4>
-                                    <p class="text-primary text-uppercase m-b-20 font-13">Add Records And Generate Report</p>
-
-                                    <center><a href = "add_new_record" class="btn btn-warning btn-lg">Add New</a></center>
-
-
-
-                                </div>
-                            </div><!-- end col-->
-
-
-                            <div class="col-xl-4">
-                                <div class="card-box project-box">
-                                    <div class="badge badge-success">Profile</div>
-                                    <h4 class="mt-0"><a href="" class="text-white">Profile & Activities</a></h4>
-
-                                    <p class="text-success text-uppercase m-b-20 font-13">PERSONAL INFO & ACTIVITIES SUMMARY</p>
-
-                                    <div  id="dash-small-activities-holder"class="col-xl-9">
-
-                                    </div>
-                                    <br>
-                                    <center>
-                                      <button id="go-to-profile" type="button" class="btn btn-success btn-lg " name="button">View & Edit Profile</button>
-
-                                    </center>
-
-                                </div>
-                            </div><!-- end col-->
-
-
-
-                            <div class="col-xl-4">
-                                <div class="card-box project-box">
-                                    <div class="badge badge-pink">view more</div>
-                                    <h4 class="mt-0"><a href="" class="text-white">Analytics</a></h4>
-                                    <p class="text-pink text-uppercase m-b-20 font-13">Statistics And Data Interpretation</p>
-
-                                    <a href="statistics" class="btn btn-warning">
-                                        View More
-                                    </a>
-                                </div>
-                            </div><!-- end col-->
-                        </div>
-                        <!-- end row -->
 
 
 
@@ -225,18 +169,15 @@
         <script type="text/javascript">
           $(document).ready(function(){
 
-            $("#go-to-profile").click(function(){
-              window.location.href = "/dashboard/profile"
-            })
 
             // check for profile
-            SDK.call('devless', 'profile', [], function(response){
-              if (response.payload.error !== undefined) {
-                console.log(response.payload.error == undefined);
-                alert("Token Expired You Will Have To Sign In Again")
-                window.location.href = "/signin";
-              }
-            })
+            // SDK.call('devless', 'profile', [], function(response){
+            //   if (response.payload.error !== undefined) {
+            //     console.log(response.payload.error == undefined);
+            //     alert("Token Expired You Will Have To Sign In Again")
+            //     window.location.href = "/signin";
+            //   }
+            // })
 
 
 
