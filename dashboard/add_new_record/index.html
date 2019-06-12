@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>TYMEEXPERT</title>
+        <title>Timexpert</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -33,7 +33,7 @@
                         <!-- Text Logo -->
                         <a href="/" class="logo">
                             <span class="logo-small"><i class="mdi mdi-radar"></i></span>
-                            <span class="logo-large"><i class="mdi mdi-radar"></i> Tymexpert</span>
+                            <span class="logo-large"><i class="mdi mdi-radar"></i> Timexpert</span>
                         </a>
                         <!-- Image Logo -->
                         <!-- <a href="/" class="logo">
@@ -43,7 +43,7 @@
 
                     </div>
                     <!-- End Logo container-->
-                    
+
                     <div class="menu-extras topbar-custom">
 
                         <ul class="list-unstyled topbar-right-menu float-right mb-0">
@@ -94,8 +94,8 @@
                 </div> <!-- end container -->
             </div>
             <!-- end topbar-main -->
-            
-            
+
+
 
             <div class="navbar-custom">
                 <div class="container-fluid">
@@ -121,12 +121,12 @@
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->
                 </div> <!-- end container -->
-            </div> 
-            
-            
+            </div>
+
+
         </header>
         <!-- End Navigation Bar-->
-        
+
         <body>
             <div class = "container-fluid">
 
@@ -207,7 +207,7 @@
              $("#body-data").html(dataToUse.user_modal_body)
 
 
-             
+
               var today = new Date();
               var dd = today.getDate();
               var mm = today.getMonth()+1; //January is 0!
@@ -215,20 +215,20 @@
 
               if(dd<10) {
                   dd = '0'+dd
-              } 
+              }
 
               if(mm<10) {
                   mm = '0'+mm
-              } 
+              }
 
               today = mm + '/' + dd + '/' + yyyy;
-             
+
 
 
              // create context by setting dat ahead of time
 
              $("#date-today").html(today)
-              
+
             console.log(today + dataToUse.users_id)
 
 
@@ -239,7 +239,7 @@
 
             // query the dtata
             SDK.queryData("dailyRecords", "daily_records_table", params, function(response){
-                
+
                 console.log(response)
 
 
@@ -247,21 +247,21 @@
 
               console.log(checkExistenceCount)
 
-              // if statement to check if it exists 
+              // if statement to check if it exists
 
               if (checkExistenceCount > 0) {
 
                 let roost = JSON.parse(response.payload.results[0].full_record);
-                  
-                  
-               localStorage.rootsLen = roost.length;      
+
+
+               localStorage.rootsLen = roost.length;
 
                 // save inside the localStorage
                 localStorage.existing_record = response.payload.results[0].id;
 
                 // porpulate the fields with
 
-                for (var i = 0; i < roost.length; i++) { 
+                for (var i = 0; i < roost.length; i++) {
                     var mId = "#id-for-position-"+ (i+1);
                     $(mId).val(roost[i][1]);
                 }
@@ -301,7 +301,7 @@
                 for (var i = 0; i < dataToUse.user_activities_len; i++) {
 
                   // get id and its vaqlue to use
-                  
+
                   var mId = "#id-for-position-"+ (i+1);
                   var value = $(mId).val();
 
@@ -311,17 +311,17 @@
                   if (value.length > 0) {
                     var toup = [rawArray[i],parseInt(value)]
                   } else {
-                    var toup = [rawArray[i],0]      
+                    var toup = [rawArray[i],0]
                   };
 
                   putInArray.push(toup)
-                  
+
                 }
-                // final array 
+                // final array
                 console.log(putInArray)
 
 
-                //form post body for each day 
+                //form post body for each day
 
                 // data needed exact date, JSONArray, userId. #{full_record, date, users_id}
 
@@ -329,7 +329,7 @@
                   full_record: JSON.stringify(putInArray),
                   date: today,
                   users_id: dataToUse.users_id,
-                  date_id: today + dataToUse.users_id    
+                  date_id: today + dataToUse.users_id
                 }
 
                 // put the stuff in a local storage
@@ -343,26 +343,26 @@
                 $this.text("Adding Data...")
 
 
-                // Post To Devless 
-                SDK.addData("dailyRecords", "daily_records_table", finalBodyFormed,  function(response){    
+                // Post To Devless
+                SDK.addData("dailyRecords", "daily_records_table", finalBodyFormed,  function(response){
 
                   if (response.status_code == 609) {
                      $this.text("Added Successfully")
-                      
-                      // alert 
+
+                      // alert
                       alert("Added Successfully")
-                      
+
                       window.location.href = "/dashboard"
                   }
-                  
+
                   console.log(response)
                 })
-                // clear array 
+                // clear array
 
                 putInArray=[]
 
              })// end of submit daily rep[ort cutton]
-            
+
 
 
              $("#update-daily-report").unbind("click").click(function(){
@@ -375,11 +375,11 @@
                var putInArray = [];
 
 
-              // get current data instead 
+              // get current data instead
 
-               for (var i = 0; i < dataToUse.user_activities_len; i++) { 
+               for (var i = 0; i < dataToUse.user_activities_len; i++) {
                   // get id and its vaqlue to use
-                  
+
                   var mId = "#id-for-position-"+ (i+1);
                   var value = $(mId).val();
 
@@ -388,7 +388,7 @@
                   if (value.length > 0) {
                     var toup = [rawArray[i],parseInt(value)]
                   } else {
-                    var toup = [rawArray[i],0]      
+                    var toup = [rawArray[i],0]
                   };
 
                   putInArray.push(toup)
@@ -405,7 +405,7 @@
 
                 $this.text("Updating....")
 
-                
+
                 SDK.updateData("dailyRecords", "daily_records_table", "id", id, updatedata, function(response){
 
                     console.log(response)
@@ -414,9 +414,9 @@
 
                       $this.text("Updated Successfully")
 
-                      // alert 
+                      // alert
                       alert("Updated Successfully")
-                        
+
                        window.location.href = "/dashboard"
 
 
@@ -425,7 +425,7 @@
 
 
                 putInArray=[]
-                
+
 
              })
 

@@ -7,7 +7,7 @@
 <meta name="description" content="HTML5 Template" />
 <meta name="author" content="www.themeht.com" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>TYMEXPERT</title>
+<title>Timexpert</title>
 
 <!-- favicon icon -->
 <link rel="shortcut icon" href="l-assets/images/favicon.ico" />
@@ -61,7 +61,7 @@
     <div class="loader-box"></div>
     <div class="loader-box"></div>
     <div class="loader-wrap-text">
-      <div class="text"><span>T</span><span>E</span><span>X</span><span>P</span><span>E</span><span>R</span><span>R</span>
+      <div class="text"><span>T</span><span>I</span><span>M</span><span>E</span><span>X</span><span>P</span><span>E</span>
       </div>
     </div>
   </div>
@@ -80,7 +80,7 @@
           <!-- Navbar -->
           <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand logo" href="/">
-              <span class="logo-large"><i class="mdi mdi-radar"></i> TYMEXPERT</span>
+              <span class="logo-large"><i class="mdi mdi-radar"></i> Timexpert</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"> <span></span>
               <span></span>
@@ -118,7 +118,7 @@
 
 
             <h1 class="mb-4 wow fadeInUp" data-wow-duration="1.5s">We Can Tell You a Lot About How You Spend Your Time</h1>
-            <p class="lead mb-4 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.3s">Text Goes Here.</p>
+            <p class="lead mb-4 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.3s">We Are Your Time Doctors</p>
             <a class="btn btn-theme wow fadeInUp" data-wow-duration="3s" data-wow-delay="0.5s" href="#" data-text="Get Started"> <span>S</span><span>t</span><span>a</span><span>r</span><span>t</span>
               <span> </span>  <span> </span><span>T</span><span>o</span><span>d</span><span>a</span><span>y</span>
             </a>
@@ -206,7 +206,7 @@
 <!--footer start-->
 
 <footer class="footer" data-bg-img="l-assets/images/bg/05.png">
- TYMEXPERT @2019
+ Timexpert @2019
 </footer>
 
 <!--footer end-->
@@ -526,7 +526,7 @@ $(document).ready(function(){
      let bathingMinutes      = parseInt($("#traffic-2-mins").val());
      let bathingTime         = getHoursAndMinutes(bathingHours,bathingMinutes);
 
-     alert(bathingTime);
+     // alert(bathingTime);
 
 
      let dedicatedYears     = parseFloat($("#specified-years").val());
@@ -538,6 +538,8 @@ $(document).ready(function(){
      let valuesArray = [sleepTime, workSchoolTime, houseChoresTime, trafficTime, surfingTime, bathingTime];
 
      // do the overall check
+
+     $this.text("Calculating...")
 
      console.log(addArrayElements(valuesArray));
 
