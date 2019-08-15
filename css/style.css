@@ -10,7 +10,7 @@
 [Table of contents]
 
 1. Reset
-2. Helper classes 
+2. Helper classes
 3. Buttons
 4. Dropdown
 5. Navbar Custom
@@ -34,6 +34,7 @@ body {
   font-size: 14px;
   line-height: 22px;
   overflow-x:hidden;
+  background-color: #fff;
 }
 
 ::selection{
@@ -735,7 +736,7 @@ ul.social-icons li a i {
   }
   .navbar-expand-md>.container{
     padding-right: 15px;
-    padding-left: 15px; 
+    padding-left: 15px;
   }
   .navbar-btn {
     margin: 8px 0px 0 !important;
