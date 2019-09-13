@@ -221,6 +221,42 @@
 
 <!--body content end-->
 
+<!-- Button to Open the Modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Open modal
+</button>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <br><br>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Download Make It Count: The Book</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <input id="getDownloadEmail" class="form-control" type="text" name="" value="" placeholder="Please enter a valid email here to receive the download link">
+          </div>
+        </form>
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button id="modClose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button id="downloadEmail" type="button" class="btn btn-primary">Submit</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 <!--footer start-->
 
@@ -452,6 +488,19 @@
 
 
 $(document).ready(function(){
+
+  function sendMail (email) {
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": `https://emailserve1.herokuapp.com/send/home?email=${email}`,
+        "method": "GET",
+      }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+  }
 
   // test function
 
@@ -714,6 +763,26 @@ $(document).ready(function(){
 
     //------- Whole Logic For Demo Ends Here -------//
 
+
+
+    //----- Logic for email begins -------//
+
+    $("#downloadEmail").unbind("click").click(function(){
+      $this = $(this);
+
+      $this.text("Emailing You...")
+      emailValue =  $("#getDownloadEmail").val();
+      if (emailValue.length > 0) {
+        send = sendMail(emailValue);
+        $this.text("email sent successfully");
+        alert("Email Sending Was Successful You Should Receive An Email Containing The Download Link between now and 15 minutes. Enjoy The Book. Thank You")
+        $("#modClose").click();
+        // console.log(send);
+      } else {
+        $this.text("Submit");
+        alert("please enter a valid email");
+      }
+    })
 
 })
 
