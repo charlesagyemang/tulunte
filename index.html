@@ -196,9 +196,9 @@
           <li><i class="la la-check"></i> offers regular tips and recommendations to help you make the most of your day </li>
         </ul>
         <h6>Download a free copy of the book "Make it Count" by clicking on the button below </h6>
-        <a class="btn btn-dark btn-circle" href="/make_it_count" data-text="Download">
+        <button id="clickSendEmail" class="btn btn-dark btn-circle" data-text="Download">
           <span>D</span><span>o</span><span>w</span><span>n</span><span>l</span><span>o</span><span>a</span><span>d</span><span>
-        </a>
+        </button>
         <a class="btn btn-theme btn-circle" href="#" data-text="Learn More"> <span>L</span><span>e</span><span>a</span><span>r</span><span>n</span>
           <span> </span><span>M</span><span>o</span><span>r</span><span>e</span>
         </a>
@@ -222,7 +222,7 @@
 <!--body content end-->
 
 <!-- Button to Open the Modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+<button style="display: none;" id="openEmailModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
   Open modal
 </button>
 
@@ -782,6 +782,13 @@ $(document).ready(function(){
         $this.text("Submit");
         alert("please enter a valid email");
       }
+    })
+
+    //------ Email Logi Ends ------//
+
+
+    $("#clickSendEmail").unbind("click").click(function(){
+      $("#openEmailModal").click();
     })
 
 })
