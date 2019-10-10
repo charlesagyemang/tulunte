@@ -86,6 +86,7 @@
             .then(function (response) {
               console.log(response);
               alert("We Will Send You An Email In Less Than 5 Minutes Please Follow The Link We Send You In The Main To Reset Your Password. Thank You Very Much")
+              window.location.href = "/";
             })
             .catch(function (error) {
               alert("ERROR: Sorry Our Sytem Doesnt Recornize This Email. Please Try Agian. Thank You")
@@ -101,23 +102,16 @@
            $("#forgot-button").unbind('click').click(function(){
 
              let email = $("#email-entered").val();
-             const baseUrl = 'http://localhost:9090/';
-
-
+             const baseUrl = 'http://localhost:9090/reset-password/';
 
               if (email.length > 0) {
-                // baseUrl: "http://localhost:9090/reset-password/",
-                // makeCall(email, baseUrl)
-                // location.href = "/reset-password/?token="
-                console.log(email);
+                makeCall(email, baseUrl)
                 return
               }
 
-              alert("Please Enter A Value Inside The Texbox it Looks Empty. Thank You")
-
+              alert("Please Enter A Value Inside The Texbox it Looks Empty. Thank You");
 
            })
-
 
           })
 
