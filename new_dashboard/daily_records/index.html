@@ -168,9 +168,6 @@
         </div>
         <!-- end wrapper -->
 
-        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
-
-
         <!-- jQuery  -->
         <script src="../../assets/js/jquery.min.js"></script>
         <script src="../../assets/js/popper.min.js"></script>
@@ -208,103 +205,86 @@
 
           $(document).ready(function(){
 
-            // check for profile
-            SDK.call('devless', 'profile', [], function(response){
-              if (response.payload.error !== undefined) {
-                console.log(response.payload.error == undefined);
-                alert("Token Expired You Will Have To Sign In Again")
-                window.location.href = "/signin";
+
+            // console.log(localStorage.setup_info);
+
+              // data gotten
+              let dRec = JSON.parse(localStorage.setup_info).dailyRecords
+
+              let dataGotten = dRec[dRec.length - 1];
+
+
+              let fullRecord = dataGotten.fullRecord.data;
+
+
+              // create Thead
+              // loop thgrough data
+              let headArray = [];
+
+              for(var i = 0; i < fullRecord.length; i++){
+
+                  let headName = fullRecord[i][0];
+                  let formTheadObject = `<th>${headName}</th>`
+
+                  headArray.push(formTheadObject);
+
+                  console.log(fullRecord[i][0]);
+
               }
 
-               // console.log("idd", response.payload.result.id);
-                localStorage.latest_id = response.payload.result.id
-            })
+               console.log(headArray);
+
+              // set the head up there
+
+              $("#table-head").html(`<tr><th>Date</th>${headArray}</tr>`);
 
 
 
+              // now setup the raw data by bringing new data
+              let newData = dRec;
+              console.log("curr", newData);
+
+              // loop through the data
+
+              let bigArray = []
+
+              for(var i = 0; i < newData.length; i++){
+                  // get general data
+                  let currentData = newData[i].fullRecord.data;
 
 
+                  // get date
+                  let currentDate = newData[i].dateSpecial
 
-              // get data
+                  let arrayTwo = [];
 
-              let par = {where:`users_id,${localStorage.owner_id}`, orderBy:"date"}
+                  //loop through each data
 
-              SDK.queryData("dailyRecords", "daily_records_table", par, function(response){
-                  console.log("para", response.payload.results)
-
-                  // data gotten
-                  let dataGotten = response.payload.results[response.payload.results.length -1];
-                  let fullRecord = JSON.parse(dataGotten.full_record);
-
-
-                  // create Thead
-                  // loop thgrough data
-                  let headArray = [];
-
-                  for(var i = 0; i < fullRecord.length; i++){
-
-                      let headName = fullRecord[i][0];
-                      let formTheadObject = `<th>${headName}</th>`
-
-                      headArray.push(formTheadObject);
-
-                      console.log(fullRecord[i][0]);
-
+                  for(var k = 0; k < fullRecord.length; k++){
+                       let formTbody = `<td>${currentData[k][1]}</td>`
+                       arrayTwo.push(formTbody);
                   }
 
-                   console.log(headArray);
+                  console.log(`<tr><td>${currentDate}</td>${arrayTwo}</tr>`)
+                  bigArray.push(`<tr><td>${currentDate}</td>${arrayTwo}</tr>`);
 
-                  // set the head up there
+              }
 
-                  $("#table-head").html(`<tr><th>Date</th>${headArray}</tr>`);
+              console.log("Big data",bigArray);
 
+              // put it inside the table
 
-
-                  // now setup the raw data by bringing new data
-                  let newData = response.payload.results
-
-
-                  // loop through the data
-
-                  let bigArray = []
-
-                  for(var i = 0; i < newData.length; i++){
-                      // get general data
-                      let currentData = JSON.parse(newData[i].full_record);
-
-                      // get date
-                      let currentDate = newData[i].date
-
-                      let arrayTwo = [];
-
-                      //loop through each data
-
-                      for(var k = 0; k < fullRecord.length; k++){
-                           let formTbody = `<td>${currentData[k][1]}</td>`
-                           arrayTwo.push(formTbody);
-                      }
-
-                      console.log(`<tr><td>${currentDate}</td>${arrayTwo}</tr>`)
-                      bigArray.push(`<tr><td>${currentDate}</td>${arrayTwo}</tr>`);
-
-                  }
-
-                  console.log("Big data",bigArray);
-
-                  // put it inside the table
-
-                  $("#tbody-peds").html(bigArray);
+              $("#tbody-peds").html(bigArray);
 
 
-                // Default Datatable
-                $('#datatable').DataTable();
+            // Default Datatable
+            $('#datatable').DataTable();
 
 
+              // clear
+              bigArray = []
 
-                  // clear
-                  bigArray = []
 
-              })
 
 
 
@@ -339,12 +319,12 @@
 
 
                   $("#logout").unbind("click").click(function(){
-                    SDK.call('devless', 'logout', [], function(response){
-                      console.log(response)
-
-                      window.location.href = "/signin";
-
-                    })
+                    // SDK.call('devless', 'logout', [], function(response){
+                    //   console.log(response)
+                    //
+                    //   window.location.href = "signin";
+                    //
+                    // })
                   })
 
         </script>
