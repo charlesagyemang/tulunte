@@ -33,7 +33,7 @@
                     <!-- Logo container-->
                     <div class="logo">
                         <!-- Text Logo -->
-                        <a href="/" class="logo">
+                        <a href="/new_dashboard" class="logo">
                             <span class="logo-small"><i class="mdi mdi-radar"></i></span>
                             <span class="logo-large"><i class="mdi mdi-radar"></i> Timexpert</span>
                         </a>
@@ -201,7 +201,6 @@
 
 
         <!-- jQuery  -->
-        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/popper.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
@@ -230,14 +229,6 @@
               window.location.href = "/new_dashboard/profile"
             })
 
-            //Make one api call to the backend
-
-            const PAR_AM =  JSON.parse(localStorage.user_details).id
-
-            data = {
-                  "getter": PAR_AM
-            }
-
             // get allUser data from recordsToSetUpinfo
             const myConfig = { headers: {
               Authorization: "Bearer " + localStorage.loginTokenGotten
@@ -249,7 +240,7 @@
               localStorage.setup_info = JSON.stringify(response.data);
               localStorage.daily_records = JSON.stringify(response.data.daily_records);
 
-              console.log(JSON.parse(localStorage.setup_info));
+              // console.log(JSON.parse(localStorage.setup_info));
 
 
               // form data
@@ -258,14 +249,14 @@
 
 
               activitiesArray.forEach(function(item, index){
-                console.log(item);
+                // console.log(item);
                 let badgeForm = `<div class="badge badge-pill badge-primary">${item}</div><br/>`
                 formActArray.push(badgeForm);
               })
 
 
 
-              console.log(activitiesArray);
+              // console.log(activitiesArray);
 
               $("#dash-small-activities-holder").html(formActArray)
 

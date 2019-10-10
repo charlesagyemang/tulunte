@@ -31,7 +31,7 @@
                     <!-- Logo container-->
                     <div class="logo">
                         <!-- Text Logo -->
-                        <a href="/" class="logo">
+                        <a href="/new_dashboard" class="logo">
                             <span class="logo-small"><i class="mdi mdi-radar"></i></span>
                             <span class="logo-large"><i class="mdi mdi-radar"></i> Timexpert</span>
                         </a>
@@ -103,7 +103,7 @@
                         <!-- Navigation Menu-->
                         <ul class="navigation-menu">
                             <li class="has-submenu">
-                                <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                                <a href="/new_dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
                             <li class="has-submenu">
                                 <a href="../add_new_record"><i class="mdi mdi-database"></i> <span> Daily Data Entry </span> </a>
@@ -160,7 +160,6 @@
 
 
         <!-- jQuery  -->
-        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
         <script src="../../assets/js/jquery.min.js"></script>
         <script src="../../assets/js/popper.min.js"></script>
         <script src="../../assets/js/bootstrap.min.js"></script>
@@ -180,22 +179,17 @@
         <!-- App js -->
         <script src="../../assets/js/jquery.core.js"></script>
         <script src="../../assets/js/jquery.app.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <script type="text/javascript">
+
+
           $(document).ready(function(){
 
             $("#go-to-profile").click(function(){
-              window.location.href = "/dashboard/profile"
+              window.location.href = "/new_dashboard/profile"
             })
 
-            // check for profile
-            SDK.call('devless', 'profile', [], function(response){
-              if (response.payload.error !== undefined) {
-                console.log(response.payload.error == undefined);
-                alert("Token Expired You Will Have To Sign In Again")
-                window.location.href = "/signin";
-              }
-            })
 
 
             let dataToUse = JSON.parse(localStorage.setup_info)
@@ -204,7 +198,7 @@
 
              // populate div with fields
 
-             $("#body-data").html(dataToUse.user_modal_body)
+             $("#body-data").html(dataToUse.userModalBody);
 
 
 
@@ -223,43 +217,113 @@
 
               today = mm + '/' + dd + '/' + yyyy;
 
-
-
              // create context by setting dat ahead of time
 
-             $("#date-today").html(today)
+             $("#date-today").html(today);
 
-            console.log(today + dataToUse.users_id)
-
-
-             let params =  {where:[`date_id,${(today + dataToUse.users_id)}`, `users_id,${dataToUse.users_id}`]} //{where:["date,02/08/2018"]}
-//             let params = {where: [`users_id,${dataToUse.users_id}`]}
-
-            //check for existing data
-
-            // query the dtata
-            SDK.queryData("dailyRecords", "daily_records_table", params, function(response){
-
-                console.log(response)
+              // console.log(today + dataToUse.id)
 
 
-              let checkExistenceCount = response.payload.results.length
+              console.log(dataToUse.dailyRecords);
 
-              console.log(checkExistenceCount)
+              let dailyRecordsExisting = dataToUse.dailyRecords;
 
-              // if statement to check if it exists
+              if (dailyRecordsExisting.length < 1)  {
+                // no record so go ahead and add shit
+                // try gettint the data and doing all  validations
 
-              if (checkExistenceCount > 0) {
+                var rawArray = dataToUse.userRawSetUpData.split(",")
+                var putInArray = [];
 
-                let roost = JSON.parse(response.payload.results[0].full_record);
+
+                // console.log(rawArray)
 
 
-               localStorage.rootsLen = roost.length;
+                $("#submit-daily-report").click(function(){
 
-                // save inside the localStorage
-                localStorage.existing_record = response.payload.results[0].id;
+                 let $this = $(this)
 
-                // porpulate the fields with
+
+                   for (var i = 0; i < dataToUse.userActivitiesLen; i++) {
+
+                     // get id and its vaqlue to use
+
+                     var mId = "#id-for-position-"+ (i+1);
+                     var value = $(mId).val();
+
+
+                     // check if value is empty
+
+                     if (value.length > 0) {
+                       var toup = [rawArray[i],parseInt(value)]
+                     } else {
+                       var toup = [rawArray[i],0]
+                     };
+
+                     putInArray.push(toup)
+
+                   }
+                   // final array
+                   // console.log(putInArray)
+
+
+                   //form post body for each day
+
+                   // data needed exact date, JSONArray, userId. #{full_record, date, users_id}
+
+                   finalBodyFormed = {
+                     full_record: JSON.stringify({ data: putInArray }),
+                     date: today,
+                     date_id: today + dataToUse.id
+                   }
+
+                   // put the stuff in a local storage
+
+                   localStorage.updateDetails = JSON.stringify(putInArray)
+
+
+                   console.log(finalBodyFormed)
+
+
+                   $this.text("Adding Data...")
+
+                   const myConfig = { headers: {
+                     Authorization: "Bearer " + localStorage.loginTokenGotten
+                   } }
+
+                   axios.post('http://localhost:3000/api/daily-records/', {
+                     fullRecord: JSON.stringify({ data: putInArray }),
+                     userId: localStorage.loginIdGotten,
+                     dateId: today + dataToUse.id,
+                     dateSpecial: today
+                   }, myConfig)
+                   .then(function (response) {
+                     console.log(response);
+                     $this.text("Added Successfully");
+                     alert("Added Successfully");
+                     putInArray=[];
+                     window.location.href = "/new_dashboard";
+                   })
+                   .catch(function (error) {
+                     console.log(error);
+                   });
+
+              });
+
+                return
+              }
+
+              // look for record with dateIdField
+
+
+              let record = dailyRecordsExisting.find(item => item.dateSpecial === "11/10/2019");
+
+              if (record !== undefined) {
+                console.log("record", record);
+
+                //update record But first fill in
+
+                let roost = record.fullRecord.data;
 
                 for (var i = 0; i < roost.length; i++) {
                     var mId = "#id-for-position-"+ (i+1);
@@ -271,177 +335,157 @@
 
                 $("#submit-daily-report").css("visibility","hidden");
 
-              } else {
 
-                // hide the post button
+                  // console.log("undefined", record);
 
-              };
+                 $("#update-daily-report").unbind("click").click(function(){
 
+                  $this  = $(this);
 
-            });
+                    // try gettint the data and doing all  validations
 
-
-
-
-
-             // try gettint the data and doing all  validations
-
-             var rawArray = dataToUse.user_raw_input_data.split(",")
-             var putInArray = [];
+                   var rawArray = dataToUse.userRawSetUpData.split(",")
+                   var putInArray = [];
 
 
-             // console.log(rawArray)
+                  // get current data instead
+
+                   for (var i = 0; i < dataToUse.userActivitiesLen; i++) {
+                      // get id and its vaqlue to use
+
+                      var mId = "#id-for-position-"+ (i+1);
+                      var value = $(mId).val();
+
+                      // check if value is empty
+
+                      if (value.length > 0) {
+                        var toup = [rawArray[i],parseInt(value)]
+                      } else {
+                        var toup = [rawArray[i],0]
+                      };
+
+                      putInArray.push(toup)
+                    }
+
+                    let id    = record.id;
+
+                    let updatedata = {
+                      fullRecord: JSON.stringify({ data: putInArray })
+                    }
+
+                    console.log(updatedata, id);
+                    //updatedata
+
+                    $this.text("Updating....");
+
+                    const myConfig = { headers: {
+                      Authorization: "Bearer " + localStorage.loginTokenGotten
+                    } }
 
 
-             $("#submit-daily-report").click(function(){
+                    axios.put(`http://localhost:3000/api/daily-records/${id}`, {
+                        fullRecord: JSON.stringify({ data: putInArray })
+                    }, myConfig)
+                    .then(function (response) {
+                      console.log(response);
+                      $this.text("Updated Successfully");
+                      alert("Updated Successfully");
+                      putInArray=[];
+                      window.location.href = "/new_dashboard";
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                      alert(error);
+                    });
+                 })
 
-              let $this = $(this)
-
-
-                for (var i = 0; i < dataToUse.user_activities_len; i++) {
-
-                  // get id and its vaqlue to use
-
-                  var mId = "#id-for-position-"+ (i+1);
-                  var value = $(mId).val();
-
-
-                  // check if value is empty
-
-                  if (value.length > 0) {
-                    var toup = [rawArray[i],parseInt(value)]
-                  } else {
-                    var toup = [rawArray[i],0]
-                  };
-
-                  putInArray.push(toup)
-
-                }
-                // final array
-                console.log(putInArray)
-
-
-                //form post body for each day
-
-                // data needed exact date, JSONArray, userId. #{full_record, date, users_id}
-
-                finalBodyFormed = {
-                  full_record: JSON.stringify(putInArray),
-                  date: today,
-                  users_id: dataToUse.users_id,
-                  date_id: today + dataToUse.users_id
-                }
-
-                // put the stuff in a local storage
-
-                localStorage.updateDetails = JSON.stringify(putInArray)
-
-
-                console.log(finalBodyFormed)
-
-
-                $this.text("Adding Data...")
-
-
-                // Post To Devless
-                SDK.addData("dailyRecords", "daily_records_table", finalBodyFormed,  function(response){
-
-                  if (response.status_code == 609) {
-                     $this.text("Added Successfully")
-
-                      // alert
-                      alert("Added Successfully")
-
-                      window.location.href = "/dashboard"
-                  }
-
-                  console.log(response)
-                })
-                // clear array
-
-                putInArray=[]
-
-             })// end of submit daily rep[ort cutton]
+                return
+              }
 
 
 
-             $("#update-daily-report").unbind("click").click(function(){
-
-              $this  = $(this);
-
+              $("#submit-daily-report").click(function(){
+                console.log("hehhehehee");
+                // no record so go ahead and add shit
                 // try gettint the data and doing all  validations
 
-               var rawArray = dataToUse.user_raw_input_data.split(",")
-               var putInArray = [];
+                var rawArray = dataToUse.userRawSetUpData.split(",")
+                var putInArray = [];
 
 
-              // get current data instead
-
-               for (var i = 0; i < dataToUse.user_activities_len; i++) {
-                  // get id and its vaqlue to use
-
-                  var mId = "#id-for-position-"+ (i+1);
-                  var value = $(mId).val();
-
-                  // check if value is empty
-
-                  if (value.length > 0) {
-                    var toup = [rawArray[i],parseInt(value)]
-                  } else {
-                    var toup = [rawArray[i],0]
-                  };
-
-                  putInArray.push(toup)
-                }
-
-                let id    = localStorage.existing_record;
-
-                let updatedata = {
-                  full_record: JSON.stringify(putInArray)
-                }
-
-                console.log(updatedata, id)
-                //updatedata
-
-                $this.text("Updating....")
+                  let $this = $(this)
 
 
-                SDK.updateData("dailyRecords", "daily_records_table", "id", id, updatedata, function(response){
+                   for (var i = 0; i < dataToUse.userActivitiesLen; i++) {
 
-                    console.log(response)
+                     // get id and its vaqlue to use
 
-                    if (response.status_code== 619) {
-
-                      $this.text("Updated Successfully")
-
-                      // alert
-                      alert("Updated Successfully")
-
-                       window.location.href = "/dashboard"
+                     var mId = "#id-for-position-"+ (i+1);
+                     var value = $(mId).val();
 
 
-                    };
-                })
+                     // check if value is empty
+
+                     if (value.length > 0) {
+                       var toup = [rawArray[i],parseInt(value)]
+                     } else {
+                       var toup = [rawArray[i],0]
+                     };
+
+                     putInArray.push(toup)
+
+                   }
 
 
-                putInArray=[]
+                   finalBodyFormed = {
+                     full_record: JSON.stringify({ data: putInArray }),
+                     date: today,
+                     date_id: today + dataToUse.id
+                   }
+
+                   // put the stuff in a local storage
+
+                   localStorage.updateDetails = JSON.stringify(putInArray)
 
 
-             })
+                   console.log(finalBodyFormed)
 
 
+                   $this.text("Adding Data...")
 
+                   const myConfig = { headers: {
+                     Authorization: "Bearer " + localStorage.loginTokenGotten
+                   } }
+
+                   axios.post('http://localhost:3000/api/daily-records/', {
+                     fullRecord: JSON.stringify({ data: putInArray }),
+                     userId: localStorage.loginIdGotten,
+                     dateId: today + dataToUse.id,
+                     dateSpecial: today
+                   }, myConfig)
+                   .then(function (response) {
+                     console.log(response);
+                     $this.text("Added Successfully");
+                     alert("Added Successfully");
+                     putInArray=[];
+                     window.location.href = "/new_dashboard";
+                   })
+                   .catch(function (error) {
+                     console.log(error);
+                   });
+
+              })
 
 
 
             $("#logout").unbind("click").click(function(){
-              SDK.call('devless', 'logout', [], function(response){
-                console.log(response)
-                window.location.href = "/signin";
-              })
+              // SDK.call('devless', 'logout', [], function(response){
+              //   console.log(response)
+              //   window.location.href = "/signin";
+              // })
             })
-
           })
+
         </script>
 
     </body>
