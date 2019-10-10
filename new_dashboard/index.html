@@ -101,7 +101,7 @@
                         <!-- Navigation Menu-->
                         <ul class="navigation-menu">
                             <li class="has-submenu">
-                                <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                                <a href="/new_dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
                             <li class="has-submenu">
                                 <a href="add_new_record"><i class="mdi mdi-database"></i> <span> Daily Data Entry </span> </a>
@@ -221,21 +221,13 @@
         <!-- App js -->
         <script src="../assets/js/jquery.core.js"></script>
         <script src="../assets/js/jquery.app.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <script type="text/javascript">
           $(document).ready(function(){
 
             $("#go-to-profile").click(function(){
-              window.location.href = "/dashboard/profile"
-            })
-
-            // check for profile
-            SDK.call('devless', 'profile', [], function(response){
-              if (response.payload.error !== undefined) {
-                console.log(response.payload.error == undefined);
-                alert("Token Expired You Will Have To Sign In Again")
-                window.location.href = "/signin";
-              }
+              window.location.href = "/new_dashboard/profile"
             })
 
             //Make one api call to the backend
@@ -245,18 +237,23 @@
             data = {
                   "getter": PAR_AM
             }
-            SDK.addData("graphQlMain", "query", data, function(response){
 
-              let data  = JSON.parse(response.message);
-              localStorage.setup_info = JSON.stringify(data.setup_info[0]);
-              localStorage.daily_records = JSON.stringify(data.daily_records);
+            // get allUser data from recordsToSetUpinfo
+            const myConfig = { headers: {
+              Authorization: "Bearer " + localStorage.loginTokenGotten
+            } }
+
+            axios.get(`http://localhost:3000/api/users/${localStorage.loginIdGotten}`, myConfig)
+            .then(function (response) {
+              console.log(response);
+              localStorage.setup_info = JSON.stringify(response.data);
+              localStorage.daily_records = JSON.stringify(response.data.daily_records);
 
               console.log(JSON.parse(localStorage.setup_info));
 
-              // use data to pupulate  stuff
 
               // form data
-              let activitiesArray = JSON.parse(localStorage.setup_info).user_raw_input_data.split(",");
+              let activitiesArray = JSON.parse(localStorage.setup_info).userRawSetUpData.split(",");
               let formActArray   = []
 
 
@@ -273,17 +270,18 @@
               $("#dash-small-activities-holder").html(formActArray)
 
 
-
             })
-
-
+            .catch(function (error) {
+              console.log(error);
+            });
 
 
             $("#logout").unbind("click").click(function(){
-              SDK.call('devless', 'logout', [], function(response){
-                console.log(response)
-                window.location.href = "/signin";
-              })
+              //TODO:: Expire token
+              // SDK.call('devless', 'logout', [], function(response){
+              //   console.log(response)
+              //   window.location.href = "/signin";
+              // })
             })
 
           })
