@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Timexpert</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
+        <!-- App css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="account-pages"></div>
+        <div class="clearfix"></div>
+        <div class="wrapper-page">
+            <div class="text-center">
+                <a href="/" class="logo"><span>Timexpert<span></span></span></a>
+                <h5 class="text-muted mt-0 font-600">Motto Here..</h5>
+            </div>
+        	<div class="m-t-40 card-box">
+                <div class="text-center">
+                    <h4 class="text-uppercase font-bold mb-0">Sign In</h4>
+                </div>
+                <div class="p-20">
+                    <form class="form-horizontal m-t-20" action="index.html">
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="username-entered" class="form-control" type="email" required="" placeholder="Email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input id="password-entered" class="form-control" type="password" required="" placeholder="Password">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group text-center m-t-30">
+                            <div class="col-xs-12">
+                                <button id="login-button" class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">Log In</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group m-t-30 mb-0">
+                            <div class="col-sm-12">
+                                <a href="/forgot-password" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <!-- end card-box-->
+
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p class="text-muted">Don't have an account? <a href="/signup" class="text-primary m-l-5"><b>Sign Up</b></a></p>
+                </div>
+            </div>
+
+        </div>
+        <!-- end wrapper page -->
+
+
+        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
+
+
+
+
+        <!-- jQuery  -->
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/popper.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/waves.js"></script>
+        <script src="../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- App js -->
+        <script src="../assets/js/jquery.core.js"></script>
+        <script src="../assets/js/jquery.app.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+          $("#login-button").unbind("click").click(function(e){
+            e.preventDefault();
+
+            let username = $("#username-entered").val();
+            let password = $("#password-entered").val();
+            $that        = $(this);
+
+
+
+
+
+            if (username.length > 0 & password.length> 0) {
+
+
+
+              axios.post('http://localhost:3000/api/users/login', {
+                email: username,
+                password: password
+              })
+              .then(function (response) {
+                console.log(response.data);
+
+                if (response.data.role == "user") {
+                  console.log(response.data);
+                  localStorage.loginTokenGotten = response.data.token;
+                  localStorage.loginIdGotten = response.data.id;
+                  $that.text("Success.. Redirecting")
+                  localStorage.owner_id     = response.data.id;
+                  localStorage.user_details = JSON.stringify(response.data);
+
+                  //init;
+
+                  localStorage.nn = "";
+                  localStorage.last_data = "";
+                  localStorage.i_data = "";
+                  localStorage.r_data = "";
+                  localStorage.sleeping = "";
+
+                  console.log(localStorage.owner_id);
+
+                  window.location.href = "/new_dashboard";
+                  return
+                }
+
+                //       const url = `/employee_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
+                //
+                //       window.location.href = url;
+
+
+                // passed all options
+              })
+              .catch(function (error) {
+                // failed all options
+                console.log(error);
+                alert(error);
+              });
+
+              //
+              //
+              //
+              //
+              // // push to devless
+              // // get user details
+              // let dataToSend = ['', username, '', password];
+              //
+              // $that.text("Logging in...")
+              //
+              // SDK.call('devless', 'login', dataToSend , function(response){
+              //
+              //   // validate
+              //   console.log(response.payload.result == false);
+              //
+              //   if (response.payload.result == false) {
+              //     // wrong credentrials
+              //     console.log("wrong cred");
+              //     $that.text("Wrong Credentials Please Try Again")
+              //
+              //   } else {
+              //     // check forthe user status
+              //     const bool = response.payload.result.profile.first_name.split(",")[0] === "worker"
+              //
+              //     console.log(bool);
+              //
+              //
+              //     if (bool) {
+              //
+              //       // console.log("worker");
+              //       const url = `/employee_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
+              //
+              //       window.location.href = url;
+              //
+              //     } else {
+              //
+              //       console.log("Go Ahead");
+              //
+              //       SDK.setToken(response.payload.result.token);
+              //       $that.text("Success.. Redirecting")
+              //
+              //       localStorage.owner_id     = response.payload.result.profile.id;
+              //       localStorage.user_details = JSON.stringify(response.payload.result.profile)
+              //
+              //
+              //
+              //       //init;
+              //
+              //       localStorage.nn = "";
+              //       localStorage.last_data = "";
+              //       localStorage.i_data = "";
+              //       localStorage.r_data = "";
+              //       localStorage.sleeping = "";
+              //
+              //       console.log(localStorage.owner_id);
+              //
+              //       window.location.href = "/dashboard";
+              //
+              //
+              //   }
+              //
+              //
+              //   }
+              //
+              // });
+
+
+            }else{
+              alert("fill all")
+            }
+          })
+        })
+
+        </script>
+
+	</body>
+</html>
