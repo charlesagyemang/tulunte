@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Adminto - Responsive Admin Dashboard Template</title>
+        <title>TimeExpert</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -175,23 +175,17 @@
 
                //querydata
 
-                console.log("loo",  localStorage.owner_id );
+             let respArray = JSON.parse(localStorage.setup_info).dailyRecords;
 
 
-            SDK.queryData("dailyRecords", "daily_records_table",  {where:[`users_id,${localStorage.owner_id}`], orderBy:"date"}, function(response){
+             let full_rec_example = respArray[respArray.length -1].fullRecord.data;
+
+             console.log(respArray);
+
+              let dataFromServer = respArray;
 
 
-             let respArray = response.payload.results
-
-
-             let full_rec_example = JSON.parse(respArray[respArray.length -1].full_record);
-
-             console.log(respArray)
-
-              let dataFromServer = response.payload.results
-
-
-              let checkExistenceCount = dataFromServer.length
+              let checkExistenceCount = respArray.length;
 
               //loop through the stuff abd create elements with unique ids and graph them
 
@@ -236,7 +230,7 @@
                     // loop tbhrough the number of higher data
 
                     for (let h = 0; h < checkExistenceCount; h++){
-                        let fullDataAtH = JSON.parse(dataFromServer[h].full_record);
+                        let fullDataAtH = dataFromServer[h].fullRecord.data;
                         let darray = fullDataAtH[i][1];
 
                         // seriesPush
@@ -272,7 +266,7 @@
                 //clear folArray
                 folArray = []
 
-                });
+
 
 
             })
