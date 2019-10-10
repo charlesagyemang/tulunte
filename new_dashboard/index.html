@@ -234,7 +234,7 @@
               Authorization: "Bearer " + localStorage.loginTokenGotten
             } }
 
-            axios.get(`http://melodic-time.herokuapp.com/api/users/${localStorage.loginIdGotten}`, myConfig)
+            axios.get(`https://melodic-time.herokuapp.com/api/users/${localStorage.loginIdGotten}`, myConfig)
             .then(function (response) {
               console.log(response);
               localStorage.setup_info = JSON.stringify(response.data);

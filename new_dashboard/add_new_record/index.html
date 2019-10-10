@@ -291,7 +291,7 @@
                      Authorization: "Bearer " + localStorage.loginTokenGotten
                    } }
 
-                   axios.post('http://melodic-time.herokuapp.com/api/daily-records/', {
+                   axios.post('https://melodic-time.herokuapp.com/api/daily-records/', {
                      fullRecord: JSON.stringify({ data: putInArray }),
                      userId: localStorage.loginIdGotten,
                      dateId: today + dataToUse.id,
@@ -383,7 +383,7 @@
                     } }
 
 
-                    axios.put(`http://melodic-time.herokuapp.com/api/daily-records/${id}`, {
+                    axios.put(`https://melodic-time.herokuapp.com/api/daily-records/${id}`, {
                         fullRecord: JSON.stringify({ data: putInArray })
                     }, myConfig)
                     .then(function (response) {
@@ -457,7 +457,7 @@
                      Authorization: "Bearer " + localStorage.loginTokenGotten
                    } }
 
-                   axios.post('http://melodic-time.herokuapp.com/api/daily-records/', {
+                   axios.post('https://melodic-time.herokuapp.com/api/daily-records/', {
                      fullRecord: JSON.stringify({ data: putInArray }),
                      userId: localStorage.loginIdGotten,
                      dateId: today + dataToUse.id,
