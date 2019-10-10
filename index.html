@@ -480,6 +480,8 @@
 
 <!--== theme-script -->
 <script src="l-assets/js/theme-script.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 
 <!-- inject js end -->
 
@@ -768,20 +770,32 @@ $(document).ready(function(){
     //----- Logic for email begins -------//
 
     $("#downloadEmail").unbind("click").click(function(){
+
       $this = $(this);
 
       $this.text("Emailing You...")
       emailValue =  $("#getDownloadEmail").val();
-      if (emailValue.length > 0) {
-        send = sendMail(emailValue);
-        $this.text("email sent successfully");
-        alert("Email Sending Was Successful You Should Receive An Email Containing The Download Link between now and 15 minutes. Enjoy The Book. Thank You")
-        $("#modClose").click();
-        // console.log(send);
-      } else {
+        if (emailValue.length > 0) {
+          axios.post(
+            'https://melodic-time.herokuapp.com/api/downloads/',
+            {
+              email: emailValue
+            }
+          )
+          .then(function (response) {
+            console.log(response.data);
+            $this.text("email sent successfully");
+            alert("Email Sending Was Successful You Should Receive An Email Containing The Download Link between now and 15 minutes. Enjoy The Book. Thank You")
+            $("#modClose").click();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          return
+        }
         $this.text("Submit");
         alert("please enter a valid email");
-      }
+
     })
 
     //------ Email Logi Ends ------//

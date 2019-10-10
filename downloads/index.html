@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Timexpert</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+
+        <!-- DataTables -->
+        <link href="../../assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <!-- Responsive datatable examples -->
+        <link href="../../assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <!-- Multi Item Selection examples -->
+        <link href="../../assets/plugins/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- App css -->
+        <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <div class="topbar-main">
+                <div class="container-fluid">
+
+                      <!-- Logo container-->
+                      <div class="logo">
+                          <!-- Text Logo -->
+                          <a href="/new_dashboard" class="logo">
+                              <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                              <span class="logo-large"><i class="mdi mdi-radar"></i>Download Admin Panel</span>
+                          </a>
+
+                      </div>
+                      <!-- End Logo container-->
+                    <!-- end menu-extras -->
+
+                    <div class="clearfix"></div>
+
+                </div> <!-- end container -->
+            </div>
+            <!-- end topbar-main -->
+
+            <div class="navbar-custom">
+
+            </div>
+
+
+
+        </header>
+        <!-- End Navigation Bar-->
+
+
+        <div class="wrapper">
+            <div class="container-fluid">
+              <br><br>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box table-responsive">
+                            <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead id="table-head">
+                                  <th>Date</th>
+                                  <th>Email</th>
+                                </thead>
+                                <tbody id="tbody-peds" >
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+            </div> <!-- end container -->
+
+
+            <!-- Right Sidebar -->
+
+
+        </div>
+        <!-- end wrapper -->
+
+        <!-- jQuery  -->
+        <script src="../../assets/js/jquery.min.js"></script>
+        <script src="../../assets/js/popper.min.js"></script>
+        <script src="../../assets/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/waves.js"></script>
+        <script src="../../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- Required datatable js -->
+        <script src="../../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../../assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- Buttons examples -->
+        <script src="../../assets/plugins/datatables/dataTables.buttons.min.js"></script>
+        <script src="../../assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
+        <script src="../../assets/plugins/datatables/jszip.min.js"></script>
+        <script src="../../assets/plugins/datatables/pdfmake.min.js"></script>
+        <script src="../../assets/plugins/datatables/vfs_fonts.js"></script>
+        <script src="../../assets/plugins/datatables/buttons.html5.min.js"></script>
+        <script src="../../assets/plugins/datatables/buttons.print.min.js"></script>
+
+        <!-- Key Tables -->
+        <script src="../../assets/plugins/datatables/dataTables.keyTable.min.js"></script>
+
+        <!-- Responsive examples -->
+        <script src="../../assets/plugins/datatables/dataTables.responsive.min.js"></script>
+        <script src="../../assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+        <!-- Selection table -->
+        <script src="../../assets/plugins/datatables/dataTables.select.min.js"></script>
+
+        <!-- App js -->
+        <script src="../../assets/js/jquery.core.js"></script>
+        <script src="../../assets/js/jquery.app.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+        <script type="text/javascript">
+
+          $(document).ready(function(){
+
+
+
+            // console.log(`<tr><td>${currentDate}</td>${arrayTwo}</tr>`)
+            // bigArray.push(`<tr><td>${currentDate}</td>${arrayTwo}</tr>`);
+
+            axios.get('https://melodic-time.herokuapp.com/api/downloads/')
+            .then(function (response) {
+              console.log(response);
+              data =  response.data
+              bigArray = [];
+
+              for (var i = 0; i < data.length; i++) {
+                // data[i].email
+                bigArray.push(`
+                  <tr>
+                    <td>${data[i].createdAt.split("T")[0]}</td>
+                    <td>${data[i].email}</td>
+                  </tr>
+                  `);
+              }
+
+              $("#tbody-peds").html(bigArray);
+
+              console.log("Big data",bigArray);
+              // put it inside the table
+              $("#tbody-peds").html(bigArray);
+
+              // Default Datatable
+              $('#datatable').DataTable();
+
+
+                //Buttons examples
+                var table = $('#datatable-buttons').DataTable({
+                    lengthChange: false,
+                    buttons: ['copy', 'excel', 'pdf']
+                });
+
+                // Key Tables
+
+                $('#key-table').DataTable({
+                    keys: true
+                });
+
+                // Responsive Datatable
+                $('#responsive-datatable').DataTable();
+
+                // Multi Selection Datatable
+                $('#selection-datatable').DataTable({
+                    select: {
+                        style: 'multi'
+                    }
+                });
+
+                table.buttons().container()
+                    .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+
+                  })
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+
+            // get downloads
+
+
+
+
+
+
+                  $("#logout").unbind("click").click(function(){
+                    // SDK.call('devless', 'logout', [], function(response){
+                    //   console.log(response)
+                    //
+                    //   window.location.href = "signin";
+                    //
+                    // })
+                  })
+
+        </script>
+
+    </body>
+</html>
