@@ -239,6 +239,8 @@
                         let fullDataAtH = JSON.parse(dataFromServer[h].full_record);
                         let darray = fullDataAtH[i][1];
 
+                        console.log("full Path", dataFromServer[h]);
+
                         // seriesPush
                         newSeries.push(darray);
 
@@ -246,7 +248,7 @@
                         compSeriesUp.push(darray + 1)
 
                         //label push
-                        newLabel.push(`Day ${h+1}`);
+                        newLabel.push(`${dataFromServer[h].date}`);
 
                     }
 
