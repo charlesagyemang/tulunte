@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Timexpert</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
+        <!-- App css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="account-pages"></div>
+        <div class="clearfix"></div>
+        <div class="wrapper-page">
+            <div class="text-center">
+                <a href="/" class="logo"><span>Timexpert<span></span></span></a>
+                <h5 class="text-muted mt-0 font-600">Motto Here</h5>
+            </div>
+        	<div class="m-t-40 card-box">
+                <div class="text-center">
+                    <h4 class="text-uppercase font-bold mb-0">Register</h4>
+                </div>
+                <div class="p-20">
+                    <form class="form-horizontal m-t-20" action="index.html">
+
+						<div class="form-group ">
+							<div class="col-xs-12">
+								<input id="reg-email" class="form-control" type="email" required="" placeholder="Email">
+							</div>
+						</div>
+
+						<div class="form-group ">
+							<div class="col-xs-12">
+								<input id="reg-username" class="form-control" type="text" required="" placeholder="Username">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-xs-12">
+								<input id="reg-password" class="form-control" type="password" required="" placeholder="Password">
+							</div>
+						</div>
+
+						<div class="form-group text-center m-t-40 mb-0">
+							<div class="col-xs-12">
+								<button id="signup-button" class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">
+									Register
+								</button>
+							</div>
+						</div>
+
+					</form>
+
+                </div>
+            </div>
+            <!-- end card-box -->
+
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					<p class="text-muted">Already have account?<a href="/signin" class="text-primary m-l-5"><b>Sign In</b></a></p>
+				</div>
+			</div>
+
+        </div>
+        <!-- end wrapper page -->
+
+
+        <!-- jQuery  -->
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/popper.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/waves.js"></script>
+        <script src="../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- App js -->
+        <script src="../assets/js/jquery.core.js"></script>
+        <script src="../assets/js/jquery.app.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script type="text/javascript">
+
+          $(document).ready(function(){
+
+            //signup essentials
+            $("#signup-button").unbind("click").click(function(e){
+
+              e.preventDefault();
+              // Get The values
+
+              let email     = $("#reg-email").val();
+              let username  = $("#reg-username").val();
+              let password  = $("#reg-password").val();
+              let rnd       = Math.floor((Math.random() * 9999) + 10000) + "";
+              let $this     = $(this);
+
+              // check the nullness
+
+              if (email.length > 0 & username.length > 0 & password.length > 0 ) {
+                console.log("email - " + email + " username - " + username + "password - " + password);
+
+                // /*
+                //Signup
+                axios.post('http://localhost:3000/api/users/register', {
+                  name: username,
+                  email: email,
+                  password: password,
+                  role: "user"
+                })
+                .then(function (response) {
+                  console.log(response);
+
+
+                  localStorage.owner_id  = response.data.id;
+                  localStorage.loginTokenGotten = response.data.token;
+                  localStorage.loginIdGotten = response.data.id;
+                  localStorage.user_details = JSON.stringify(response.data);
+
+                  // init usables
+                  localStorage.nn = "";
+                  localStorage.last_data = "";
+                  localStorage.i_data = "";
+                  localStorage.r_data = "";
+                  localStorage.sleeping = "";
+
+                  console.log(localStorage.owner_id);
+
+                  window.location.href = "/new_user_set_up";
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                  alert("Email Or Username Has Been Taken Please Change It And Try Again");
+                });
+                // */
+
+
+              } else {
+                console.log("Please fill all boxes");
+              }
+
+            })
+
+
+          })
+
+        </script>
+
+	</body>
+</html>
