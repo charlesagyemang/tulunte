@@ -110,7 +110,7 @@
 
 
 
-              axios.post('http://localhost:3000/api/users/login', {
+              axios.post('http://melodic-time.herokuapp.com/api/users/login', {
                 email: username,
                 password: password
               })
@@ -152,71 +152,7 @@
                 alert(error);
               });
 
-              //
-              //
-              //
-              //
-              // // push to devless
-              // // get user details
-              // let dataToSend = ['', username, '', password];
-              //
-              // $that.text("Logging in...")
-              //
-              // SDK.call('devless', 'login', dataToSend , function(response){
-              //
-              //   // validate
-              //   console.log(response.payload.result == false);
-              //
-              //   if (response.payload.result == false) {
-              //     // wrong credentrials
-              //     console.log("wrong cred");
-              //     $that.text("Wrong Credentials Please Try Again")
-              //
-              //   } else {
-              //     // check forthe user status
-              //     const bool = response.payload.result.profile.first_name.split(",")[0] === "worker"
-              //
-              //     console.log(bool);
-              //
-              //
-              //     if (bool) {
-              //
-              //       // console.log("worker");
-              //       const url = `/employee_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
-              //
-              //       window.location.href = url;
-              //
-              //     } else {
-              //
-              //       console.log("Go Ahead");
-              //
-              //       SDK.setToken(response.payload.result.token);
-              //       $that.text("Success.. Redirecting")
-              //
-              //       localStorage.owner_id     = response.payload.result.profile.id;
-              //       localStorage.user_details = JSON.stringify(response.payload.result.profile)
-              //
-              //
-              //
-              //       //init;
-              //
-              //       localStorage.nn = "";
-              //       localStorage.last_data = "";
-              //       localStorage.i_data = "";
-              //       localStorage.r_data = "";
-              //       localStorage.sleeping = "";
-              //
-              //       console.log(localStorage.owner_id);
-              //
-              //       window.location.href = "/dashboard";
-              //
-              //
-              //   }
-              //
-              //
-              //   }
-              //
-              // });
+
 
 
             }else{

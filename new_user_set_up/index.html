@@ -385,7 +385,7 @@
                    Authorization: "Bearer " + localStorage.loginTokenGotten
                  } }
 
-                 axios.put(`http://localhost:3000/api/users/${localStorage.loginIdGotten}`, {
+                 axios.put(`http://melodic-time.herokuapp.com/api/users/${localStorage.loginIdGotten}`, {
                    phoneNumber: section1Data.user_number,
                    age: section1Data.user_age,
                    status: section1Data.user_student_status,

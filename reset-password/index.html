@@ -105,12 +105,12 @@
            $("#reset-button").unbind('click').click(function(){
 
              let password = $("#password-entered").val();
-             const baseUrl = 'http://localhost:9090/';
+             const baseUrl = 'https://thetimexpert.com/';
 
               if (password.length > 0) {
                //TODO:: ChaNGE THE URL TO UNIVERSAL
 
-                makeCall("http://localhost:3000/api", password, token);
+                makeCall("http://melodic-time.herokuapp.com/api", password, token);
                 return
               }
 

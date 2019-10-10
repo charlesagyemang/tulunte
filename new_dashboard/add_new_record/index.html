@@ -291,7 +291,7 @@
                      Authorization: "Bearer " + localStorage.loginTokenGotten
                    } }
 
-                   axios.post('http://localhost:3000/api/daily-records/', {
+                   axios.post('http://melodic-time.herokuapp.com/api/daily-records/', {
                      fullRecord: JSON.stringify({ data: putInArray }),
                      userId: localStorage.loginIdGotten,
                      dateId: today + dataToUse.id,
@@ -316,7 +316,7 @@
               // look for record with dateIdField
 
 
-              let record = dailyRecordsExisting.find(item => item.dateSpecial === today);
+              let record = dailyRecordsExisting.find(item => item.dateId === today + localStorage.loginIdGotten);
 
               if (record !== undefined) {
                 console.log("record", record);
@@ -383,7 +383,7 @@
                     } }
 
 
-                    axios.put(`http://localhost:3000/api/daily-records/${id}`, {
+                    axios.put(`http://melodic-time.herokuapp.com/api/daily-records/${id}`, {
                         fullRecord: JSON.stringify({ data: putInArray })
                     }, myConfig)
                     .then(function (response) {
@@ -457,7 +457,7 @@
                      Authorization: "Bearer " + localStorage.loginTokenGotten
                    } }
 
-                   axios.post('http://localhost:3000/api/daily-records/', {
+                   axios.post('http://melodic-time.herokuapp.com/api/daily-records/', {
                      fullRecord: JSON.stringify({ data: putInArray }),
                      userId: localStorage.loginIdGotten,
                      dateId: today + dataToUse.id,
