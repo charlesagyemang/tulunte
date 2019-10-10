@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Adminto - Responsive Admin Dashboard Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+
+        <!--Chartist Chart CSS -->
+        <link rel="stylesheet" href="../../assets/plugins/chartist/dist/chartist.min.css">
+
+        <!-- App css -->
+        <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <div class="topbar-main">
+                <div class="container-fluid">
+
+                    <!-- Logo container-->
+                    <div class="logo">
+                        <!-- Text Logo -->
+                        <a href="/" class="logo">
+                            <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                            <span class="logo-large"><i class="mdi mdi-radar"></i> Timexpert</span>
+                        </a>
+                        <!-- Image Logo -->
+                        <!-- <a href="/" class="logo">
+                            <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
+                            <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
+                        </a> -->
+
+                    </div>
+                    <!-- End Logo container-->
+
+
+                    <div class="menu-extras topbar-custom">
+
+                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                            <li class="menu-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+
+
+
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <img src="../../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
+                                    <!-- item-->
+                                    <a href="../profile" class="dropdown-item notify-item">
+                                        <i class="ti-user m-r-5"></i> Profile
+                                    </a>
+
+                                    <!-- item-->
+                                    <a  id="logout" class="dropdown-item notify-item">
+                                        <i  class="ti-power-off m-r-5"></i> Logout
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- end menu-extras -->
+
+                    <!-- end menu-extras -->
+
+                    <div class="clearfix"></div>
+
+                </div> <!-- end container -->
+            </div>
+            <!-- end topbar-main -->
+
+            <div class="navbar-custom">
+                <div class="container-fluid">
+                    <div id="navigation">
+                        <!-- Navigation Menu-->
+                        <ul class="navigation-menu">
+                            <li class="has-submenu">
+                                <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="../add_new_record"><i class="mdi mdi-database"></i> <span> Daily Data Entry </span> </a>
+                            </li>
+                             <li class="has-submenu">
+                                <a href="../daily_records"><i class="mdi mdi-database-check"></i> <span>  Records </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="../statistics"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+                            </li>
+                             <li class="has-submenu">
+                                <a href="../data_meaning"><i class="mdi mdi-vector-intersection"></i> <span> Interprete Data </span> </a>
+                            </li>
+                        </ul>
+                        <!-- End navigation menu -->
+                    </div> <!-- end #navigation -->
+                </div> <!-- end container -->
+            </div>
+
+        </header>
+        <!-- End Navigation Bar-->
+
+
+        <div class="wrapper">
+            <div class="container-fluid">
+
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <h4 class="page-title">Statistics Of All Data Entered</h4>
+                    </div>
+                </div>
+                <!-- end page title end breadcrumb -->
+
+
+                <div id="all-chart" class="row">
+
+                </div>
+
+
+            </div> <!-- end container -->
+
+
+            <!-- Right Sidebar -->
+
+        </div>
+        <!-- end wrapper -->
+
+        <!-- jQuery  -->
+          <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
+        <script src="../../assets/js/jquery.min.js"></script>
+        <script src="../../assets/js/popper.min.js"></script>
+        <script src="../../assets/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/waves.js"></script>
+        <script src="../../assets/js/jquery.slimscroll.js"></script>
+
+        <!--Chartist Chart-->
+        <script src="../../assets/plugins/chartist/dist/chartist.min.js"></script>
+        <script src="../../assets/plugins/chartist/dist/chartist-plugin-tooltip.min.js"></script>
+        <script src="../../assets/pages/jquery.chartist.init.js"></script>
+
+        <!-- App js -->
+        <script src="../../assets/js/jquery.core.js"></script>
+        <script src="../../assets/js/jquery.app.js"></script>
+
+        <script>
+            $(document).ready(function(){
+
+               //querydata
+
+                console.log("loo",  localStorage.owner_id );
+
+
+            SDK.queryData("dailyRecords", "daily_records_table",  {where:[`users_id,${localStorage.owner_id}`], orderBy:"date"}, function(response){
+
+
+             let respArray = response.payload.results
+
+
+             let full_rec_example = JSON.parse(respArray[respArray.length -1].full_record);
+
+             console.log(respArray)
+
+              let dataFromServer = response.payload.results
+
+
+              let checkExistenceCount = dataFromServer.length
+
+              //loop through the stuff abd create elements with unique ids and graph them
+
+              //loop first
+
+              let folArray = [];
+
+
+
+
+              for(let i =0; i < full_rec_example.length; i++){
+
+                  // create the graphs
+
+                  let chartBody = `<div class="col-xl-12">
+                        <div class="card-box">
+
+                            <h4 class="header-title m-t-0 m-b-30">${full_rec_example[i][0]} chart</h4>
+
+                            <div id="simple-line-chart${(i+1)}" class="ct-chart ct-golden-section simple-line-chart"></div>
+                        </div>
+                    </div><!-- end col-->`
+
+                  folArray.push(chartBody);
+
+              }
+
+
+                $("#all-chart").append(folArray);
+
+
+
+                // loop thourgh the body and create Js For it
+                for(let i =0; i < full_rec_example.length; i++){
+
+                    //create series
+
+                    let newSeries = [];
+                    let compSeriesUp = [];
+                    let newLabel = [];
+
+                    // loop tbhrough the number of higher data
+
+                    for (let h = 0; h < checkExistenceCount; h++){
+                        let fullDataAtH = JSON.parse(dataFromServer[h].full_record);
+                        let darray = fullDataAtH[i][1];
+
+                        // seriesPush
+                        newSeries.push(darray);
+
+                        //comp series Up
+                        compSeriesUp.push(darray + 1)
+
+                        //label push
+                        newLabel.push(`Day ${h+1}`);
+
+                    }
+
+                     console.log(newSeries)
+                    //Simple line chart
+                    new Chartist.Line(`#simple-line-chart${(i+1)}`, {
+                      labels: newLabel,
+                      series: [newSeries,compSeriesUp]
+                    }, {
+                      fullWidth: true,
+                      chartPadding: {
+                        right: 40
+                      },
+                      plugins: [
+                        Chartist.plugins.tooltip()
+                      ]
+                    });
+                }
+
+
+
+
+                //clear folArray
+                folArray = []
+
+                });
+
+
+            })
+
+        </script>
+
+    </body>
+</html>

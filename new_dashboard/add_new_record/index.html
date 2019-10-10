@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Timexpert</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+
+        <!--Morris Chart CSS -->
+        <link rel="stylesheet" href="../../assets/plugins/morris/morris.css">
+
+        <!-- App css -->
+        <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <div class="topbar-main">
+                <div class="container-fluid">
+
+                    <!-- Logo container-->
+                    <div class="logo">
+                        <!-- Text Logo -->
+                        <a href="/" class="logo">
+                            <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                            <span class="logo-large"><i class="mdi mdi-radar"></i> Timexpert</span>
+                        </a>
+                        <!-- Image Logo -->
+                        <!-- <a href="/" class="logo">
+                            <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
+                            <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
+                        </a> -->
+
+                    </div>
+                    <!-- End Logo container-->
+
+                    <div class="menu-extras topbar-custom">
+
+                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                            <li class="menu-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+
+
+
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <img src="../../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
+                                    <!-- item-->
+                                    <a href="../profile" class="dropdown-item notify-item">
+                                        <i class="ti-user m-r-5"></i> Profile
+                                    </a>
+
+                                    <!-- item-->
+                                    <a  id="logout" class="dropdown-item notify-item">
+                                        <i  class="ti-power-off m-r-5"></i> Logout
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- end menu-extras -->
+
+
+
+
+                    <div class="clearfix"></div>
+
+                </div> <!-- end container -->
+            </div>
+            <!-- end topbar-main -->
+
+
+
+            <div class="navbar-custom">
+                <div class="container-fluid">
+                    <div id="navigation">
+                        <!-- Navigation Menu-->
+                        <ul class="navigation-menu">
+                            <li class="has-submenu">
+                                <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="../add_new_record"><i class="mdi mdi-database"></i> <span> Daily Data Entry </span> </a>
+                            </li>
+                             <li class="has-submenu">
+                                <a href="../daily_records"><i class="mdi mdi-database-check"></i> <span>  Records </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="../statistics"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+                            </li>
+                             <li class="has-submenu">
+                                <a href="../data_meaning"><i class="mdi mdi-vector-intersection"></i> <span> Interprete Data </span> </a>
+                            </li>
+                        </ul>
+                        <!-- End navigation menu -->
+                    </div> <!-- end #navigation -->
+                </div> <!-- end container -->
+            </div>
+
+
+        </header>
+        <!-- End Navigation Bar-->
+
+        <body>
+            <div class = "container-fluid">
+
+                <div class="wrapper">
+                            <div class="container-fluid">
+
+                                <!-- Page-Title -->
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <h4 class="page-title">Please Fill The Form Below Correctly For Today <a id = "date-today">Tuesday</a></h4>
+                                    </div>
+                                </div>
+                                <!-- end page title end breadcrumb -->
+
+                                <div class="row">
+
+                                      <div class="col-sm-9">
+                                        <div id = "body-data">
+                                        </div><br />
+                                        <button id="submit-daily-report" class = "btn btn-primary btn-lg">Submit Record</button>
+                                        <button id="update-daily-report" class = "btn btn-primary btn-lg hidden" style="visibility: hidden;">Update Record</button>
+                                      </div>
+                                 </div>
+                                </div>
+
+                                </div>
+                        <!-- end row -->
+                    </div> <!-- end container -->
+
+
+
+        <!-- jQuery  -->
+        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
+        <script src="../../assets/js/jquery.min.js"></script>
+        <script src="../../assets/js/popper.min.js"></script>
+        <script src="../../assets/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/waves.js"></script>
+        <script src="../../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- KNOB JS -->
+        <!--[if IE]>
+        <script type="text/javascript" src="assets/plugins/jquery-knob/excanvas.js"></script>
+        <![endif]-->
+        <script src="../../assets/plugins/jquery-knob/jquery.knob.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../../assets/pages/jquery.dashboard.js"></script>
+
+
+        <!-- App js -->
+        <script src="../../assets/js/jquery.core.js"></script>
+        <script src="../../assets/js/jquery.app.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+
+            $("#go-to-profile").click(function(){
+              window.location.href = "/dashboard/profile"
+            })
+
+            // check for profile
+            SDK.call('devless', 'profile', [], function(response){
+              if (response.payload.error !== undefined) {
+                console.log(response.payload.error == undefined);
+                alert("Token Expired You Will Have To Sign In Again")
+                window.location.href = "/signin";
+              }
+            })
+
+
+            let dataToUse = JSON.parse(localStorage.setup_info)
+             // console.log(dataToUse)
+
+
+             // populate div with fields
+
+             $("#body-data").html(dataToUse.user_modal_body)
+
+
+
+              var today = new Date();
+              var dd = today.getDate();
+              var mm = today.getMonth()+1; //January is 0!
+              var yyyy = today.getFullYear();
+
+              if(dd<10) {
+                  dd = '0'+dd
+              }
+
+              if(mm<10) {
+                  mm = '0'+mm
+              }
+
+              today = mm + '/' + dd + '/' + yyyy;
+
+
+
+             // create context by setting dat ahead of time
+
+             $("#date-today").html(today)
+
+            console.log(today + dataToUse.users_id)
+
+
+             let params =  {where:[`date_id,${(today + dataToUse.users_id)}`, `users_id,${dataToUse.users_id}`]} //{where:["date,02/08/2018"]}
+//             let params = {where: [`users_id,${dataToUse.users_id}`]}
+
+            //check for existing data
+
+            // query the dtata
+            SDK.queryData("dailyRecords", "daily_records_table", params, function(response){
+
+                console.log(response)
+
+
+              let checkExistenceCount = response.payload.results.length
+
+              console.log(checkExistenceCount)
+
+              // if statement to check if it exists
+
+              if (checkExistenceCount > 0) {
+
+                let roost = JSON.parse(response.payload.results[0].full_record);
+
+
+               localStorage.rootsLen = roost.length;
+
+                // save inside the localStorage
+                localStorage.existing_record = response.payload.results[0].id;
+
+                // porpulate the fields with
+
+                for (var i = 0; i < roost.length; i++) {
+                    var mId = "#id-for-position-"+ (i+1);
+                    $(mId).val(roost[i][1]);
+                }
+
+                // make update available
+                $("#update-daily-report").css("visibility","");
+
+                $("#submit-daily-report").css("visibility","hidden");
+
+              } else {
+
+                // hide the post button
+
+              };
+
+
+            });
+
+
+
+
+
+             // try gettint the data and doing all  validations
+
+             var rawArray = dataToUse.user_raw_input_data.split(",")
+             var putInArray = [];
+
+
+             // console.log(rawArray)
+
+
+             $("#submit-daily-report").click(function(){
+
+              let $this = $(this)
+
+
+                for (var i = 0; i < dataToUse.user_activities_len; i++) {
+
+                  // get id and its vaqlue to use
+
+                  var mId = "#id-for-position-"+ (i+1);
+                  var value = $(mId).val();
+
+
+                  // check if value is empty
+
+                  if (value.length > 0) {
+                    var toup = [rawArray[i],parseInt(value)]
+                  } else {
+                    var toup = [rawArray[i],0]
+                  };
+
+                  putInArray.push(toup)
+
+                }
+                // final array
+                console.log(putInArray)
+
+
+                //form post body for each day
+
+                // data needed exact date, JSONArray, userId. #{full_record, date, users_id}
+
+                finalBodyFormed = {
+                  full_record: JSON.stringify(putInArray),
+                  date: today,
+                  users_id: dataToUse.users_id,
+                  date_id: today + dataToUse.users_id
+                }
+
+                // put the stuff in a local storage
+
+                localStorage.updateDetails = JSON.stringify(putInArray)
+
+
+                console.log(finalBodyFormed)
+
+
+                $this.text("Adding Data...")
+
+
+                // Post To Devless
+                SDK.addData("dailyRecords", "daily_records_table", finalBodyFormed,  function(response){
+
+                  if (response.status_code == 609) {
+                     $this.text("Added Successfully")
+
+                      // alert
+                      alert("Added Successfully")
+
+                      window.location.href = "/dashboard"
+                  }
+
+                  console.log(response)
+                })
+                // clear array
+
+                putInArray=[]
+
+             })// end of submit daily rep[ort cutton]
+
+
+
+             $("#update-daily-report").unbind("click").click(function(){
+
+              $this  = $(this);
+
+                // try gettint the data and doing all  validations
+
+               var rawArray = dataToUse.user_raw_input_data.split(",")
+               var putInArray = [];
+
+
+              // get current data instead
+
+               for (var i = 0; i < dataToUse.user_activities_len; i++) {
+                  // get id and its vaqlue to use
+
+                  var mId = "#id-for-position-"+ (i+1);
+                  var value = $(mId).val();
+
+                  // check if value is empty
+
+                  if (value.length > 0) {
+                    var toup = [rawArray[i],parseInt(value)]
+                  } else {
+                    var toup = [rawArray[i],0]
+                  };
+
+                  putInArray.push(toup)
+                }
+
+                let id    = localStorage.existing_record;
+
+                let updatedata = {
+                  full_record: JSON.stringify(putInArray)
+                }
+
+                console.log(updatedata, id)
+                //updatedata
+
+                $this.text("Updating....")
+
+
+                SDK.updateData("dailyRecords", "daily_records_table", "id", id, updatedata, function(response){
+
+                    console.log(response)
+
+                    if (response.status_code== 619) {
+
+                      $this.text("Updated Successfully")
+
+                      // alert
+                      alert("Updated Successfully")
+
+                       window.location.href = "/dashboard"
+
+
+                    };
+                })
+
+
+                putInArray=[]
+
+
+             })
+
+
+
+
+
+
+            $("#logout").unbind("click").click(function(){
+              SDK.call('devless', 'logout', [], function(response){
+                console.log(response)
+                window.location.href = "/signin";
+              })
+            })
+
+          })
+        </script>
+
+    </body>
+</html>

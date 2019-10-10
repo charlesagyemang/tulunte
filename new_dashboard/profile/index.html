@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Timexpert</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+
+        <!--Morris Chart CSS -->
+        <link rel="stylesheet" href="../../assets/plugins/morris/morris.css">
+
+        <!-- App css -->
+        <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+        <a style="padding:10px;display:block;" href="http://androidcss.com/css/css3-floating-button-tutorial/" target="_blank">Click here for complete tutorial</a>
+
+          <!-- Code begins here -->
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <div class="topbar-main">
+                <div class="container-fluid">
+
+                    <!-- Logo container-->
+                    <div class="logo">
+                        <!-- Text Logo -->
+                        <a href="/" class="logo">
+                            <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                            <span class="logo-large"><i class="mdi mdi-radar"></i> Timexpert</span>
+                        </a>
+                        <!-- Image Logo -->
+                        <!-- <a href="/" class="logo">
+                            <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
+                            <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
+                        </a> -->
+
+                    </div>
+                    <!-- End Logo container-->
+
+                    <div class="menu-extras topbar-custom">
+
+                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                            <li class="menu-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+
+
+
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <img src="../../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
+                                    <!-- item-->
+                                    <a href="../profile" class="dropdown-item notify-item">
+                                        <i class="ti-user m-r-5"></i> Profile
+                                    </a>
+
+                                    <!-- item-->
+                                    <a  id="logout" class="dropdown-item notify-item">
+                                        <i  class="ti-power-off m-r-5"></i> Logout
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- end menu-extras -->
+
+
+
+
+                    <div class="clearfix"></div>
+
+                </div> <!-- end container -->
+            </div>
+            <!-- end topbar-main -->
+
+            <div class="navbar-custom">
+                <div class="container-fluid">
+                    <div id="navigation">
+                        <!-- Navigation Menu-->
+                        <ul class="navigation-menu">
+                            <li class="has-submenu">
+                                <a href="/dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="../add_new_record"><i class="mdi mdi-database"></i> <span> Daily Data Entry </span> </a>
+                            </li>
+                             <li class="has-submenu">
+                                <a href="../daily_records"><i class="mdi mdi-database-check"></i> <span>  Records </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="../statistics"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+                            </li>
+                             <li class="has-submenu">
+                                <a href="../data_meaning"><i class="mdi mdi-vector-intersection"></i> <span> Interprete Data </span> </a>
+                            </li>
+                        </ul>
+                        <!-- End navigation menu -->
+                    </div> <!-- end #navigation -->
+                </div> <!-- end container -->
+            </div>
+
+
+        </header>
+        <!-- End Navigation Bar-->
+
+        <div class="wrapper">
+                    <div class="container-fluid">
+
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <h4 class="page-title">Profile & Activities</h4>
+                            </div>
+                        </div>
+                        <!-- end page title end breadcrumb -->
+
+
+                              <form class="form-horizontal" role="form">
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Your Real Age</label>
+                                    <div class="col-9">
+                                        <input id="user-age" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                  <div class="form-group row">
+                                      <label class="col-3 col-form-label">Phone Number</label>
+                                      <div class="col-9">
+                                          <input id="user-phone" type="text" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <label class="col-md-3 control-label " for="confirm1">Student Or Worker? </label>
+                                      <div class="col-md-9">
+                                        <div class="radio radio-info form-check-inline">
+                                            <input type="radio" id="inlineRadio1" value="student" name="radioInline" >
+                                            <label for="inlineRadio1">Student </label>
+                                        </div>
+                                        <div class="radio radio-info form-check-inline">
+                                            <input  type="radio" id="inlineRadio2" value="worker" name="radioInline" >
+                                            <label for="inlineRadio1"> Worker </label>
+                                        </div>
+                                        <div class="radio form-check-inline">
+                                            <input  type="radio" id="inlineRadio3" value="both" name="radioInline" >
+                                            <label for="inlineRadio1"> Both </label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  <div class="form-group row">
+                                    <label class="col-3 col-form-label">Activities You Engage In (Please separate with commas)</label>
+                                    <div class="col-9">
+                                        <input id="user-activities" type="text" class="form-control">
+                                    </div>
+                                  </div>
+
+
+                                  <button  id="btn-update" class="btn btn-lg btn-primary btn-rounded" type="button" name="button">Update Record</button>
+
+                              </form>
+                        </div>
+                        <!-- end row -->
+                    </div> <!-- end container -->
+
+
+
+        <!-- jQuery  -->
+        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
+        <script src="../../assets/js/jquery.min.js"></script>
+        <script src="../../assets/js/popper.min.js"></script>
+        <script src="../../assets/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/waves.js"></script>
+        <script src="../../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- KNOB JS -->
+        <!--[if IE]>
+        <script type="text/javascript" src="assets/plugins/jquery-knob/excanvas.js"></script>
+        <![endif]-->
+        <script src="../../assets/plugins/jquery-knob/jquery.knob.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../../assets/pages/jquery.dashboard.js"></script>
+
+
+        <!-- App js -->
+        <script src="../../assets/js/jquery.core.js"></script>
+        <script src="../../assets/js/jquery.app.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+
+            $("#go-to-profile").click(function(){
+              window.location.href = "/dashboard/profile"
+            })
+
+            // check for profile
+            SDK.call('devless', 'profile', [], function(response){
+              if (response.payload.error !== undefined) {
+                console.log(response.payload.error == undefined);
+                alert("Token Expired You Will Have To Sign In Again")
+                window.location.href = "/signin";
+              }
+            })
+
+
+
+
+
+            let dataToUse = JSON.parse(localStorage.setup_info)
+            let phoneNumber = dataToUse.user_number;
+            let workerStatus = dataToUse.user_student_status;
+            let activities = dataToUse.user_raw_input_data;
+            let age        = dataToUse.user_age
+
+
+            //porpulate the stuff with the data
+            $("#user-phone").val(phoneNumber)
+            $("#user-activities").val(activities)
+            $("#user-age").val(age);
+            $(`input[name=radioInline][value=${workerStatus}]`).prop("checked",true);
+
+            //Now Populate stuff with gotten  data
+            console.log(JSON.parse(localStorage.setup_info));
+
+
+
+            //update code
+            $("#btn-update").unbind("Click").click(function(){
+
+              $this      = $(this);
+              // section 2 Data ------- Logic
+
+              // get data from input
+              let dataGottenFromUser  = $("#user-activities").val();
+              let datalen             = dataGottenFromUser.split(",").length;
+
+              let section1Data = {
+                user_number: $("#user-phone").val() ,
+                user_age: $("#user-age").val() ,
+                user_student_status: $("input[name='radioInline']:checked").val()
+              }
+
+
+
+              let finalArr  = [];
+
+
+              //make sure its not empty
+               // console.log(dataGottenFromUser.length);
+
+               if (dataGottenFromUser.length > 0) {
+                 // loop through data and create a new element from it
+                 dataGottenFromUser.split(",").forEach(function(item, index){
+                   let inputElement = `<div class="form-group">
+                       <label for="">How Many Hours Do You ${item} For</label>
+                       <input id="id-for-position-${index+1}"  key="${item}" type="number" class="form-control">
+                   </div>
+                  `
+
+                  //push to array
+                  finalArr.push(inputElement);
+
+
+                 })
+
+
+                 // form final element
+                 let finsihedProduct  = `<form>
+                 ${finalArr.join("<br />\n")}
+                 </form>`
+
+                 console.log(finsihedProduct);
+
+
+
+                 // fill with modal
+
+                 // $("#open-mod").click();
+                 // $("#modal-body-mutate").html(finsihedProduct);
+
+                 localStorage.lenArr = datalen;
+
+                 let finalBodyFormed = {
+                   user_number: section1Data.user_number ,
+                   user_age: section1Data.user_age ,
+                   user_student_status: section1Data.user_student_status,
+                   user_activities_len: datalen,
+                   user_modal_body: finsihedProduct,
+                   user_raw_input_data: dataGottenFromUser
+
+                 }
+
+                console.log("finalle", finalBodyFormed);
+                 // make an edit request to delvess call to devless
+
+
+
+
+
+                 $this.text("Submitting...")
+
+                 SDK.updateData("Setup", "user_setup_table", "id", `${JSON.parse(localStorage.setup_info).id}`, finalBodyFormed, function(response){
+
+                   $this.text("Updated..Reloading..Please Wait")
+                   // reload
+
+                   location.reload();
+
+                   window.location.href = "/dashboard"
+
+                   console.log(response);
+                 })
+
+               }
+
+            })
+
+
+
+
+            $("#logout").unbind("click").click(function(){
+              SDK.call('devless', 'logout', [], function(response){
+                console.log(response)
+                window.location.href = "/signin";
+              })
+            })
+
+          })
+        </script>
+
+    </body>
+</html>
