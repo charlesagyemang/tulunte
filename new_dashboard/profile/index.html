@@ -191,12 +191,12 @@
 
 
         <!-- jQuery  -->
-        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
         <script src="../../assets/js/jquery.min.js"></script>
         <script src="../../assets/js/popper.min.js"></script>
         <script src="../../assets/js/bootstrap.min.js"></script>
         <script src="../../assets/js/waves.js"></script>
         <script src="../../assets/js/jquery.slimscroll.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <!-- KNOB JS -->
         <!--[if IE]>
@@ -216,27 +216,15 @@
           $(document).ready(function(){
 
             $("#go-to-profile").click(function(){
-              window.location.href = "/dashboard/profile"
+              window.location.href = "/new_dashboard/profile"
             })
-
-            // check for profile
-            SDK.call('devless', 'profile', [], function(response){
-              if (response.payload.error !== undefined) {
-                console.log(response.payload.error == undefined);
-                alert("Token Expired You Will Have To Sign In Again")
-                window.location.href = "/signin";
-              }
-            })
-
-
-
 
 
             let dataToUse = JSON.parse(localStorage.setup_info)
-            let phoneNumber = dataToUse.user_number;
-            let workerStatus = dataToUse.user_student_status;
-            let activities = dataToUse.user_raw_input_data;
-            let age        = dataToUse.user_age
+            let phoneNumber = dataToUse.phoneNumber;
+            let workerStatus = dataToUse.status;
+            let activities = dataToUse.userRawSetUpData;
+            let age        = dataToUse.age
 
 
             //porpulate the stuff with the data
@@ -246,7 +234,7 @@
             $(`input[name=radioInline][value=${workerStatus}]`).prop("checked",true);
 
             //Now Populate stuff with gotten  data
-            console.log(JSON.parse(localStorage.setup_info));
+            // console.log(JSON.parse(localStorage.setup_info));
 
 
 
@@ -306,24 +294,40 @@
 
                  localStorage.lenArr = datalen;
 
-                 let finalBodyFormed = {
-                   user_number: section1Data.user_number ,
-                   user_age: section1Data.user_age ,
-                   user_student_status: section1Data.user_student_status,
-                   user_activities_len: datalen,
-                   user_modal_body: finsihedProduct,
-                   user_raw_input_data: dataGottenFromUser
-
-                 }
+          
 
                 console.log("finalle", finalBodyFormed);
                  // make an edit request to delvess call to devless
 
 
-
-
-
                  $this.text("Submitting...")
+
+
+                  const myConfig = { headers: {
+                    Authorization: "Bearer " + localStorage.loginTokenGotten
+                  } }
+
+                  axios.put(`http://localhost:3000/api/users/${localStorage.loginIdGotten}`, {
+                    phoneNumber: section1Data.user_number,
+                    age: section1Data.user_age,
+                    status: section1Data.user_student_status,
+                    userActivitiesLen: datalen,
+                    userModalBody: finsihedProduct,
+                    userRawSetUpData: dataGottenFromUser
+                  }, myConfig)
+                  .then(function (response) {
+                    console.log(response);
+                    $this.text("Updated..Reloading..Please Wait");
+                    window.location.href = "/new_dashboard";
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                    alert(error);
+                  });
+
+
+
+                 /*
 
                  SDK.updateData("Setup", "user_setup_table", "id", `${JSON.parse(localStorage.setup_info).id}`, finalBodyFormed, function(response){
 
@@ -336,6 +340,7 @@
 
                    console.log(response);
                  })
+                 */
 
                }
 
