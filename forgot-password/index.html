@@ -79,7 +79,7 @@
         <script type="text/javascript">
 
           function makeCall(email, url){
-            axios.post(localUrl + '/users/forgot', {
+            axios.post('http://localhost:3000/api/users/forgot', {
               email: email,
               baseUrl: url,
             })
