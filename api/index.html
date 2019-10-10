@@ -378,45 +378,84 @@
     console.log("heyyy");
   })
 
-  /*
-  Signup
-  axios.post('https://melodic-time.herokuapp.com/api/users/register', {
+  // functions for global
+
+  const localUrl    = 'http://localhost:3000/api'
+  const externalUrl = 'https://melodic-time.herokuapp.com/api'
+
+/*
+  //Signup
+  axios.post(localUrl + '/users/register', {
     name: "koobi ti",
-    email: "micnkru@gmail.com",
+    email: "mail@gmail.com",
     password: "password",
-    role: "user", || role: "company" || role: "admin" || role: "worker"
+    role: "user"
   })
   .then(function (response) {
     console.log(response);
+    localStorage.loginTokenGotten = response.data.token;
+    localStorage.loginIdGotten = response.data.id;
   })
   .catch(function (error) {
     console.log(error);
+    alert(error);
   });
   */
 
+//"user", || role: "company" || role: "admin" || role: "worker"
 
   /*
-  axios.post('https://melodic-time.herokuapp.com/api/users/login', {
-    email: "micnkru@gmail.com",
-    password: "password"
+  // Login Logic
+  axios.post(localUrl + '/users/login', {
+    email: "mail@gmail.com",
+    password: "password1"
   })
   .then(function (response) {
     console.log(response.data);
-    localStorage.loginTokenGotten = reponse.data.token;
+    localStorage.loginTokenGotten = response.data.token;
     localStorage.loginIdGotten = response.data.id;
     // passed all options
   })
   .catch(function (error) {
     // failed all options
     console.log(error);
+    alert(error);
+  });
+
+  */
+
+
+
+
+  //Authorized
+
+
+  /*
+  myConfig = { headers: {
+    Authorization: "Bearer " + localStorage.loginTokenGotten
+  } }
+  */
+
+
+
+  /*
+  // CHANGE PASSWORDS COMPLETLY
+  axios.post(localUrl + '/users/change-password', {
+    oldPassword: "password1",
+    newPassword: "password",
+  }, myConfig)
+  .then(function (response) {
+    console.log(response);
+
+  })
+  .catch(function (error) {
+    console.log(error);
   });
   */
 
 
-  /* Authorized
-  myConfig = { headers: {
-    Authorization: "Bearer " + localStorage.loginTokenGotten
-  } }
+
+  /*
 
 
     axios.post('https://melodic-time.herokuapp.com/api/companies/', {
@@ -435,6 +474,47 @@
     });
     */
 
+
+    /*
+    // CHANGE PASS
+    axios.post(localUrl + '/users/forgot', {
+      email: "mail@gmail.com",
+      baseUrl: localUrl,
+    })
+    .then(function (response) {
+      console.log(response);
+      // localStorage.loginTokenGotten = response.data.token;
+      // localStorage.loginIdGotten = response.data.id;
+    })
+    .catch(function (error) {
+      // console.log(error);
+      // alert(error);
+    });
+    */
+
+    /*
+      {
+        email: 'mail@gmail.com',
+        name: 'koobi ti',
+        url: 'http://localhost:3000/api?token=xm4FvmjDDmF26toJz'
+      }
+    */
+
+
+    /*
+    // REQ PASSWORD CHANGE PASS
+    axios.post(localUrl + '/users/req-password-change', {
+      password: "password1",
+      token: "xm4FvmjDDmF26toJz",
+    })
+    .then(function (response) {
+      console.log(response);
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    */
 
 
 
