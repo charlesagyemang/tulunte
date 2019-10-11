@@ -265,19 +265,13 @@
 
             console.log(postToInviteOne);
 
-            // call to /api/workers/invite-one
-
-            // create questions
-
             //   window.location.href = "/comp_dashboard"
 
-            axios.post('https://melodic-time.herokuapp.com/api/workers/invite-one', {
-              oldPassword: "password1",
-              newPassword: "password",
-            })
+            axios.post('https://melodic-time.herokuapp.com/api/workers/invite-one', postToInviteOne)
             .then(function (response) {
               console.log(response);
-
+              localStorage.newCompanyData = JSON.parse(response.data);
+              window.location.href = "/new-comp-dashboard"
             })
             .catch(function (error) {
               console.log(error);
