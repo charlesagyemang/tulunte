@@ -89,11 +89,6 @@
         <!-- end wrapper page -->
 
 
-
-        <script src="https://tymeexpert.herokuapp.com/js/devless-sdk.js" class="devless-connection" devless-con-token="126c243dc694f85a26f647d43db5e22f"  ></script>
-
-
-
         <!-- jQuery  -->
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/popper.min.js"></script>
@@ -104,6 +99,8 @@
         <!-- App js -->
         <script src="../assets/js/jquery.core.js"></script>
         <script src="../assets/js/jquery.app.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 
         <script type="text/javascript">
           $(document).ready(function(){
@@ -118,80 +115,48 @@
               let username        = $("#reg-username").val();
               let password        = $("#reg-password").val();
               let compName        = $("#reg-comp-name").val();
-              let compWorkerCount = $("reg-comp-worker-count").val();
+              let compWorkerCount = $("#reg-comp-worker-count").val();
               let compLocation    = $("#reg-comp-loc").val();
               let rnd             = Math.floor((Math.random() * 9999) + 10000) + "";
               let $this           = $(this);
 
 
-              console.log("email - " + email + " username - " + username + "password - " + password);
+              if (email.length > 0 & compName.length > 0 & password.length > 0 & compLocation.length > 0 & compWorkerCount.length > 0) {
+                // console.log("all dey");
+                const dataToPost = {
+                  name: compName,
+                  email: email,
+                  password: password,
+                  location: compLocation,
+                  workersCount: parseInt(compWorkerCount),
+                }
 
-              // check the nullness
-
-              if (email.length > 0 & compName.length > 0 & password.length > 0 ) {
-                console.log("all dey");
-
-                let dataToSend = [email, password, username, '', 'comp', rnd, '']
-
-                // make call
-                SDK.call('devless', 'signUp', dataToSend ,function(resp){
-
-                  console.log(resp);
-
-                  // if checks to make sure it wenthrough
-                  $this.text("Registering...")
-
-                  if (resp.payload.error == undefined) {
-                    // yaikes worked
-
-                    // make a call to the company endpoint and set up this new comany
-                    companyData = {
-                      name: compName,
-                      location: compLocation ,
-                      wokers_count: compWorkerCount,
-                      users_id: resp.payload.result.profile.id
-                    }
-
-                    // make api call to company table
-
-                    console.log(companyData);
-
-                    SDK.addData("company", "company", companyData, function(response){
-                      console.log(response)
-
-                      SDK.setToken(resp.payload.result.token);
-                      console.log(resp.payload.result)
-
-                      $this.text("Success!!.. Redirecting...")
+                console.log(dataToPost);
 
 
-                      localStorage.owner_id     = resp.payload.result.profile.id;
-                      localStorage.user_details = JSON.stringify(resp.payload.result.profile);
-                      localStorage.comp_details = JSON.stringify(companyData);
+                $this.text("Registering...");
 
+                axios.post('http://localhost:3000/api/companies', dataToPost)
+                .then(function (response) {
+                  console.log(response);
+                  localStorage.loginIdGotten     = response.data.user.id;
+                  localStorage.loginTokenGotten  = response.data.user.token ;
+                  localStorage.loginDataGotten   = JSON.stringify(response.data);
+                  $this.text("Success!!.. Redirecting...");
+                  window.location.href = "/new_comp_set_up";
 
-                      window.location.href = "/comp_set_up";
-                    })
-
-
-
-                  } else {
-                    // username already exists
-                    console.log(resp.payload.error.message);
-
-                    alert("Email Or Username Has Been Taken Please Change It And Try Again")
-                  }
-
-
+                })
+                .catch(function (error) {
+                  console.log(error);
+                  // alert(error);
+                  alert("Error: Email Must Be unique");
                 });
 
+                return;
 
-
-
-              } else {
-                console.log("Please fill all boxes");
               }
-
+              alert("Please Make Sure All Details Are Filled. Some Boxes Appear To  Be Empty. Please Fix It")
+              // console.log("Please fill all boxes");
             })
 
 
