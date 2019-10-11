@@ -207,6 +207,8 @@
     <!-- App js -->
     <script src="../assets/js/jquery.core.js"></script>
     <script src="../assets/js/jquery.app.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 
     <script>
 
@@ -217,22 +219,6 @@
 
 
       $(document).ready(function () {
-
-        // functions
-        function sendMail (url) {
-          var settings = {
-              "async": true,
-              "crossDomain": true,
-              "url": `https://emailserve1.herokuapp.com/?${url}`,
-              "method": "GET",
-            }
-
-          $.ajax(settings).done(function (response) {
-            console.log(response);
-          });
-        }
-
-
 
           // next question button
          $("#company-questions-next").unbind("click").click(function(){
@@ -266,45 +252,36 @@
             const finalQuestions = localStorage.questions;
             const emailList      = $("#company-questions-to-employees--").val();
 
-            console.log(finalQuestions);
-            console.log(emailList);
-            console.log(coname);
+            const postToInviteOne = {
+              payload: emailList,
+              companyId: companyDetails.id,
+              companyName: companyDetails.name,
+              companyQuestions: finalQuestions
+            }
 
             // send the invitations
-            sendMail(url);
 
             $this.text("Finalizing.....")
 
+            console.log(postToInviteOne);
 
+            // call to /api/workers/invite-one
 
-            // //make a call to the questions api
-            // data = {
-            //   "company_company_id": coname.id,
-            //   "questions": finalQuestions
-            // }
-            //
-            // SDK.addData("company", "questions_table", data, function(response){
-            //   console.log("Questions", response)
-            //
-            //   // Create Users
-            //
-            //   for (var i = 0; i < emailList.split(",").length; i++) {
-            //     //create user
-            //     SDK.call('devless', 'signUp', [emailList.split(",")[i], 'password', '', '', `worker,${coname.id}`, '', 'anything else'],function(resp){
-            //
-            //       console.log("User", resp.payload.result)
-            //     });
-            //
-            //   }
-            //
-            //   $this.text("Set Up Complete... Redirecting..")
-            //
-            //   alert("Set Up Complete.. You Will Be Redirected To Your Dashboard. Click Ok ")
-            //
-            //   // redirect to company dashboard
+            // create questions
+
             //   window.location.href = "/comp_dashboard"
-            //
-            // })
+
+            axios.post('https://melodic-time.herokuapp.com/api/workers/invite-one', {
+              oldPassword: "password1",
+              newPassword: "password",
+            })
+            .then(function (response) {
+              console.log(response);
+
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
 
           })
 

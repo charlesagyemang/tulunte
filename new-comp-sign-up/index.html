@@ -136,7 +136,7 @@
 
                 $this.text("Registering...");
 
-                axios.post('http://localhost:3000/api/companies', dataToPost)
+                axios.post('https://melodic-time.herokuapp.com/api/companies', dataToPost)
                 .then(function (response) {
                   console.log(response);
                   localStorage.loginIdGotten     = response.data.user.id;
