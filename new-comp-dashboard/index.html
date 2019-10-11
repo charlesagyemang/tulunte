@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>timexpert</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
+        <!--Morris Chart CSS -->
+        <link rel="stylesheet" href="../assets/plugins/morris/morris.css">
+
+        <!-- App css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <div class="topbar-main">
+                <div class="container-fluid">
+
+                    <!-- Logo container-->
+                    <div class="logo">
+                        <!-- Text Logo -->
+                        <a href="/" class="logo">
+                            <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                            <span class="logo-large"><i class="mdi mdi-radar"></i> Tymexpert</span>
+                        </a>
+                        <!-- Image Logo -->
+                        <!-- <a href="/" class="logo">
+                            <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
+                            <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
+                        </a> -->
+
+                    </div>
+                    <!-- End Logo container-->
+
+
+                    <div class="menu-extras topbar-custom">
+
+                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                            <li class="menu-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+
+
+
+                            <li class="dropdown notification-list">
+                                <a id="user-profile-name" class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <img src="../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
+                                    <!-- item-->
+                                    <a href="profile" class="dropdown-item notify-item">
+                                        <i class="ti-user m-r-5"></i> Profile
+                                    </a>
+
+
+                                    <a  id="logout"  class="dropdown-item notify-item">
+                                        <i  class="ti-power-off m-r-5"></i> Logout
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- end menu-extras -->
+
+                    <div class="clearfix"></div>
+
+                </div> <!-- end container -->
+            </div>
+            <!-- end topbar-main -->
+
+            <div class="navbar-custom">
+                <div class="container-fluid">
+                    <div id="navigation">
+                        <!-- Navigation Menu-->
+                        <ul class="navigation-menu">
+                            <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-database"></i> <span> Company Profile </span> </a>
+                            </li>
+                             <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-database-check"></i> <span>  Employees </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+                            </li>
+
+                        </ul>
+                        <!-- End navigation menu -->
+                    </div> <!-- end #navigation -->
+                </div> <!-- end container -->
+            </div> <!-- end navbar-custom -->
+        </header>
+        <!-- End Navigation Bar-->
+
+        <div class="wrapper">
+                    <div class="container-fluid">
+
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <h4 class="page-title"> Company Dashboard is being worked on it'll be ready soon please come backlater. Thank you</h4>
+                            </div>
+                        </div>
+
+
+
+
+                    </div> <!-- end container -->
+
+
+
+
+                </div>
+                <!-- end wrapper -->
+
+
+        <!-- jQuery  -->
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/popper.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/waves.js"></script>
+        <script src="../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- KNOB JS -->
+        <!--[if IE]>
+        <script type="text/javascript" src="assets/plugins/jquery-knob/excanvas.js"></script>
+        <![endif]-->
+        <script src="../assets/plugins/jquery-knob/jquery.knob.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../assets/pages/jquery.dashboard.js"></script>
+
+
+        <!-- App js -->
+        <script src="../assets/js/jquery.core.js"></script>
+        <script src="../assets/js/jquery.app.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+
+            cData = JSON.parse(localStorage.newCompanyData);
+
+            console.log(cData);
+
+
+
+            $("#logout").unbind("click").click(function(){
+
+            })
+
+          })
+        </script>
+
+    </body>
+</html>

@@ -115,7 +115,7 @@
                 password: password
               })
               .then(function (response) {
-                console.log(response.data.user);
+                console.log(response.data.user.role);
 
                 if (response.data.user.role == "user") {
 
@@ -146,14 +146,36 @@
                   //       const url = `/employee_/new_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
                   //
                   //       window.location.href = url;
+                  // localStorage.newCompanyData = JSON.stringify(response.data.);
+
                   return
                 }
 
 
                 if (response.data.user.role == "company") {
-                  //       const url = `/employee_/new_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
-                  //
-                  //       window.location.href = url;
+
+                  localStorage.loginTokenGotten = response.data.user.token;
+                  localStorage.loginIdGotten = response.data.user.id;
+                  $that.text("Success.. Redirecting")
+                  localStorage.owner_id     = response.data.user.id;
+                  localStorage.newCompanyData = JSON.stringify(response.data.fullUser.companies[0]);
+                  //init;
+                  localStorage.nn = "";
+                  localStorage.last_data = "";
+                  localStorage.i_data = "";
+                  localStorage.r_data = "";
+                  localStorage.sleeping = "";
+
+
+                  // console.log("Owber Id", localStorage.owner_id);
+                  // console.log("Token",localStorage.loginTokenGotten);
+                  // console.log("Id", localStorage.loginIdGotten);
+                  // console.log("Company", localStorage.newCompanyData);
+
+
+                  window.location.href = "/new-comp-dashboard";
+
+                  // console.log(response.data);
                   return
                 }
 
