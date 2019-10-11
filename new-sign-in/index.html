@@ -115,16 +115,15 @@
                 password: password
               })
               .then(function (response) {
-                console.log(response.data);
+                console.log(response.data.user);
 
                 if (response.data.user.role == "user") {
-                  console.log(response.data);
-                  localStorage.loginTokenGotten = response.user.data.token;
-                  localStorage.loginIdGotten = response.user.data.id;
-                  $that.text("Success.. Redirecting")
-                  localStorage.owner_id     = response.user.data.id;
-                  localStorage.user_details = JSON.stringify(response.user.data);
 
+                  localStorage.loginTokenGotten = response.data.user.token;
+                  localStorage.loginIdGotten = response.data.user.id;
+                  $that.text("Success.. Redirecting")
+                  localStorage.owner_id     = response.data.user.id;
+                  localStorage.user_details = JSON.stringify(response.data.user);
                   //init;
 
                   localStorage.nn = "";
@@ -133,7 +132,10 @@
                   localStorage.r_data = "";
                   localStorage.sleeping = "";
 
-                  console.log(localStorage.owner_id);
+                  // console.log("Owber Id", localStorage.owner_id);
+                  // console.log("Token",localStorage.loginTokenGotten);
+                  // console.log("Id", localStorage.loginIdGotten);
+                  // console.log("details", localStorage.user_details);
 
                   window.location.href = "/new_dashboard";
                   return

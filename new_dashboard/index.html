@@ -229,6 +229,8 @@
               window.location.href = "/new_dashboard/profile"
             })
 
+            console.log(localStorage.loginTokenGotten);
+
             // get allUser data from recordsToSetUpinfo
             const myConfig = { headers: {
               Authorization: "Bearer " + localStorage.loginTokenGotten
