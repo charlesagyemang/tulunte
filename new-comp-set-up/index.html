@@ -270,7 +270,7 @@
             axios.post('https://melodic-time.herokuapp.com/api/workers/invite-one', postToInviteOne)
             .then(function (response) {
               console.log(response);
-              localStorage.newCompanyData = JSON.parse(response.data);
+              localStorage.newCompanyData = JSON.stringify(response.data);
               window.location.href = "/new-comp-dashboard"
             })
             .catch(function (error) {
