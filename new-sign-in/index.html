@@ -117,7 +117,7 @@
               .then(function (response) {
                 console.log(response.data);
 
-                if (response.data.role == "user") {
+                if (response.data.user.role == "user") {
                   console.log(response.data);
                   localStorage.loginTokenGotten = response.user.data.token;
                   localStorage.loginIdGotten = response.user.data.id;
@@ -140,7 +140,7 @@
                 }
 
 
-                if (response.data.role == "worker") {
+                if (response.data.user.role == "worker") {
                   //       const url = `/employee_/new_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
                   //
                   //       window.location.href = url;
@@ -148,7 +148,7 @@
                 }
 
 
-                if (response.data.role == "company") {
+                if (response.data.user.role == "company") {
                   //       const url = `/employee_/new_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
                   //
                   //       window.location.href = url;
