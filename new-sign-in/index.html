@@ -143,14 +143,24 @@
 
 
                 if (response.data.user.role == "worker") {
-                  //       const url = `/employee_/new_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
-                  //
-                  //       window.location.href = url;
-                  // localStorage.newCompanyData = JSON.stringify(response.data.);
+
+                  localStorage.loginTokenGotten = response.data.user.token;
+                  localStorage.loginIdGotten = response.data.user.id;
+                  $that.text("Success.. Redirecting")
+                  localStorage.owner_id     = response.data.user.id;
+
                   console.log("workeeeeeerrr");
+                  localStorage.newWorkerData = JSON.stringify(response.data);
 
-                  console.log(response.data);
 
+                  localStorage.nn = "";
+                  localStorage.last_data = "";
+                  localStorage.i_data = "";
+                  localStorage.r_data = "";
+                  localStorage.sleeping = "";
+
+
+                  window.location.href = "/employee-dashboard";
                   return
                 }
 
