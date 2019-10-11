@@ -119,11 +119,11 @@
 
                 if (response.data.role == "user") {
                   console.log(response.data);
-                  localStorage.loginTokenGotten = response.data.token;
-                  localStorage.loginIdGotten = response.data.id;
+                  localStorage.loginTokenGotten = response.user.data.token;
+                  localStorage.loginIdGotten = response.user.data.id;
                   $that.text("Success.. Redirecting")
-                  localStorage.owner_id     = response.data.id;
-                  localStorage.user_details = JSON.stringify(response.data);
+                  localStorage.owner_id     = response.user.data.id;
+                  localStorage.user_details = JSON.stringify(response.user.data);
 
                   //init;
 
@@ -139,9 +139,23 @@
                   return
                 }
 
-                //       const url = `/employee_/new_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
-                //
-                //       window.location.href = url;
+
+                if (response.data.role == "worker") {
+                  //       const url = `/employee_/new_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
+                  //
+                  //       window.location.href = url;
+                  return
+                }
+
+
+                if (response.data.role == "company") {
+                  //       const url = `/employee_/new_dashboard/?ed=${response.payload.result.profile.first_name.split(",")[1]}`
+                  //
+                  //       window.location.href = url;
+                  return
+                }
+
+
 
 
                 // passed all options
