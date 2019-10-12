@@ -430,19 +430,29 @@
   //Authorized
 
 
-  /*
-  myConfig = { headers: {
-    Authorization: "Bearer " + localStorage.loginTokenGotten
-  } }
-  */
+  // /*
+  // const myConfig = { headers: {
+  //   Authorization: "Bearer " + localStorage.loginTokenGotten
+  // } }
+  // // */
+  //
+  // const questionData = JSON.parse(localStorage.newWorkerData);
+  //
+  // const QUES_1_ID = "J9EMudGHXfyKR5owm";
+  // const QUES_2_ID = "2NgJXinxHi6f2QZyi";
+  // const QUES_3_ID = "BfTzw8D7buPLNs6zx";
+  // const QUES_4_ID = "5cNCeitSLpPFB4emY";
+  // const QUES_5_ID = "H3frztrJbWMHynMsx";
 
-
+  // console.log(questionData);
+  //
+  // console.log(myConfig);
 
   /*
   // CHANGE PASSWORDS COMPLETLY
-  axios.post(localUrl + '/users/change-password', {
-    oldPassword: "password1",
-    newPassword: "password",
+  axios.post(externalUrl + '/answers/', {
+    questionId: QUES_4_ID,
+    value: "Answer 1",
   }, myConfig)
   .then(function (response) {
     console.log(response);
