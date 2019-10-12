@@ -35,13 +35,8 @@
                         <!-- Text Logo -->
                         <a href="/" class="logo">
                             <span class="logo-small"><i class="mdi mdi-radar"></i></span>
-                            <span class="logo-large"><i class="mdi mdi-radar"></i> Tymexpert</span>
+                            <span id="companyDisplayName" class="logo-large"><i class="mdi mdi-radar"></i> Company Dashboard</span>
                         </a>
-                        <!-- Image Logo -->
-                        <!-- <a href="/" class="logo">
-                            <img src="assets/images/logo-sm.png" alt="" height="26" class="logo-small">
-                            <img src="assets/images/logo.png" alt="" height="24" class="logo-large">
-                        </a> -->
 
                     </div>
                     <!-- End Logo container-->
@@ -101,13 +96,13 @@
                         <!-- Navigation Menu-->
                         <ul class="navigation-menu">
                             <li class="has-submenu">
-                                <a href="#"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                                <a href="#"><i class="mdi mdi-view-dashboard"></i> <span> Questions </span> </a>
                             </li>
                             <li class="has-submenu">
-                                <a href="#"><i class="mdi mdi-database"></i> <span> Company Profile </span> </a>
+                                <a href="#"><i class="mdi mdi-database"></i> <span> Reponses </span> </a>
                             </li>
                              <li class="has-submenu">
-                                <a href="#"><i class="mdi mdi-database-check"></i> <span>  Employees </span> </a>
+                                <a href="#"><i class="mdi mdi-database-check"></i> <span>  Manage Employees </span> </a>
                             </li>
                             <li class="has-submenu">
                                 <a href="#"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
@@ -121,26 +116,28 @@
         </header>
         <!-- End Navigation Bar-->
 
-        <div class="wrapper">
-                    <div class="container-fluid">
-
-                        <!-- Page-Title -->
-                        <div class="row">
-                            <div class="col-sm-12">
-
-                                <h4 class="page-title"> Company Dashboard is being worked on it'll be ready soon please come backlater. Thank you</h4>
-                            </div>
+                <div class="wrapper">
+                <div class="container-fluid">
+                  <br>
+                    <!-- Page-Title -->
+                    <div class="row">
+                          <div class="container">
+                              <div class="row">
+                                  <br/>
+                                    <div class="panel panel-primary">
+                                         <div class="panel-heading">
+                                            <pre><center><h2> Company Questions</h2></center></pre>
+                                            <center><h4>NB: Questions With No Possible Answers Can't Be Answered
+                                              By Employees <h4></center>
+                                         </div><!--.panel-heading-->
+                                         <div id="questionAndAnswerDiv">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div> <!-- end container -->
                         </div>
-
-
-
-
-                    </div> <!-- end container -->
-
-
-
-
-                </div>
                 <!-- end wrapper -->
 
 
@@ -166,12 +163,128 @@
         <script src="../assets/js/jquery.app.js"></script>
 
         <script type="text/javascript">
+          const cData = JSON.parse(localStorage.newCompanyData);
+          const questions = cData.questions;
+
+
           $(document).ready(function(){
 
-            cData = JSON.parse(localStorage.newCompanyData);
+            $("#companyDisplayName").html( `<i class="mdi mdi-radar"></i> ${cData.name} || Employee Portal`);
 
-            console.log(cData);
+             let renderQuestionsArray = [];
 
+             for (var i = 0; i < questions.length; i++) {
+
+                const eachQuestion = questions[i];
+                const stringifiedObject = JSON.stringify(eachQuestion);
+
+
+                let headerBody = `
+                <div class="wholeQuestion">
+                   <ul class = "list-group">
+                `
+
+                let questionBody = `
+                  <li class = "list-group-item">
+                      <label for="checkbox">
+                          <h3>${eachQuestion.title}</h3>
+                          <h6>${eachQuestion.description}</h6>
+                          <div style="float:right">
+                            <button
+                              questionId=${eachQuestion.id}
+                              class="btn btn-primary editQuestionButton">Edit Question
+                            </button>
+                            <button  questionId=${eachQuestion.id}  class="btn btn-secondary addAnswerButton">Add An Answer</button>
+                            <button  questionId=${eachQuestion.id}  class="btn btn-danger deleteQuestionButton">Delete Question</button>
+                          </div>
+
+
+                      </label>
+                  </li>
+                `
+
+                const answers = eachQuestion.answers;
+                let answersArray = [];
+
+                for (var k = 0; k < answers.length; k++) {
+                  const eachAnswer = answers[k]
+                  let answerBody = `
+                    <li class = "list-group-item">
+                      <div class="form-check">
+                          <div class="form-check-label" id=${eachAnswer.id}${k}>
+                            ${eachAnswer.value}
+                            <button style="float:right" class="btn btn-primary">Edit Answer</button>
+                          </div>
+                      </div>
+                    </li>
+                  `
+
+                  answersArray.push(answerBody);
+                }
+
+                answersArray = answersArray.join("");
+
+
+                let footerBody = `
+                   </ul>
+                  <br>
+                </div>
+                `
+
+                const wholeQuestionBody = `${headerBody}${questionBody}${answersArray}${footerBody}`;
+
+                renderQuestionsArray.push(wholeQuestionBody);
+             }
+
+
+             $("#questionAndAnswerDiv").html(renderQuestionsArray);
+
+             // empty Question Array
+             renderQuestionsArray = [];
+
+
+             // edit Question Logic
+             $(".editQuestionButton").unbind('click').click(function(){
+
+               const idGotten = $(this).attr("questionId");
+
+               const dataFromId = questions.filter(function(question){
+                 return question.id === idGotten;
+               })[0]
+
+               // Open Modal and set data to currentQuestionToEditData
+               localStorage.currentQuestionToEditData = JSON.stringify(dataFromId);
+
+               console.log(JSON.parse(localStorage.currentQuestionToEditData));
+
+             })
+
+
+             //delete Question Logic
+             $(".deleteQuestionButton").unbind('click').click(function(){
+
+               const idGotten = $(this).attr("questionId");
+
+               // auth & git delete enpoint
+
+               console.log(idGotten);
+
+
+             })
+
+             // Add Question Logic
+             $(".addAnswerButton").unbind('click').click(function(){
+
+               const idGotten = $(this).attr("questionId");
+               // { questionId,  value }
+
+
+               // Open Modal and set data to currentAnswerToAddQuestionId
+               localStorage.currentAnswerToAddQuestionId = idGotten;
+
+               console.log(localStorage.currentAnswerToAddQuestionId);
+
+             })
 
 
             $("#logout").unbind("click").click(function(){
