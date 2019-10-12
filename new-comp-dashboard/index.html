@@ -126,9 +126,12 @@
                                   <br/>
                                     <div class="panel panel-primary">
                                          <div class="panel-heading">
-                                            <pre><center><h2> Company Questions</h2></center></pre>
-                                            <center><h4>NB: Questions With No Possible Answers Can't Be Answered
-                                              By Employees <h4></center>
+                                           <center>
+                                             <h4>NB: Questions With No Possible Answers Can't Be Answered
+                                             By Employees <h4>
+                                             <button class="btn btn-success"> Add More Questions </button><br /><br />
+                                           </center>
+                                            <pre><center><h2 id="companyQuestionsHeader"> Company Questions</h2></center></pre>  
                                          </div><!--.panel-heading-->
                                          <div id="questionAndAnswerDiv">
                                         </div>
@@ -165,11 +168,21 @@
         <script type="text/javascript">
           const cData = JSON.parse(localStorage.newCompanyData);
           const questions = cData.questions;
+          const answers = [];
+
+          for (var i = 0; i < questions.length; i++) {
+            for (var k = 0; k < questions[i].answers.length; k++) {
+             answers.push(questions[i].answers[k])
+            }
+          }
+          // console.log(answers);
+
 
 
           $(document).ready(function(){
 
             $("#companyDisplayName").html( `<i class="mdi mdi-radar"></i> ${cData.name} || Employee Portal`);
+            $("#companyQuestionsHeader").html(`Company Questions ( ${cData.questions.length} )`);
 
              let renderQuestionsArray = [];
 
@@ -211,9 +224,9 @@
                   let answerBody = `
                     <li class = "list-group-item">
                       <div class="form-check">
-                          <div class="form-check-label" id=${eachAnswer.id}${k}>
+                          <div class="form-check-label">
                             ${eachAnswer.value}
-                            <button style="float:right" class="btn btn-primary">Edit Answer</button>
+                            <button answerId=${eachAnswer.id} style="float:right" class="btn btn-primary editAnswerButton">Edit Answer</button>
                           </div>
                       </div>
                     </li>
@@ -283,6 +296,23 @@
                localStorage.currentAnswerToAddQuestionId = idGotten;
 
                console.log(localStorage.currentAnswerToAddQuestionId);
+
+             })
+
+
+             // Edit Answer Logic
+             $(".editAnswerButton").unbind('click').click(function(){
+
+               const idGotten = $(this).attr("answerId");
+
+               const dataFromId = answers.filter(function(answer){
+                 return answer.id === idGotten;
+               })[0]
+
+               // Open Modal and set data to currentQuestionToEditData
+               localStorage.currentAnswerToEditData = JSON.stringify(dataFromId);
+
+               console.log(JSON.parse(localStorage.currentAnswerToEditData));
 
              })
 
