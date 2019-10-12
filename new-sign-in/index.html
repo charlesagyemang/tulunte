@@ -109,13 +109,14 @@
             if (username.length > 0 & password.length> 0) {
 
 
-
+              $that.text("Authenticating....");
               axios.post('https://melodic-time.herokuapp.com/api/users/login', {
                 email: username,
                 password: password
               })
               .then(function (response) {
                 console.log(response.data.user.role);
+                $that.text("Success....");
 
                 if (response.data.user.role == "user") {
 
