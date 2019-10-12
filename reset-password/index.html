@@ -87,7 +87,7 @@
             .then(function (response) {
               console.log(response);
               alert("Password Was Reset successfully... You Are Being Redirected To The Login Page To Login With Your New Details.. Thank You");
-              window.location.href  = "/";
+              window.location.href  = "/new-sign-in";
             })
             .catch(function (error) {
               console.log(error);
@@ -103,7 +103,7 @@
            let token = urlParams.get('token');
 
            $("#reset-button").unbind('click').click(function(){
-
+             $(this).text("Working...")
              let password = $("#password-entered").val();
              const baseUrl = 'https://thetimexpert.com/';
 
