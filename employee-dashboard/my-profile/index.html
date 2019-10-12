@@ -102,9 +102,9 @@
                                 <a href="/employee-dashboard/company-details"><i class="mdi mdi-database"></i> <span> Company </span> </a>
                             </li>
 
-                            <li class="has-submenu">
+                            <!-- <li class="has-submenu">
                                 <a href="/employee-dashboard/my-responses"><i class="mdi mdi-graphql"></i> <span> My Responses </span> </a>
-                            </li>
+                            </li> -->
 
                             <li class="has-submenu active">
                                 <a href="#"><i class="mdi mdi-graphql"></i> <span> My Profile </span> </a>
@@ -119,28 +119,33 @@
         <!-- End Navigation Bar-->
 
         <div class="wrapper">
-                    <div class="container-fluid">
-                      <br>
-                        <!-- Page-Title -->
-                        <div class="row">
+          <div class="container-fluid">
+            <br>
+            <div class="row">
+              <div class="col-sm">
+              </div>
+              <div class="col-sm">
+                <div class="card" style="width: 18rem;">
+                  <img src="https://enezaeducation.com/wp-content/uploads/2016/06/download.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 id="workerEmail" class="card-title">User Email</h5>
+                    <p  id="workerPostition" class="card-text">Postion</p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li id="workerAcceptanceStatus" class="list-group-item">Status</li>
+                    <li id="workerCompanyName" class="list-group-item">Company Name</li>
+                    <li id="workerCompanyLocation" class="list-group-item">Company Location</li>
+                  </ul>
 
-                              <div class="container">
-                                  <div class="row">
-                                      <br/>
-                                        <div class="panel panel-primary">
-                                             <div class="panel-heading">
-                                                <pre><h2> Please Answer The Following Questions</h2></pre>
-                                                <center><h4>NB: Ignore Questions With No Possible Answers</h4></center>
-                                             </div><!--.panel-heading-->
-                                             <div id="questionAndAnswerDiv">
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                  </div>
-                              </div> <!-- end container -->
                 </div>
-                <!-- end wrapper -->
+              </div>
+              <div class="col-sm">
+              </div>
+            </div>
+            <br>
+
+          </div> <!-- end container -->
+        </div>
 
 
         <!-- jQuery  -->
@@ -159,66 +164,20 @@
 
         <script type="text/javascript">
           const cData = JSON.parse(localStorage.newWorkerData);
+          const worker = cData.worker;
 
           $(document).ready(function(){
 
             $("#companyNameHeader").html( `<i class="mdi mdi-radar"></i> ${cData.company.name} || Employee Portal`);
-            const questions = cData.company.questions;
+            $("#workerEmail").html(worker.email);
+            $("#workerPostition").html("Position: " + worker.position);
 
-             let renderQuestionsArray = [];
-
-             for (var i = 0; i < questions.length; i++) {
-
-                const eachQuestion = questions[i];
-
-                let headerBody = `
-                <div class="wholeQuestion">
-                   <ul class = "list-group">
-                `
-
-                let questionBody = `
-                  <li class = "list-group-item">
-                      <label for="checkbox">
-                          <h3>${eachQuestion.title}</h3>
-                          <h6>${eachQuestion.description}</h6>
-                      </label>
-                  </li>
-                `
-
-                const answers = eachQuestion.answers;
-                let answersArray = [];
-
-                for (var k = 0; k < answers.length; k++) {
-                  const eachAnswer = answers[k]
-                  let answerBody = `
-                    <li class = "list-group-item">
-                      <div class="form-check">
-                          <input type="radio" class="form-check-input" id=${eachAnswer.id}${k} name=${eachQuestion.id}>
-                          <label class="form-check-label" for=${eachAnswer.id}${k}>${eachAnswer.value}</label>
-                      </div>
-                    </li>
-                  `
-
-                  answersArray.push(answerBody);
-                }
-
-                answersArray = answersArray.join("");
+            $("#workerAcceptanceStatus").html("Status: " + worker.invitationStatus);
+            $("#workerCompanyName").html("Date Joined: " + worker.updatedAt.split("T")[0]);
+            $("#workerCompanyLocation").html(cData.company.name + " \n " + cData.company.location);
 
 
-                let footerBody = `
-                   </ul>
-                  <br>
-                </div>
-                `
-
-                const wholeQuestionBody = `${headerBody}${questionBody}${answersArray}${footerBody}`;
-
-                renderQuestionsArray.push(wholeQuestionBody);
-             }
-
-
-             $("#questionAndAnswerDiv").html(renderQuestionsArray);
-             renderQuestionsArray = [];
+              console.log(worker);
 
 
             $("#logout").unbind("click").click(function(){
