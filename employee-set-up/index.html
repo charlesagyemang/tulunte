@@ -110,6 +110,8 @@
                 })
                 .then(function (response) {
                   console.log(response);
+                  $that.text("Success...")
+                  alert("Password Was Successfully Set. You Are Being Redirected To the Login Page Please Enter Your Details There And Login Thank You")
                   window.location.href = "/new-sign-in"
                 })
                 .catch(function (error) {
