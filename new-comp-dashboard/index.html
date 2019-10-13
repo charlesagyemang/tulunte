@@ -159,10 +159,10 @@
                       <div class="modal-body">
                         <form>
                           <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Title</label>
+                            <label id="titleLabel" for="recipient-name" class="col-form-label">Title</label>
                             <input type="text" class="form-control" id="questionTitleInput">
                           </div>
-                          <div class="form-group">
+                          <div id="descriptionDiv" class="form-group">
                             <label for="message-text" class="col-form-label">Description</label>
                             <textarea class="form-control" id="questionDescriptionInput"></textarea>
                           </div>
@@ -327,38 +327,6 @@
 
              })
 
-             // Add Answer Logic Begin
-             $(".addAnswerButton").unbind('click').click(function(){
-
-               const idGotten = $(this).attr("questionId");
-               // { questionId,  value }
-
-
-               // Open Modal and set data to currentAnswerToAddQuestionId
-               localStorage.currentAnswerToAddQuestionId = idGotten;
-
-               console.log(localStorage.currentAnswerToAddQuestionId);
-
-             })
-
-
-             // Edit Answer Logic
-             $(".editAnswerButton").unbind('click').click(function(){
-
-               const idGotten = $(this).attr("answerId");
-
-               const dataFromId = answers.filter(function(answer){
-                 return answer.id === idGotten;
-               })[0]
-
-               // Open Modal and set data to currentQuestionToEditData
-               localStorage.currentAnswerToEditData = JSON.stringify(dataFromId);
-
-               console.log(JSON.parse(localStorage.currentAnswerToEditData));
-
-             })
-
-
 
              //------ edit Question Logic Begin ----------//
              $(".editQuestionButton").unbind('click').click(function(){
@@ -465,12 +433,139 @@
                   alert("Title Should Not Be Empty");
                })
 
-               //------ End Of Add More Questions Logic  -----//
+             });
+             //------ End Of Add More Questions Logic  -----//
 
 
 
 
-             })
+               //--------- Edit Answer Logic ----------------//
+
+               $(".editAnswerButton").unbind('click').click(function(){
+
+                 const idGotten = $(this).attr("answerId");
+
+                 const dataFromId = answers.filter(function(answer){
+                   return answer.id === idGotten;
+                 })[0]
+
+                 // Open Modal and set data to currentQuestionToEditData
+                 localStorage.currentAnswerToEditData = JSON.stringify(dataFromId);
+
+                 // console.log(JSON.parse(localStorage.currentAnswerToEditData));
+
+                 // open Modal
+                $("#openEditQuestionModal").click();
+                $("#exampleModalLabel").text("Edit An Answer");
+                $("#finalEditQuestionButton").text("Update Answer");
+                $("#questionDescriptionInput").css("display", "none");
+                $("#descriptionDiv").css("display", "none");
+                $("#titleLabel").html("Value");
+
+
+                // Populate the stuff
+                $("#questionTitleInput").val(dataFromId.value);
+
+
+                $("#finalEditQuestionButton").unbind("click").click(function(){
+
+                  let newValue = $("#questionTitleInput").val();
+                  let questionId = dataFromId.id;
+
+                  const urlSide = `${questionId}-${cData.id}`
+
+                  let body = {
+                    value: newValue
+                  }
+
+                  $(this).text("Updating......");
+
+                  console.log(body, urlSide);
+
+                  // /*
+                  axios.put(externalUrl + `/answers/from-company/${questionId}-${cData.id}`, body, myConfig)
+                  .then(function (response) {
+                    console.log(response.data);
+                    $(this).text("Finalizing......");
+                    localStorage.newCompanyData = JSON.stringify(response.data);
+                    window.location.reload();
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+                  // */
+
+                })
+
+
+
+               });
+
+               //------------------- End Of Edit Anser Logic --------//
+
+
+
+               //------------- Begin Add Answer Logic -------------//
+
+               // Add Answer Logic Begin
+               $(".addAnswerButton").unbind('click').click(function(){
+
+                 const idGotten = $(this).attr("questionId");
+                 // { questionId,  value }
+
+
+                 // Open Modal and set data to currentAnswerToAddQuestionId
+                 localStorage.currentAnswerToAddQuestionId = idGotten;
+
+                 // console.log(localStorage.currentAnswerToAddQuestionId);
+                   // open Modal
+                  $("#openEditQuestionModal").click();
+                  $("#exampleModalLabel").text("Add New Answer");
+                  $("#finalEditQuestionButton").text("Add Answer");
+                  $("#questionDescriptionInput").css("display", "none");
+                  $("#descriptionDiv").css("display", "none");
+                  $("#titleLabel").html("Value");
+
+                  $("#finalEditQuestionButton").unbind("click").click(function(){
+
+                    let value = $("#questionTitleInput").val();
+
+                    // check if not empty
+
+                    if (value.length > 0) {
+
+
+                      const body = {
+                        companyId: cData.id,
+                        questionId: idGotten,
+                        value: value
+                      }
+
+                      console.log(body);
+                      $(this).text("Adding......");
+
+
+                      axios.post(externalUrl + `/answers/from-company/`, body, myConfig)
+                      .then(function (response) {
+                        console.log(response.data);
+                        $(this).text("Success......");
+                        localStorage.newCompanyData = JSON.stringify(response.data);
+                        window.location.reload();
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+
+                      return
+                    }
+
+                    alert("Value Should Not Be Empty")
+
+                  })
+
+               })
+
+               //------------ End Add Answer Logic ---------------//
 
           })
         </script>
