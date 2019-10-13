@@ -313,21 +313,6 @@
              renderQuestionsArray = [];
 
 
-
-
-             //delete Question Logic
-             $(".deleteQuestionButton").unbind('click').click(function(){
-
-               const idGotten = $(this).attr("questionId");
-
-               // auth & git delete enpoint
-
-               console.log(idGotten);
-
-
-             })
-
-
              //------ edit Question Logic Begin ----------//
              $(".editQuestionButton").unbind('click').click(function(){
 
@@ -566,6 +551,51 @@
                })
 
                //------------ End Add Answer Logic ---------------//
+
+
+
+               //------------ Begin Delete Logic For Question -------//
+
+               //delete Question Logic
+               $(".deleteQuestionButton").unbind('click').click(function(){
+
+                 const idGotten = $(this).attr("questionId");
+                 const specialIds = `${idGotten}-${cData.id}`;
+
+                 // auth & git delete enpoint
+                 console.log(idGotten);
+
+
+
+                 let sure = confirm("Do You Want To Delete This Item?. Click Ok To Delete");
+
+                 if (sure) {
+                   $(this).text("Deleting......");
+
+                   // /*
+                   axios.delete(externalUrl + `/questions/from-company/${specialIds}`, myConfig)
+                   .then(function (response) {
+                     console.log(response.status);
+                     console.log(response.data);
+                     $(this).text("Success......");
+                     alert("Delete Was Successful");
+                     localStorage.newCompanyData = JSON.stringify(response.data);
+                     window.location.reload();
+                   })
+                   .catch(function (error) {
+                     console.log(error);
+                   });
+                   // */
+
+
+                   return
+                 }
+
+
+               })
+
+
+               //------------ End Of Delete Logic For Question ------//
 
           })
         </script>
