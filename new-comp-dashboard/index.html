@@ -639,7 +639,7 @@
                      $(this).text("Success......");
                      alert("Delete Was Successful");
                      localStorage.newCompanyData = JSON.stringify(response.data);
-                     // window.location.reload();
+                     window.location.reload();
                    })
                    .catch(function (error) {
                      console.log(error);
