@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>timexpert</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+
+        <!--Morris Chart CSS -->
+        <link rel="stylesheet" href="../../assets/plugins/morris/morris.css">
+
+        <!-- App css -->
+        <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="../../assets/js/modernizr.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <div class="topbar-main">
+                <div class="container-fluid">
+
+                    <!-- Logo container-->
+                    <div class="logo">
+                        <!-- Text Logo -->
+                        <a href="/" class="logo">
+                            <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                            <span id="companyDisplayName" class="logo-large"><i class="mdi mdi-radar"></i> Company Dashboard</span>
+                        </a>
+
+                    </div>
+                    <!-- End Logo container-->
+
+
+                    <div class="menu-extras topbar-custom">
+
+                        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                            <li class="menu-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+
+
+
+                            <li class="dropdown notification-list">
+                                <a id="user-profile-name" class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <img src="../../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
+                                    <!-- item-->
+                                    <a href="profile" class="dropdown-item notify-item">
+                                        <i class="ti-user m-r-5"></i> Profile
+                                    </a>
+
+
+                                    <a  id="logout"  class="dropdown-item notify-item">
+                                        <i  class="ti-power-off m-r-5"></i> Logout
+                                    </a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- end menu-extras -->
+
+                    <div class="clearfix"></div>
+
+                </div> <!-- end container -->
+            </div>
+            <!-- end topbar-main -->
+
+            <div class="navbar-custom">
+                <div class="container-fluid">
+                    <div id="navigation">
+                        <!-- Navigation Menu-->
+                        <ul class="navigation-menu">
+                            <li class="has-submenu">
+                                <a href="/new-comp-dashboard"><i class="mdi mdi-view-dashboard"></i> <span> Questions </span> </a>
+                            </li>
+                             <li class="has-submenu active">
+                                <a href="#"><i class="mdi mdi-database-check"></i> <span>  Manage Employees </span> </a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-database"></i> <span> Reponses </span> </a>
+                            </li>
+                            <!-- <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+                            </li> -->
+
+                        </ul>
+                        <!-- End navigation menu -->
+                    </div> <!-- end #navigation -->
+                </div> <!-- end container -->
+            </div> <!-- end navbar-custom -->
+        </header>
+        <!-- End Navigation Bar-->
+
+                <div class="wrapper">
+                <div class="container-fluid">
+                  <br>
+                    <!-- Page-Title -->
+                    <div class="row">
+                          <div class="container">
+                              <div class="row">
+                                  <br/>
+                                    <div class="panel panel-primary">
+                                         <div class="panel-heading">
+                                           <center>
+                                             <h4>NB: Questions With No Possible Answers Can't Be Answered
+                                             By Employees <h4>
+                                             <button id="addMoreQuestions" class="btn btn-success"> Add More Questions </button><br /><br />
+                                           </center>
+                                            <pre><center><h2 id="companyQuestionsHeader"> Company Questions</h2></center></pre>
+                                         </div><!--.panel-heading-->
+                                         <div id="questionAndAnswerDiv">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div> <!-- end container -->
+                        </div>
+                <!-- end wrapper -->
+
+
+
+                <button id="openEditQuestionModal" style="display:none" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"></button>
+
+                <div class="modal fade" id="editQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Question</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                          <div class="form-group">
+                            <label id="titleLabel" for="recipient-name" class="col-form-label">Title</label>
+                            <input type="text" class="form-control" id="questionTitleInput">
+                          </div>
+                          <div id="descriptionDiv" class="form-group">
+                            <label for="message-text" class="col-form-label">Description</label>
+                            <textarea class="form-control" id="questionDescriptionInput"></textarea>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="finalEditQuestionButton" type="button" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+        <!-- jQuery  -->
+        <script src="../../assets/js/jquery.min.js"></script>
+        <script src="../../assets/js/popper.min.js"></script>
+        <script src="../../assets/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/waves.js"></script>
+        <script src="../../assets/js/jquery.slimscroll.js"></script>
+
+        <!-- KNOB JS -->
+        <!--[if IE]>
+        <script type="text/javascript" src="assets/plugins/jquery-knob/excanvas.js"></script>
+        <![endif]-->
+        <script src="../../assets/plugins/jquery-knob/jquery.knob.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../../assets/pages/jquery.dashboard.js"></script>
+
+
+        <!-- App js -->
+        <script src="../../assets/js/jquery.core.js"></script>
+        <script src="../../assets/js/jquery.app.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+        <script type="text/javascript">
+
+          const externalUrl = 'https://melodic-time.herokuapp.com/api';
+          const myConfig = { headers: {
+            Authorization: "Bearer " + localStorage.loginTokenGotten
+          } }
+
+          //Global Variables
+
+          const cData = JSON.parse(localStorage.newCompanyData);
+          const questions = cData.questions.reverse();
+          const answers = [];
+
+          for (var i = 0; i < questions.length; i++) {
+            for (var k = 0; k < questions[i].answers.length; k++) {
+             answers.push(questions[i].answers[k])
+            }
+          }
+          console.log(cData.workers);
+
+
+
+          $(document).ready(function(){
+
+            $("#companyDisplayName").html( `<i class="mdi mdi-radar"></i> ${cData.name} || Company Portal`);
+            $("#companyQuestionsHeader").html(`Company Questions ( ${cData.questions.length} )`);
+
+          });
+        </script>
+
+    </body>
+</html>

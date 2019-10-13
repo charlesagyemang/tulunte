@@ -95,17 +95,24 @@
                     <div id="navigation">
                         <!-- Navigation Menu-->
                         <ul class="navigation-menu">
-                            <li class="has-submenu">
+                            <li class="has-submenu active">
                                 <a href="#"><i class="mdi mdi-view-dashboard"></i> <span> Questions </span> </a>
                             </li>
+
                             <li class="has-submenu">
-                                <a href="#"><i class="mdi mdi-database"></i> <span> Reponses </span> </a>
-                            </li>
-                             <li class="has-submenu">
-                                <a href="#"><i class="mdi mdi-database-check"></i> <span>  Manage Employees </span> </a>
+                                <a href="/new-comp-dashboard/company-employees"><i class="mdi mdi-database"></i> <span> Manage Employees </span> </a>
                             </li>
                             <li class="has-submenu">
+                                <a href="/new-comp-dashboard/employee-responses"><i class="mdi mdi-database"></i> <span> Reponses </span> </a>
+                            </li>
+
+                            <!-- <li class="has-submenu">
                                 <a href="#"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+
+                            </li> -->
+
+                            <li class="has-submenu">
+                                <button id="addMoreQuestions" class="btn btn-success"> Add More Questions </button>
                             </li>
 
                         </ul>
@@ -129,7 +136,7 @@
                                            <center>
                                              <h4>NB: Questions With No Possible Answers Can't Be Answered
                                              By Employees <h4>
-                                             <button id="addMoreQuestions" class="btn btn-success"> Add More Questions </button><br /><br />
+                                             <!-- <button id="addMoreQuestions" class="btn btn-success"> Add More Questions </button><br /><br /> -->
                                            </center>
                                             <pre><center><h2 id="companyQuestionsHeader"> Company Questions</h2></center></pre>
                                          </div><!--.panel-heading-->
@@ -232,7 +239,7 @@
              answers.push(questions[i].answers[k])
             }
           }
-          console.log(cData);
+          console.log(cData.workers);
 
 
 
