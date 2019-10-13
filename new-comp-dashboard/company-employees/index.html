@@ -211,7 +211,7 @@
                                 <div class="card" style="width: 18rem;">
                                   <img src="https://enezaeducation.com/wp-content/uploads/2016/06/download.jpg" class="card-img-top" alt="...">
                                   <div class="card-body">
-                                    <h5 id="workerEmail" class="card-title">${eachWorker.email.split("@")[0]}</h5>
+                                    <h5 id="workerEmail" class="card-title">Name: ${eachWorker.email.split("@")[0]}</h5>
                                     <p  id="workerPostition" class="card-text">${eachWorker.email}</p>
                                   </div>
                                   <ul class="list-group list-group-flush">
@@ -219,6 +219,9 @@
                                     <li id="workerCompanyName" class="list-group-item">Position:  ${eachWorker.position}</li>
                                     <li id="workerCompanyLocation" class="list-group-item">Responses:  ${eachWorker.responses.length}</li>
                                   </ul>
+
+                                  <button class="btn btn-success">Edit Worker</button>
+                                  <button workerId=${eachWorker.id} class="btn btn-danger deleteSingleWorker">Delete Worker</button>
 
                                 </div>
                                 <br /><br />
@@ -230,6 +233,8 @@
             $("#employeeDiv").html(employeeDivContents);
             employeeDivContents = [];
 
+
+            //---------- Add Employees Logic Beginning --------//
 
             $("#addEmployeesButton").unbind("click").click(() => {
               console.log("tery arrow");
@@ -268,6 +273,50 @@
                 alert("Email Field Cant Be Empty. Please Fill It With One Or More Emails")
               })
             });
+
+            //-------- Add Employees Button Logic End ------------//
+
+
+
+
+
+            //--------- Delete Employees Logic Begin -----------//
+
+            $(".deleteSingleWorker").unbind("click").click(function(){
+              let $this = $(this);
+
+
+              const workerId = $(this).attr("workerId");
+              const specialIds = `${workerId}-${cData.id}`
+
+              let sure = confirm("Are You Sure You Want To Delete Worker ?");
+
+              if (true) {
+
+                $this.text("Deleting...");
+
+                axios.delete(externalUrl + `/workers/from-company/${specialIds}`, myConfig)
+                .then(function (response) {
+                  $this.text("Success....");
+                  console.log(response.data);
+                  localStorage.newCompanyData = JSON.stringify(response.data);
+                  alert("Delete Was Successful")
+                  window.location.reload();
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+                return
+              }
+
+              // Do nothing
+
+
+
+            })
+
+            //-------- Add Employees Logic Logic End ---------//
 
           });
         </script>
