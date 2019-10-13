@@ -260,12 +260,13 @@
                           <h3>${eachQuestion.title}</h3>
                           <h6>${eachQuestion.description}</h6>
                           <div style="float:right">
+                          <button  questionId=${eachQuestion.id}  class="btn btn-danger deleteQuestionButton">Delete Question</button>
+
                             <button
                               questionId=${eachQuestion.id}
                               class="btn btn-primary editQuestionButton">Edit Question
                             </button>
                             <button  questionId=${eachQuestion.id}  class="btn btn-secondary addAnswerButton">Add An Answer</button>
-                            <button  questionId=${eachQuestion.id}  class="btn btn-danger deleteQuestionButton">Delete Question</button>
                           </div>
 
 
@@ -283,7 +284,10 @@
                       <div class="form-check">
                           <div class="form-check-label">
                             ${eachAnswer.value}
-                            <button answerId=${eachAnswer.id} style="float:right" class="btn btn-primary editAnswerButton">Edit Answer</button>
+                            <div style="float:right">
+                              <button answerId=${eachAnswer.id} class="btn btn-primary editAnswerButton">Edit Answer</button>
+                              <button answerId=${eachAnswer.id}  class="btn btn-danger deleteAnswerButton">Delete Answer</button>
+                            </div>
                           </div>
                       </div>
                     </li>
@@ -596,6 +600,53 @@
 
 
                //------------ End Of Delete Logic For Question ------//
+
+
+
+
+
+               //------------ Beginning Logic For Delete Answer To A Question------//
+
+               //delete Answer Logic
+               $(".deleteAnswerButton").unbind('click').click(function(){
+
+                 const idGotten = $(this).attr("answerId");
+                 const specialIds = `${idGotten}-${cData.id}`;
+
+                 // auth & git delete enpoint
+                 console.log(idGotten);
+
+
+
+                 let sure = confirm("Do You Want To Delete This Item?. Click Ok To Delete");
+
+                 if (sure) {
+                   $(this).text("Deleting......");
+
+                   // /*
+                   axios.delete(externalUrl + `/answers/from-company/${specialIds}`, myConfig)
+                   .then(function (response) {
+                     console.log(response.status);
+                     console.log(response.data);
+                     $(this).text("Success......");
+                     alert("Delete Was Successful");
+                     localStorage.newCompanyData = JSON.stringify(response.data);
+                     // window.location.reload();
+                   })
+                   .catch(function (error) {
+                     console.log(error);
+                   });
+                   // */
+
+
+                   return
+                 }
+
+
+               })
+
+               //------------ End Of Logic For Delete Answer To A Question------//
+
 
           })
         </script>
