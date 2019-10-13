@@ -487,6 +487,13 @@
 
 <script type="text/javascript">
 
+  axios.get('https://melodic-time.herokuapp.com/api/ping')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 
 
 $(document).ready(function(){
