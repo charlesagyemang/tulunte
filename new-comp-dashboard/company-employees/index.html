@@ -236,12 +236,33 @@
               // open Modal
               $("#openAddEmployeesModal").click();
 
-              $("#inviteWorkersButton").unbind("click").click(() => {
+              $("#inviteWorkersButton").unbind("click").click(function() {
+                let $this = $(this);
+
                 let emailList = $("#invitationEmails").val();
 
                 if (emailList.length > 0) {
 
-                  console.log(emailList);
+                  const body = {
+                    payload: emailList,
+                    companyId: cData.id,
+                    companyName: cData.name,
+                  }
+
+                  $this.text("Submitting....")
+                  console.log(body);
+
+                  axios.post(externalUrl + `/workers/invite-users/`, body, myConfig)
+                  .then(function (response) {
+                    $this.text("Success....");
+                    console.log(response.data);
+                    localStorage.newCompanyData = JSON.stringify(response.data);
+                    window.location.reload();
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
                   return
                 }
                 alert("Email Field Cant Be Empty. Please Fill It With One Or More Emails")
