@@ -431,12 +431,14 @@
 
 
   // /*
-  // const myConfig = { headers: {
-  //   Authorization: "Bearer " + localStorage.loginTokenGotten
-  // } }
-  // // */
+
+
+  const compId = JSON.parse(localStorage.newCompanyData);
+
+  console.log(compId);
+  // */
   //
-  // const questionData = JSON.parse(localStorage.newWorkerData);
+  // const questionData = JSON.parse(localStorage.loginTokenGotten);
   //
   // const QUES_1_ID = "J9EMudGHXfyKR5owm";
   // const QUES_2_ID = "2NgJXinxHi6f2QZyi";
@@ -448,20 +450,22 @@
   //
   // console.log(myConfig);
 
-  /*
+  // /*
   // CHANGE PASSWORDS COMPLETLY
-  axios.post(externalUrl + '/answers/', {
-    questionId: QUES_4_ID,
-    value: "Answer 1",
-  }, myConfig)
-  .then(function (response) {
-    console.log(response);
 
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-  */
+  // const myConfig = { headers: {
+  //   Authorization: "Bearer " + localStorage.loginTokenGotten
+  // } }
+  //
+  //
+  // axios.get(externalUrl + `/companies/${compId.id}`, myConfig)
+  // .then(function (response) {
+  //   console.log(response);
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
+  // */
 
 
 

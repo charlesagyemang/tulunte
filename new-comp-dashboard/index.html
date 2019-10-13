@@ -129,9 +129,9 @@
                                            <center>
                                              <h4>NB: Questions With No Possible Answers Can't Be Answered
                                              By Employees <h4>
-                                             <button class="btn btn-success"> Add More Questions </button><br /><br />
+                                             <button id="addMoreQuestions" class="btn btn-success"> Add More Questions </button><br /><br />
                                            </center>
-                                            <pre><center><h2 id="companyQuestionsHeader"> Company Questions</h2></center></pre>  
+                                            <pre><center><h2 id="companyQuestionsHeader"> Company Questions</h2></center></pre>
                                          </div><!--.panel-heading-->
                                          <div id="questionAndAnswerDiv">
                                         </div>
@@ -142,6 +142,40 @@
                           </div> <!-- end container -->
                         </div>
                 <!-- end wrapper -->
+
+
+
+                <button id="openEditQuestionModal" style="display:none" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open</button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Question</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                          <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Title</label>
+                            <input type="text" class="form-control" id="questionTitleInput">
+                          </div>
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">Description</label>
+                            <textarea class="form-control" id="questionDescriptionInput"></textarea>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="finalEditQuestionButton" type="button" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
 
 
         <!-- jQuery  -->
@@ -164,10 +198,33 @@
         <!-- App js -->
         <script src="../assets/js/jquery.core.js"></script>
         <script src="../assets/js/jquery.app.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 
         <script type="text/javascript">
+
+          const externalUrl = 'https://melodic-time.herokuapp.com/api';
+          const myConfig = { headers: {
+            Authorization: "Bearer " + localStorage.loginTokenGotten
+          } }
+
+          function fetchCompanyData(url, compId, auth) {
+            axios.get(url + `/companies/${compId}`, auth)
+            .then(function (response) {
+              $("#addMoreQuestions").text("Success.. wait..")
+              console.log(response);
+              localStorage.newCompanyData = JSON.stringify(response.data);
+              window.location.reload();
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          }
+
+          //Global Variables
+
           const cData = JSON.parse(localStorage.newCompanyData);
-          const questions = cData.questions;
+          const questions = cData.questions.reverse();
           const answers = [];
 
           for (var i = 0; i < questions.length; i++) {
@@ -175,13 +232,13 @@
              answers.push(questions[i].answers[k])
             }
           }
-          // console.log(answers);
+          console.log(cData);
 
 
 
           $(document).ready(function(){
 
-            $("#companyDisplayName").html( `<i class="mdi mdi-radar"></i> ${cData.name} || Employee Portal`);
+            $("#companyDisplayName").html( `<i class="mdi mdi-radar"></i> ${cData.name} || Company Portal`);
             $("#companyQuestionsHeader").html(`Company Questions ( ${cData.questions.length} )`);
 
              let renderQuestionsArray = [];
@@ -265,11 +322,14 @@
                  return question.id === idGotten;
                })[0]
 
-               // Open Modal and set data to currentQuestionToEditData
+
                localStorage.currentQuestionToEditData = JSON.stringify(dataFromId);
+               // Open Modal and set data to currentQuestionToEditData
+               // console.log(JSON.parse(localStorage.currentQuestionToEditData));
+               $("#openEditQuestionModal").click();
 
-               console.log(JSON.parse(localStorage.currentQuestionToEditData));
-
+               $("#questionTitleInput").val(dataFromId.title);
+               $("#questionDescriptionInput").val(dataFromId.description);
              })
 
 
@@ -313,6 +373,48 @@
                localStorage.currentAnswerToEditData = JSON.stringify(dataFromId);
 
                console.log(JSON.parse(localStorage.currentAnswerToEditData));
+
+             })
+
+
+             // Add More Questions Shit
+             $("#addMoreQuestions").unbind("click").click(function(){
+
+               $(this).text("Adding...");
+               // console.log(cData.id);
+
+
+               // Reload and get data from external source
+               // fetchCompanyData(externalUrl, cData.id, myConfig);
+             })
+
+
+             // finalEditQuestionButton
+             $("#finalEditQuestionButton").unbind("click").click(function(){
+
+               $(this).text("Updating......")
+               let title = $("#questionTitleInput").val();
+               let description = $("#questionDescriptionInput").val();
+               let questionId = JSON.parse(localStorage.currentQuestionToEditData).id;
+
+               const editQuestionPostBody = {
+                 title: title,
+                 description: description
+               }
+
+               console.log(editQuestionPostBody);
+               // hit end point
+               axios.put(externalUrl + `/questions/from-company/${questionId}-${cData.id}`, editQuestionPostBody, myConfig)
+               .then(function (response) {
+                 console.log(response);
+                 $(this).text("Finalizing......");
+                 localStorage.newCompanyData = JSON.stringify(response.data);
+                 window.location.reload();
+               })
+               .catch(function (error) {
+                 console.log(error);
+               });
+
 
              })
 
