@@ -285,8 +285,9 @@
                           <div class="form-check-label">
                             ${eachAnswer.value}
                             <div style="float:right">
+                              <button answerId=${eachAnswer.id}  class="btn btn-danger deleteAnswerButton">Delete</button>
+
                               <button answerId=${eachAnswer.id} class="btn btn-primary editAnswerButton">Edit Answer</button>
-                              <button answerId=${eachAnswer.id}  class="btn btn-danger deleteAnswerButton">Delete Answer</button>
                             </div>
                           </div>
                       </div>
