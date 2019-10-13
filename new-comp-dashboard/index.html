@@ -145,9 +145,9 @@
 
 
 
-                <button id="openEditQuestionModal" style="display:none" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open</button>
+                <button id="openEditQuestionModal" style="display:none" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"></button>
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="editQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -313,24 +313,6 @@
              renderQuestionsArray = [];
 
 
-             // edit Question Logic
-             $(".editQuestionButton").unbind('click').click(function(){
-
-               const idGotten = $(this).attr("questionId");
-
-               const dataFromId = questions.filter(function(question){
-                 return question.id === idGotten;
-               })[0]
-
-
-               localStorage.currentQuestionToEditData = JSON.stringify(dataFromId);
-               // Open Modal and set data to currentQuestionToEditData
-               // console.log(JSON.parse(localStorage.currentQuestionToEditData));
-               $("#openEditQuestionModal").click();
-
-               $("#questionTitleInput").val(dataFromId.title);
-               $("#questionDescriptionInput").val(dataFromId.description);
-             })
 
 
              //delete Question Logic
@@ -377,15 +359,24 @@
              })
 
 
-             // Add More Questions Shit
-             $("#addMoreQuestions").unbind("click").click(function(){
 
-               $(this).text("Adding...");
-               // console.log(cData.id);
+             // edit Question Logic //
+             $(".editQuestionButton").unbind('click').click(function(){
+
+               const idGotten = $(this).attr("questionId");
+
+               const dataFromId = questions.filter(function(question){
+                 return question.id === idGotten;
+               })[0]
 
 
-               // Reload and get data from external source
-               // fetchCompanyData(externalUrl, cData.id, myConfig);
+               localStorage.currentQuestionToEditData = JSON.stringify(dataFromId);
+               // Open Modal and set data to currentQuestionToEditData
+               // console.log(JSON.parse(localStorage.currentQuestionToEditData));
+               $("#openEditQuestionModal").click();
+
+               $("#questionTitleInput").val(dataFromId.title);
+               $("#questionDescriptionInput").val(dataFromId.description);
              })
 
 
@@ -415,13 +406,71 @@
                  console.log(error);
                });
 
+             })
+             // ENd Of Edit Question Logic //
+
+
+            // $("#logout").unbind("click").click(function(){
+            //
+            // })
+
+
+             // Add More Questions Shit
+             $("#addMoreQuestions").unbind("click").click(function(){
+
+
+               // console.log(cData.id);
+
+               $("#openEditQuestionModal").click();
+               $("#exampleModalLabel").text("Add A Question");
+               $("#finalEditQuestionButton").text("Add Question");
+
+
+
+
+               $("#finalEditQuestionButton").unbind("click").click(function(){
+
+                 $(this).text("Adding....");
+
+                 let title = $("#questionTitleInput").val();
+                 let description = $("#questionDescriptionInput").val();
+                 let companyId = cData.id;
+
+
+                 if ( title.length > 0 ) {
+                   const body = {
+                     companyId: companyId,
+                     description: description,
+                     title: title
+                   }
+
+                   console.log(body);
+
+                   // /*
+                   axios.post(externalUrl + `/questions/from-company/`, body, myConfig)
+                   .then(function (response) {
+                     $(this).text("Success....");
+                     console.log(response);
+                     localStorage.newCompanyData = JSON.stringify(response.data);
+                     window.location.reload();
+                   })
+                   .catch(function (error) {
+                     console.log(error);
+                   });
+                   // */
+
+                   return
+
+                 }
+                  alert("Title Should Not Be Empty");
+               })
+
+
+
+
+
 
              })
-
-
-            $("#logout").unbind("click").click(function(){
-
-            })
 
           })
         </script>
