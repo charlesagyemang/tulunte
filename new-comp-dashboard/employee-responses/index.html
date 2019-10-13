@@ -104,9 +104,9 @@
                             <li class="has-submenu">
                                 <a href="#"><i class="mdi mdi-database"></i> <span> Reponses </span> </a>
                             </li>
-                            <li class="has-submenu">
-                                <button class="btn btn-success"> Invite More Workers </button>
-                            </li>
+                            <!-- <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-graphql"></i> <span> Statistics </span> </a>
+                            </li> -->
 
                         </ul>
                         <!-- End navigation menu -->
@@ -116,16 +116,65 @@
         </header>
         <!-- End Navigation Bar-->
 
-        <div class="wrapper">
-          <div class="container-fluid">
-            <br>
-            <div id="employeeDiv" class="row">
+                <div class="wrapper">
+                <div class="container-fluid">
+                  <br>
+                    <!-- Page-Title -->
+                    <div class="row">
+                          <div class="container">
+                              <div class="row">
+                                  <br/>
+                                    <div class="panel panel-primary">
+                                         <div class="panel-heading">
+                                           <center>
+                                             <h4>NB: Questions With No Possible Answers Can't Be Answered
+                                             By Employees <h4>
+                                             <button id="addMoreQuestions" class="btn btn-success"> Add More Questions </button><br /><br />
+                                           </center>
+                                            <pre><center><h2 id="companyQuestionsHeader"> Company Questions</h2></center></pre>
+                                         </div><!--.panel-heading-->
+                                         <div id="questionAndAnswerDiv">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div> <!-- end container -->
+                        </div>
+                <!-- end wrapper -->
 
-            </div>
-            <br>
 
-          </div> <!-- end container -->
-        </div>
+
+                <button id="openEditQuestionModal" style="display:none" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editQuestionModal"></button>
+
+                <div class="modal fade" id="editQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Question</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                          <div class="form-group">
+                            <label id="titleLabel" for="recipient-name" class="col-form-label">Title</label>
+                            <input type="text" class="form-control" id="questionTitleInput">
+                          </div>
+                          <div id="descriptionDiv" class="form-group">
+                            <label for="message-text" class="col-form-label">Description</label>
+                            <textarea class="form-control" id="questionDescriptionInput"></textarea>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="finalEditQuestionButton" type="button" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
 
 
@@ -170,36 +219,7 @@
           $(document).ready(function(){
 
             $("#companyDisplayName").html( `<i class="mdi mdi-radar"></i> ${cData.name} || Company Portal`);
-            $("#companyQuestionsHeader").html(`Company Employees ( ${workers.length} )`);
-
-            let employeeDivContents = [];
-
-            // create user boxes
-
-            for (var i = 0; i < workers.length; i++) {
-              const eachWorker = workers[i];
-              const body = ` <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                  <img src="https://enezaeducation.com/wp-content/uploads/2016/06/download.jpg" class="card-img-top" alt="...">
-                                  <div class="card-body">
-                                    <h5 id="workerEmail" class="card-title">${eachWorker.email.split("@")[0]}</h5>
-                                    <p  id="workerPostition" class="card-text">${eachWorker.email}</p>
-                                  </div>
-                                  <ul class="list-group list-group-flush">
-                                    <li id="workerAcceptanceStatus" class="list-group-item">Invitiation Status: ${eachWorker.invitationStatus}</li>
-                                    <li id="workerCompanyName" class="list-group-item">Position:  ${eachWorker.position}</li>
-                                    <li id="workerCompanyLocation" class="list-group-item">Responses:  ${eachWorker.responses.length}</li>
-                                  </ul>
-
-                                </div>
-                                <br /><br />
-                              </div>`
-
-                employeeDivContents.push(body);
-            }
-
-            $("#employeeDiv").html(employeeDivContents);
-            employeeDivContents = [];
+            $("#companyQuestionsHeader").html(`Company Questions ( ${cData.questions.length} )`);
 
           });
         </script>
