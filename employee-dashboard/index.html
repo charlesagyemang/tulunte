@@ -109,6 +109,10 @@
                                 <a href="/employee-dashboard/my-profile"><i class="mdi mdi-graphql"></i> <span> My Profile </span> </a>
                             </li>
 
+                            <li class="has-menu">
+                              <button id="submitAnswersButton" class="btn btn-success" > Submit Answers </button>
+                            </li>
+
                         </ul>
                         <!-- End navigation menu -->
                     </div> <!-- end #navigation -->
@@ -154,9 +158,60 @@
         <!-- App js -->
         <script src="../assets/js/jquery.core.js"></script>
         <script src="../assets/js/jquery.app.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+
+
 
         <script type="text/javascript">
+
+          const externalUrl = 'https://melodic-time.herokuapp.com/api';
+          const myConfig = { headers: {
+            Authorization: "Bearer " + localStorage.loginTokenGotten
+          } }
+
+
           const cData = JSON.parse(localStorage.newWorkerData);
+
+          const questions = cData.company.questions.reverse();
+          const answers = [];
+
+          for (var i = 0; i < questions.length; i++) {
+            for (var k = 0; k < questions[i].answers.length; k++) {
+             answers.push(questions[i].answers[k])
+            }
+          }
+
+          const today = moment().format().split("T")[0]
+
+          const responsesToday = cData.worker.responses.filter(function(response){
+            // console.log(response.createdAt.split("T")[0]);
+            return response.createdAt.split("T")[0] === today
+          });
+
+          // console.log(responsesToday);
+
+
+
+          // filter the questions according to the ones that have responses
+
+
+          let answeredQuestionsIds = []
+
+
+          responsesToday.forEach(function(resp){
+            answeredQuestionsIds.push(resp.questionId);
+          })
+
+          //
+          // // unique
+          // function onlyUnique(value, index, self) {
+          //     return self.indexOf(value) === index;
+          // }
+          //
+          // answeredQuestionsIds = answeredQuestionsIds.filter(onlyUnique);
+
+          console.log(answeredQuestionsIds);
 
           $(document).ready(function(){
 
@@ -170,7 +225,7 @@
                 const eachQuestion = questions[i];
 
                 let headerBody = `
-                <div class="wholeQuestion">
+                <div id=${eachQuestion.id} class="wholeQuestion">
                    <ul class = "list-group">
                 `
 
@@ -191,7 +246,7 @@
                   let answerBody = `
                     <li class = "list-group-item">
                       <div class="form-check">
-                          <input type="radio" class="form-check-input" id=${eachAnswer.id}${k} name=${eachQuestion.id}>
+                          <input type="radio" class="form-check-input" id=${eachAnswer.id}${k} name=${eachQuestion.id} value=${eachAnswer.id}>
                           <label class="form-check-label" for=${eachAnswer.id}${k}>${eachAnswer.value}</label>
                       </div>
                     </li>
@@ -218,6 +273,61 @@
              $("#questionAndAnswerDiv").html(renderQuestionsArray);
              renderQuestionsArray = [];
 
+
+             // hide answeredToday
+             answeredQuestionsIds.forEach(function(answered){
+               $(`#${answered}`).css("display", "none");
+             })
+
+
+             // get responses
+             $("#submitAnswersButton").unbind("click").click(function(){
+               console.log("subitt.....");
+               const $this = $(this);
+               let answerObjects = [];
+
+               for (var i = 0; i < questions.length; i++) {
+                 const ques    = questions[i]
+                 const checked = $(`input[name=${ques.id}]:checked`).val();
+                 if (checked !== undefined) {
+                   const item = answers.find(item => item.id === checked);
+                   const bodyItem = `${item.id},${item.questionId},${cData.worker.id},${cData.company.id}`
+                   answerObjects.push(bodyItem);
+                 }
+               }
+
+
+               let sure = confirm(`You Answered ${answerObjects.length} Out Of ${questions.length}. Do You Want To proceed To Submit The Answers? `);
+
+               if (sure && answerObjects.length > 0) {
+
+                 const bodyToPost = {
+                   payload: answerObjects.join("-")
+                 }
+                 // use the array
+                 console.log(bodyToPost);
+
+                 // post to table
+                 axios.post(externalUrl + `/responses/from-worker/`, bodyToPost, myConfig)
+                 .then(function (response) {
+                   console.log(response.data);
+                   $this.text("Finalizing......");
+                   localStorage.newWorkerData = JSON.stringify(response.data);
+                   window.location.reload();
+                 })
+                 .catch(function (error) {
+                   console.log(error);
+                 });
+
+
+                 answeredResults = [];
+                 return
+               }
+               answeredResults = [];
+
+             })
+
+             // console.log(cData);
 
             $("#logout").unbind("click").click(function(){
 
