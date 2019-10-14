@@ -51,6 +51,10 @@
     color: black;
   }
 
+  .modal-content {
+      background-color: white;
+  }
+
 </style>
 
 <!-- inject css end -->
@@ -84,7 +88,7 @@
               </ul>
             </div>
             <!-- <a href="/comp_sign_up" class="btn btn-theme-bordered ">Company Signup</a> -->
-            <a href="/" class="btn btn-theme-bordered ">Back To TIMEXPECT</a>
+            <a href="/" class="btn btn-theme-bordered ">Back To TIMEXPERT</a>
           </nav>
         </div>
       </div>
@@ -126,12 +130,12 @@
           <li class="mb-3"><i class="la la-check"></i> Distinctively brand adaptive innovation</li>
           <li><i class="la la-check"></i> Molestias a orci facilisis rutrum</li>
         </ul>
-        <a class="btn btn-dark btn-circle" href="#" data-text="Download Book"> <span>D</span><span>o</span><span>w</span><span>n</span><span>l</span><span>o</span><span>a</span><span>d</span>
+        <button id="clickSendEmail" class="btn btn-dark btn-circle" data-text="Download Book"> <span>D</span><span>o</span><span>w</span><span>n</span><span>l</span><span>o</span><span>a</span><span>d</span>
           <span>B</span><span>o</span><span>o</span><span>k</span>
-        </a>
-        <a class="btn btn-theme btn-circle" href="#" data-text="Learn More"> <span>L</span><span>e</span><span>a</span><span>r</span><span>n</span>
+        </button>
+        <button  class="btn btn-theme btn-circle" data-text="Learn More"> <span>L</span><span>e</span><span>a</span><span>r</span><span>n</span>
           <span> </span><span>M</span><span>o</span><span>r</span><span>e</span>
-        </a>
+        </button>
       </div>
     </div>
   </div>
@@ -158,148 +162,45 @@
  Timexpert @2019
 </footer>
 
-<!--footer end-->
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+</div>
+
+
+<div class="modal" id="myModal">
+    <br><br><br />
+  <div class="modal-dialog">
     <div class="modal-content">
+      <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Please Fill The Form Below</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title">Download Make It Count: The Book</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
+
+      <!-- Modal body -->
       <div class="modal-body">
         <form>
-
           <div class="form-group">
-            <label for="exampleInputEmail1">How Old Are You?</label>
-            <div class="row">
-              <div class="col-sm">
-                <input type="number" class="form-control" id="tester-age" value="18">
-              </div>
-              <div class="col-sm">
-              </div>
-              <div class="col-sm">
-              </div>
-            </div>
-
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">How Much Time Do You Spend  Sleeping</label>
-
-            <div class="row">
-              <div class="col-sm">
-                <input type="number" class="form-control" id="sleep-hours" value="6"> Hours
-              </div>
-              <div class="col-sm">
-                <input type="number" class="form-control" id="sleep-mins" value="00"> Minutes
-              </div>
-              <div class="col-sm">
-              </div>
-            </div>
-
-          </div>
-          <div class="form-group">
-              <label for="exampleInputEmail1">How Much Time Do You Spend  At Work/School</label>
-            <div class="row">
-
-              <div class="col-sm">
-                <input type="number" class="form-control" id="school-work-hours" value="7"> Hours
-              </div>
-              <div class="col-sm">
-                <input type="number" class="form-control" id="school-work-mins" value="00"> Minutes
-              </div>
-              <div class="col-sm">
-              </div>
-            </div>
-
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">How Much Time Do You Spend  Surfing The Net</label>
-            <div class="row">
-
-              <div class="col-sm">
-                <input type="number" class="form-control" id="surfing-hours" value="4"> Hours
-              </div>
-              <div class="col-sm">
-                <input type="number" class="form-control" id="surfing-mins" value="00"> Minutes
-              </div>
-              <div class="col-sm">
-              </div>
-            </div>
-
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">How Much Time Do You Spend  Doing House Chores</label>
-            <div class="row">
-              <div class="col-sm">
-                <input type="number" class="form-control" id="house-chores-hours" value="1"> Hours
-              </div>
-              <div class="col-sm">
-                <input type="number" class="form-control" id="house-chores-mins" value="00"> Minutes
-              </div>
-              <div class="col-sm">
-              </div>
-            </div>
-          </div>
-
-
-          <div class="form-group">
-              <label for="exampleInputEmail1">How Much Time Do You Spend  Bathing </label>
-            <div class="row">
-
-              <div class="col-sm">
-                <input type="number" class="form-control" id="traffic-2-hours" value="0"> Hours
-              </div>
-              <div class="col-sm">
-                <input type="number" class="form-control" id="traffic-2-mins" value="25"> Minutes
-              </div>
-              <div class="col-sm">
-              </div>
-            </div>
-
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">How Much Time Do You Spend  Commuting To And From Work/School</label>
-            <div class="row">
-              <div class="col-sm">
-                <input type="number" class="form-control" id="traffic-hours" value="1"> Hours
-              </div>
-              <div class="col-sm">
-                <input type="number" class="form-control" id="traffic-mins" value="00"> Minutes
-              </div>
-              <div class="col-sm">
-              </div>
-            </div>
-
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">How Many Years Do You Think You'll Maintain This Pattern For (If left empty we assume you'll continue this way for the rest of your life)</label>
-            <input type="number" class="form-control" id="specified-years" placeholder="Rest Of Your Life">
+            <input id="getDownloadEmail" class="form-control" type="text" name="" value="" placeholder="Please enter a valid email here to receive the download link">
           </div>
         </form>
 
       </div>
+
+      <!-- Modal footer -->
       <div class="modal-footer">
-        <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="look-into-my-life" type="button" class="btn btn-primary">Look Into My Future</button>
+        <button id="modClose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button id="downloadEmail" type="button" class="btn btn-primary">Submit</button>
       </div>
+
     </div>
   </div>
 </div>
 
-
-
-
-</div>
-
+<button style="display: none;" id="openEmailModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Open modal
+</button>
 <!-- page wrapper end -->
 
 
@@ -391,6 +292,45 @@
     .catch(function (error) {
       console.log(error);
     });
+
+      $("#clickSendEmail").unbind("click").click(function(){
+        $("#openEmailModal").click();
+      })
+
+
+        //----- Logic for email begins -------//
+
+        $("#downloadEmail").unbind("click").click(function(){
+
+          $this = $(this);
+
+          $this.text("Emailing You...")
+          emailValue =  $("#getDownloadEmail").val();
+            if (emailValue.length > 0) {
+              axios.post(
+                'https://melodic-time.herokuapp.com/api/downloads/',
+                {
+                  email: emailValue
+                }
+              )
+              .then(function (response) {
+                console.log(response.data);
+                $this.text("email sent successfully");
+                alert("Email Sending Was Successful You Should Receive An Email Containing The Download Link between now and 15 minutes. Enjoy The Book. Thank You")
+                $("#modClose").click();
+                location.reload();
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+              return
+            }
+            $this.text("Submit");
+            alert("please enter a valid email");
+
+        })
+
+        //------ Email Logi Ends ------//
 
     // const count = JSON.parse(localStorage.downloader).length;
     // $("#makeItCountHeader").html(`Make It Count <br /> Downloads: ${JSON.parse(localStorage.downloader).length}`);
