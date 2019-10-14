@@ -110,7 +110,7 @@
                             </li>
 
                             <li class="has-menu">
-                              <button id="submitAnswersButton" class="btn btn-success" > Submit Answers </button>
+                              <button id="submitAnswersButton" class="btn btn-success" > Submit Answer(s) </button>
                             </li>
 
                         </ul>
@@ -311,7 +311,7 @@
                  }
                  // use the array
                  console.log(bodyToPost);
-
+                 $this.text("Submitting.....")
                  // post to table
                  axios.post(externalUrl + `/responses/from-worker/`, bodyToPost, myConfig)
                  .then(function (response) {
