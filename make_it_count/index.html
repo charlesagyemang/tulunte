@@ -122,7 +122,7 @@
             <div class="bar bar-bottom"></div>
             <div class="bar bar-left"></div>
           </div>
-          <h6 id="counterPart">About Us</h6>
+          <p style="color: black">This Book Has Been Downloaded  <a style="color:blue; font-size: 40px" id="counterPart"></a>   Times</p>
           <h2>We're Building Modern And High Software</h2>
         </div>
         <ul class="list-unstyled list-icon mb-4">
@@ -286,7 +286,7 @@
     .then(function (response) {
       console.log(response);
       // localStorage.downloader = JSON.stringify(response.data);
-      $("#counterPart").html(`This Book Has Been Downloaded ${response.data.length} Times`);
+      $("#counterPart").html(`${response.data.length}`);
 
     })
     .catch(function (error) {
