@@ -184,7 +184,13 @@
 
           const today = moment().format().split("T")[0]
 
-          const responsesToday = cData.worker.responses.filter(function(response){
+          const workerData = cData.company.workers.filter(function(item){
+            return item.id === cData.worker.id
+          })[0]
+
+          // console.log(workerData);
+
+          const responsesToday = workerData.responses.filter(function(response){
             // console.log(response.createdAt.split("T")[0]);
             return response.createdAt.split("T")[0] === today
           });
@@ -195,21 +201,19 @@
 
           // filter the questions according to the ones that have responses
 
-
           let answeredQuestionsIds = []
-
 
           responsesToday.forEach(function(resp){
             answeredQuestionsIds.push(resp.questionId);
           })
 
-          //
-          // // unique
-          // function onlyUnique(value, index, self) {
-          //     return self.indexOf(value) === index;
-          // }
-          //
-          // answeredQuestionsIds = answeredQuestionsIds.filter(onlyUnique);
+
+          // unique
+          function onlyUnique(value, index, self) {
+              return self.indexOf(value) === index;
+          }
+
+          answeredQuestionsIds = answeredQuestionsIds.filter(onlyUnique);
 
           console.log(answeredQuestionsIds);
 
@@ -330,7 +334,7 @@
             })
 
 
-            if ( answeredQuestionsIds.length > questions.length - 1) {
+            if ( answeredQuestionsIds.length === questions.length ) {
               $("#submitAnswersButton").attr("disabled", true);
               $("#submitAnswersButton").text("All Questions Have Been Answered For Today")
             }
