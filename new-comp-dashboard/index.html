@@ -239,7 +239,7 @@
              answers.push(questions[i].answers[k])
             }
           }
-          console.log(cData.workers);
+          // console.log(cData.workers);
 
 
 
@@ -255,18 +255,35 @@
                 const eachQuestion = questions[i];
                 const stringifiedObject = JSON.stringify(eachQuestion);
 
+                // console.log(eachQuestion);
+
 
                 let headerBody = `
                 <div class="wholeQuestion">
                    <ul class = "list-group">
+
                 `
 
-                let questionBody = `
+                let questionBodyPart1 = `
                   <li class = "list-group-item">
                       <label for="checkbox">
-                          <h3>${eachQuestion.title}</h3>
-                          <h6>${eachQuestion.description}</h6>
-                          <div style="float:right">
+                          <h3>Question: ${eachQuestion.title}</h3>
+                          <h6>Description: ${eachQuestion.description}</h6><br /><br />
+                          <div style="float:right">`
+
+                          let questionBodyPart2 = ``
+
+                if (eachQuestion.responses.length > 0) {
+                  questionBodyPart2 =  `<button questionId=${eachQuestion.id} class="btn btn-info viewAllResponsesForAQuestion" >View All  ${eachQuestion.responses.length} Responses</button>
+
+                  `
+
+                } else {
+                  questionBodyPart2 =  `0 responses`;
+                };
+
+               let questionBodyPart3 = `
+
                           <button  questionId=${eachQuestion.id}  class="btn btn-danger deleteQuestionButton">Delete Question</button>
 
                             <button
@@ -275,10 +292,8 @@
                             </button>
                             <button  questionId=${eachQuestion.id}  class="btn btn-secondary addAnswerButton">Add An Answer</button>
                           </div>
-
-
                       </label>
-                  </li>
+                 </li>
                 `
 
                 const answers = eachQuestion.answers;
@@ -313,7 +328,7 @@
                 </div>
                 `
 
-                const wholeQuestionBody = `${headerBody}${questionBody}${answersArray}${footerBody}`;
+                const wholeQuestionBody = `${headerBody}${questionBodyPart1}${questionBodyPart2}${questionBodyPart3}${answersArray}${footerBody}`;
 
                 renderQuestionsArray.push(wholeQuestionBody);
              }
@@ -654,6 +669,28 @@
                })
 
                //------------ End Of Logic For Delete Answer To A Question------//
+
+
+               $(".viewAllResponsesForAQuestion").unbind("click").click(function(){
+                 // search for question by id
+                 const questionId = $(this).attr("questionId");
+
+                 console.log(questionId);
+
+
+                 // search
+                 const currentQuestionToViewAnswersList = questions.filter(item => item.id === questionId)[0];
+
+
+                 // set local storage currentQuestionToViewAnswersList
+                 localStorage.currentQuestionToViewAnswersList = JSON.stringify(currentQuestionToViewAnswersList);
+
+                 // console.log(JSON.parse(localStorage.currentQuestionToViewAnswersList));
+
+                 location.href = "single-question-answers-view";
+
+
+               })
 
 
           })
