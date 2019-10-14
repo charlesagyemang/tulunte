@@ -183,11 +183,6 @@
 
         <script type="text/javascript">
 
-          const externalUrl = 'https://melodic-time.herokuapp.com/api';
-          const myConfig = { headers: {
-            Authorization: "Bearer " + localStorage.loginTokenGotten
-          } }
-
           //Global Variables
 
           const cData = JSON.parse(localStorage.newCompanyData);
@@ -196,73 +191,90 @@
           workers = workers.filter(function(worker){
             return worker.invitationStatus === "ACCEPTED" && worker.responses.length > 0;
           })
-          console.log(workers);
+
+          const questions = cData.questions.reverse();
+          const answers = [];
+
+          for (var i = 0; i < questions.length; i++) {
+            for (var k = 0; k < questions[i].answers.length; k++) {
+             answers.push(questions[i].answers[k])
+            }
+          }
+
+          let currentEployeeResponses = JSON.parse(localStorage.currentEployeeData).responses;
+
+          currentEployeeResponses = currentEployeeResponses.slice().sort(function(a,b){
+            return a.createdAt - b.createdAt
+          });
+
+          // console.log(currentEployeeResponses);
+          // console.log(questions);
+          // console.log(answers);
+
+
+          const currentQuestion  = JSON.parse(localStorage.currentQuestionToViewAnswersList);
+          const currentResponses = currentQuestion.responses;
+          const currentAnswers   = currentQuestion.answers;
+
+          // console.log(currentQuestion);
+          // console.log(currentResponses);
+          // console.log(currentAnswers);
 
 
 
           $(document).ready(function(){
 
             $("#companyDisplayName").html( `<i class="mdi mdi-radar"></i> ${cData.name} || Company Portal`);
-            $("#companyQuestionsHeader").html(`Company Employees ( ${workers.length} )`);
 
-            let employeeDivContents = [];
+            let mucu = [];
 
-            // create user boxes
+            for (var i = 0; i < questions.length; i++) {
+                const eachQues = questions[i]
+                const respo   = eachQues.responses.filter(item => item.workerId === localStorage.workerIdddddddd);
+                console.log(respo);
 
-            for (var i = 0; i < workers.length; i++) {
-              const eachWorker = workers[i];
-              const body = ` <div class="col-sm-3">
-                                <div class="card" style="width: 18rem;">
-                                  <div class="card-body">
-                                    <h5 id="workerEmail" class="card-title">Name: ${eachWorker.email.split("@")[0]}</h5>
-                                    <p  id="workerPostition" class="card-text">${eachWorker.email}</p>
+                // create user boxes
+
+                let body = ` <div class="col-sm-4 d-flex pb-3">
+                                  <div class="card card-block" style="width: 18rem;">
+                                    <div class="card-body">
+                                      <h5 id="workerEmail" class="card-title">Question: ${eachQues.title}  </h5>
+                                      <p  id="workerPostition" class="card-text">Description: ${eachQues.description}</p>
+                                    </div>
+                                    <center> <h4>${respo.length} Response(s) So Far</h4></center>
+                                    <ul class="list-group list-group-flush">
+                                    `
+
+                let ansArray = [];
+
+                respo.forEach(function(resp){
+                  const rsAns = eachQues.answers.filter(item => item.id === resp.answerId)[0];
+                  const rsWorker = workers.filter(item => item.id === resp.workerId)[0];
+
+                  const ans = `<li id="workerAcceptanceStatus" class="list-group-item">Answer Given: ${rsAns.value} <br /> Worker: ${rsWorker.email.split("@")[0]} <br /> Date Answered: ${resp.createdAt.split("T")[0]} </li> `
+
+                  console.log(rsAns);
+                  console.log(resp.answerId);
+                  ansArray.push(ans);
+                  // console.log(resp );
+                })
+
+
+                let buttomDiv =     `</ul>
                                   </div>
-                                  <ul class="list-group list-group-flush">
-                                    <li id="workerAcceptanceStatus" class="list-group-item">Invitiation Status: ${eachWorker.invitationStatus}</li>
-                                    <li id="workerCompanyName" class="list-group-item">Position:  ${eachWorker.position}</li>
-                                    <li id="workerCompanyLocation" class="list-group-item">
-                                      Responses:  ${eachWorker.responses.length}<br /><br />
-                                      <button workerId=${eachWorker.id} class="btn btn-success viewSingleEmployeeResponses">View Raw Responses</button><br /><br />
-                                      <button workerId=${eachWorker.id} class="btn btn-info viewSingleEmployeeResponsesViaQuestions">View Responses Via Questions</button>
+                                  <br /><br />
+                                </div>`
 
-                                    </li>
-                                  </ul>
-                                </div>
-                                <br /><br />
-                              </div>`
+                let finalBe =  body + ansArray.join("") + buttomDiv
 
-                employeeDivContents.push(body);
+                mucu.push(finalBe);
             }
 
-            $("#employeeDiv").html(employeeDivContents);
-            employeeDivContents = [];
 
-            $(".viewSingleEmployeeResponses").unbind("click").click(function(){
-              const workerId = $(this).attr("workerId")
-              const currentEployeeData = workers.find(item => item.id === workerId)
+            // console.log(body + ansArray.join(",") + buttomDiv);
+            $("#employeeDiv").html(mucu);
+            // answersArray = [];
 
-              // set current value
-              localStorage.currentEployeeData = JSON.stringify(currentEployeeData);
-
-              // redirect
-              location.href = "/new-comp-dashboard/single-employee-responses/";
-
-            })
-
-
-
-            $(".viewSingleEmployeeResponsesViaQuestions").unbind("click").click(function(){
-              const workerId = $(this).attr("workerId")
-              const currentEployeeData = workers.find(item => item.id === workerId)
-
-              // set current value
-              localStorage.currentEployeeDataViaQuestions = JSON.stringify(currentEployeeData);
-
-              localStorage.workerIdddddddd = workerId;
-              // redirect
-              location.href = "/new-comp-dashboard/single-employer-question-answers-view/";
-
-            })
 
 
           });
