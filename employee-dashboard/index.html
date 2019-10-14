@@ -132,7 +132,7 @@
                             <div class="panel panel-primary">
                                  <div class="panel-heading">
                                     <pre><h2> Please Answer The Following Questions</h2></pre>
-                                    <center><h4>NB: Ignore Questions With No Possible Answers</h4></center>
+                                    <center><h4>NOTICE: <br />Ignore Questions With No Possible Answers<br />All Questions You Answer Today Will Disappear<br /> If You Are still Seing Questions It Means You Have Not Provided  <br />Answers To Them For Today. Please Do</h4></center>
                                  </div><!--.panel-heading-->
                                  <div id="questionAndAnswerDiv">
                                 </div>
@@ -277,6 +277,9 @@
              // hide answeredToday
              answeredQuestionsIds.forEach(function(answered){
                $(`#${answered}`).css("display", "none");
+               // $(`#${answered}`).css("pointer-events", "none");
+               // $(`#${answered}`).css("opacity", "0.7");
+
              })
 
 
@@ -297,9 +300,7 @@
                }
 
 
-               let sure = confirm(`You Answered ${answerObjects.length} Out Of ${questions.length}. Do You Want To proceed To Submit The Answers? `);
-
-               if (sure && answerObjects.length > 0) {
+               // let sure = confirm(`You Answered ${answerObjects.length} Out Of ${questions.length}. Do You Want To proceed To Submit The Answers? `);
 
                  const bodyToPost = {
                    payload: answerObjects.join("-")
@@ -319,12 +320,7 @@
                    console.log(error);
                  });
 
-
                  answeredResults = [];
-                 return
-               }
-               answeredResults = [];
-
              })
 
              // console.log(cData);
@@ -332,6 +328,12 @@
             $("#logout").unbind("click").click(function(){
 
             })
+
+
+            if ( answeredQuestionsIds.length > questions.length - 1) {
+              $("#submitAnswersButton").attr("disabled", true);
+              $("#submitAnswersButton").text("All Questions Have Been Answered For Today")
+            }
 
           })
         </script>
