@@ -490,6 +490,7 @@
   axios.get('https://melodic-time.herokuapp.com/api/ping')
   .then(function (response) {
     console.log(response);
+    localStorage.downloader = JSON.stringify(response.data);
   })
   .catch(function (error) {
     console.log(error);
@@ -497,20 +498,6 @@
 
 
 $(document).ready(function(){
-
-  function sendMail (email) {
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": `https://emailserve1.herokuapp.com/send/home?email=${email}`,
-        "method": "GET",
-      }
-
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
-  }
-
   // test function
 
   function getHoursAndMinutes(val1,val2){

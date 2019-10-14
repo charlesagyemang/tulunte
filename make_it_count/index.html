@@ -72,7 +72,7 @@
           <!-- Navbar -->
           <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand logo" href="/make_it_count">
-              <span class="logo-large"><i class="mdi mdi-radar"></i> Make It Count</span>
+              <span id="makeItCountHeader" class="logo-large"><i class="mdi mdi-radar"></i> Make It Count</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"> <span></span>
               <span></span>
@@ -118,7 +118,7 @@
             <div class="bar bar-bottom"></div>
             <div class="bar bar-left"></div>
           </div>
-          <h6>About Us</h6>
+          <h6 id="counterPart">About Us</h6>
           <h2>We're Building Modern And High Software</h2>
         </div>
         <ul class="list-unstyled list-icon mb-4">
@@ -374,11 +374,27 @@
 
 <!--== theme-script -->
 <script src="../l-assets/js/theme-script.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 
 <!-- inject js end -->
 
 <script type="text/javascript">
+  $(document).ready(function(){
+    axios.get('https://melodic-time.herokuapp.com/api/ping')
+    .then(function (response) {
+      console.log(response);
+      // localStorage.downloader = JSON.stringify(response.data);
+      $("#counterPart").html(`This Book Has Been Downloaded ${response.data.length} Times`);
 
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    // const count = JSON.parse(localStorage.downloader).length;
+    // $("#makeItCountHeader").html(`Make It Count <br /> Downloads: ${JSON.parse(localStorage.downloader).length}`);
+  })
 </script>
 
 </body>
