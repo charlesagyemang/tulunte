@@ -209,7 +209,11 @@
             }
           }
 
-          let currentEployeeResponses = JSON.parse(localStorage.currentEployeeData).responses;
+          // console.log(cData);
+
+
+          let currentEployeeResponses = JSON.parse(localStorage.currentQuestionToViewAnswersList).responses;
+
 
           currentEployeeResponses = currentEployeeResponses.slice().sort(function(a,b){
             return a.createdAt - b.createdAt
